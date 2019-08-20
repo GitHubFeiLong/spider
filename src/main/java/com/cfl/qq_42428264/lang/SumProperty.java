@@ -39,18 +39,24 @@ public class SumProperty {
 				if (fields[i].getName().equalsIgnoreCase("serialVersionUID")) {
 					continue;
 				}
+				// 设置能访问private
 				fields[i].setAccessible(true);
-				// 默认nums中存放的Integer类型。
+				// 类型转换 Number -> 包装类
+				// 默认nums中存放的Integer类型。 因为 大多可能都是Integer，那就将其放最前面，先执行。
+				if (Integer.class.isAssignableFrom(fields[i].getType())) {
+					fields[i].set(object, Integer.parseInt(nums[i].toString()));
+					continue;
+				}
+				if (Double.class.isAssignableFrom(fields[i].getType())) {
+					fields[i].set(object, Double.parseDouble(nums[i].toString()));
+					continue;
+				}
 				if (Byte.class.isAssignableFrom(fields[i].getType())) {
 					fields[i].set(object, Byte.parseByte(nums[i].toString()));
 					continue;
 				}
 				if (Short.class.isAssignableFrom(fields[i].getType())) {
 					fields[i].set(object, Short.parseShort(nums[i].toString()));
-					continue;
-				}
-				if (Double.class.isAssignableFrom(fields[i].getType())) {
-					fields[i].set(object, Double.parseDouble(nums[i].toString()));
 					continue;
 				}
 				if (Float.class.isAssignableFrom(fields[i].getType())) {
@@ -61,8 +67,6 @@ public class SumProperty {
 					fields[i].set(object, Long.parseLong(nums[i].toString()));
 					continue;
 				}
-
-				fields[i].set(object, nums[i]);
 			}
 		} catch (IllegalAccessException e) {
 			// TODO Auto-generated catch block
@@ -74,14 +78,12 @@ public class SumProperty {
 	}
 
 	/**
-	 * @throws
-	 * @Title: sum
-	 * @Description: TODO()
-	 * @param: list:需要计算的集合
-	 * @param: clazzName：list的泛型
-	 * @return: Number[]，数组下标index即是属性从上至下从0开始递增。
 	 * object类中由Number类型修饰的属性求和。
 	 * 属性类型为Number的计算值，不是Number类型的字段，nums[index]=null
+	 * @param list 需要计算的集合
+	 * @param object 集合元素类型
+	 * @param <T>
+	 * @return Number[]，数组下标index即是属性从上至下从0开始递增。
 	 */
 	private static <T> Number[] sum(List<T> list, Object object){
 		Class<?> clazz = object.getClass();
@@ -122,16 +124,12 @@ public class SumProperty {
 		return nums;
 	}
 
-
-
-
 	/**
 	 * 将Number类型的对象判断为基本类型，然后再做加法
 	 * @param n 循环中元素属性值
 	 * @param n2 对应属性之前累加的值
-	 * @param type
+	 * @param type n的类型
 	 * @return
-	 * @throws ClassNotFoundException
 	 */
 	private static Number getValue(Number n, Number n2, Type type) {
 		Class<?> clazz = null;
@@ -141,7 +139,6 @@ public class SumProperty {
 			e.printStackTrace();
 		}
 		// java.lang.Double 类型的字符串
-//		String n2Name = getType(n2).getTypeName();
 		String n2Name = n2.getClass().getTypeName();
 		// 根据type来调用sum的重载方法
 		if (Double.class.isAssignableFrom(clazz)) {
@@ -166,6 +163,7 @@ public class SumProperty {
 		throw new RuntimeException("com.mf.invo.utils.SumField.getValue(Number, Number, Type)错误");
 	}
 
+	/**循环集合时累加的重载方法**/
 	// double
 	private static Number sum(double n1, Number n2, String n2Name) {
 		switch (n2Name) {
@@ -279,30 +277,5 @@ public class SumProperty {
 		}
 		return null;
 	}
-
-
-	/**
-	 * 将Number类型转换为基本数据类型 @Title: getType @Description: TODO() @param: @return:
-	 * Type @throws
-	 */
-//	private static Type getType(Number n) {
-//		Class<?> clazz = n.getClass();
-//		return clazz;
-//		if (Double.class.isAssignableFrom(clazz)) {
-//			return n.getClass();
-//		} else if (Float.class.isAssignableFrom(clazz)) {
-//			return Float.class;
-//		} else if (Long.class.isAssignableFrom(clazz)) {
-//			return Long.class;
-//		} else if (Integer.class.isAssignableFrom(clazz)) {
-//			return Integer.class;
-//		} else if (Short.class.isAssignableFrom(clazz)) {
-//			return Short.class;
-//		} else if (Byte.class.isAssignableFrom(clazz)) {
-//			return Byte.class;
-//		} else {
-//			throw new RuntimeException("com.mf.invo.utils.SumField.getType(Number)的Number无效");
-//		}
-//	}
 
 }
