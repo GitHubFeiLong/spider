@@ -41,7 +41,7 @@ import java.util.List;
  */
 public class ExportExcel {
 	// 日志
-//	private static final Logger logger = LoggerFactory.getLogger(ExportExcel.class);
+	private static final Logger logger = LoggerFactory.getLogger(ExportExcel.class);
 	// 表头
 	private static String[] Fields;
 	// 表头对应的 字段
