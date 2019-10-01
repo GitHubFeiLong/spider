@@ -5,8 +5,6 @@ import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.formula.functions.T;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
@@ -39,7 +37,7 @@ import java.util.List;
  * @Description TODO
  * @Author cfl
  * @Date 2019/8/6 19:35
- * @Version 1.0
+ * @Version 1.1 :
  */
 public class ExportExcel {
 	// 日志
@@ -163,11 +161,9 @@ public class ExportExcel {
 	private static <T> HSSFWorkbook createHSSFWorkbook(List<T> list) {
 		//创建HSSFWorkbook对象
 		HSSFWorkbook wb = new HSSFWorkbook();
-		//创建HSSFSheet对象
-		HSSFSheet sheet = wb.createSheet("sheet0");
 
 		// 创建内容实体
-		createBody(wb, sheet, list);
+		createBody(wb, list);
 
 		// 写出excel到硬盘
 //		writeExcelTOHardDisk(wb);
@@ -181,7 +177,7 @@ public class ExportExcel {
 	 * @Param [clazz]
 	 * @Return void
 	 */
-	private static void setFilesAndAttributes(Class clazz) {
+	public static void setFilesAndAttributes(Class clazz) {
 		Object obj = null;
 		try {
 		    // 通过反射创建对象
@@ -214,12 +210,15 @@ public class ExportExcel {
      * 设置成员变量 fields 和attributes
      * @Param [clazz]
      */
-    private static void setFilesAndAttributes(String[] fileds, String[] attributes) {
+    public static void setFilesAndAttributes(String[] fileds, String[] attributes) {
         // 这是复制了一份地址，指向的还是同一个对象，原数组改变，这里也要改变
         //ExportExcel.Fields = fileds;
         //ExportExcel.Attributes = attributes;
         // 深层复制。开辟一块新内存空间
-        int length = fileds.length;
+		// 先初始化数组
+		int length = fileds.length;
+		ExportExcel.Fields = new String[fileds.length];
+		ExportExcel.Attributes = new String[attributes.length];
         // 因 fileds，attributes一一对应。
         for(int i = 0; i < length; i++) {
             ExportExcel.Fields[i] = fileds[i];
@@ -248,11 +247,12 @@ public class ExportExcel {
      * 根据反射创建excel 的实体
      * 注意这里的list集合的成员的属性，需要根据attributes顺序写。
      * @param wb excel对象
-     * @param sheet 工作薄对象
      * @param list  需要导出的excel数据
      * @param <T>   excel实体数据的对象
      */
-	private static <T> void createBody(HSSFWorkbook wb, HSSFSheet sheet, List<T> list) {
+	private static <T> void createBody(HSSFWorkbook wb, List<T> list) {
+		//创建HSSFSheet对象
+		HSSFSheet sheet = null;
 		HSSFRow row = null;
 		HSSFCell c = null;
 		T p = null;
@@ -266,7 +266,7 @@ public class ExportExcel {
 				System.gc();
 				row_index = 0;
 				System.out.println(i);
-				sheet = wb.createSheet("sheet"+ (i / 60000 + 1));
+				sheet = wb.createSheet("sheet"+ (i / 60000));
                 // 每一个工作薄都要创建表头，第一行
                 row = sheet.createRow(row_index);
                 // 创建表头
@@ -275,7 +275,7 @@ public class ExportExcel {
             row_index ++;
 			row = sheet.createRow(row_index);
 			// 当前行对象
-			p = list.get(i - 1);
+			p = list.get(i);
 			// 对象所有属性
 			fields = p.getClass().getDeclaredFields();
 			// 创建一行中的所有列
