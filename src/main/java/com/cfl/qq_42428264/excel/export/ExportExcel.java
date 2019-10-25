@@ -58,7 +58,7 @@ public class ExportExcel {
 	// 创建SXSSFWorkbook对象对少条flush
 	private final static  int MEMORY_NUM = 1000;
 	// 一个工作表有 SHEET_SIZE 数据（加一是因为表头占一行）
-	private static  Integer SHEET_SIZE = 100001;
+	private static  Integer SHEET_SIZE = 100000;
 
 
 	/**
