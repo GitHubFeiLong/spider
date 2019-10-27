@@ -174,7 +174,7 @@ public class ExportExcel {
 		//创建HSSFSheet对象
 
 		if(list.size() <= SIZE){
-			// 2003
+			// 2003，如果03创建XSSFWorkbook，或者07创建HSSFWorkbook都会出现excel文件打不开。
 			wb = new HSSFWorkbook();
 			// 修改excel文件格式。
 			ExportExcel.SUFFIX = ".xls";
