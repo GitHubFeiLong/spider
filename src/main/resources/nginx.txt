@@ -411,19 +411,116 @@ Nginx介绍：
 					示例：
 						server{
 							...
-							server_name www.magedu.com;
+							server_name www.magedu.com; 
 							location /images/{
 								root /data/imgs/;
 							}
 						}
 						http://www.magedu.com/images/logo.jpg
 							-->/data/imgs/images/logo.jpg
-						
-		
-		
-		
-		
-		
+							
+				9）alias path;	
+					路径别名，文档映射的另一种机制；仅能用于location上下文。
+					示例：
+						http://www.magedu.com/bbs/index.php
+						location /bbs/{
+							alias /web/forum/;
+						}	-->/web/forum/index.html
+						location /bbs/{
+							root /web/forum/;
+						}	-->/web/forum/bbs/index.html
+						注意：location中使用root指令和alias指令的意义不同
+							a.root,给定的路径应于location中的/uri/左侧的/
+							b.alias,给定的路径对应于location中的uri/右侧的/
+				
+				10）index file...;
+					指定默认网页文件，注意：ngx_http_index_module模块
+				
+				11）error_page cpde...=[=[response]] uri;
+					模块：ngx_http_core_module
+					定义错误页，以指定响应状态码进行响应
+					可用位置：http,server,location,if in location
+						error_page 404 /404.html
+						error_page 404 =200 /404.html
+				
+				12)try——files file...uri;
+					try_files file...=code;
+					按顺序检查文件是否存在，返回第一个找到的文件或文件夹（结尾加斜线表示为文件夹），如果所有的文件或文件夹都找不到，会进行一个内部重定向到最后一个参数。只有最后一个参数可以引起一个内部重定向，之前的参数只设置内部URI的指向。最后一个参数是回退URI且必须存在，否则会出现内部500错误
+					location /images/{
+						try_files $uri /images/default.gif;
+					}
+					location / {
+						try_files $uri $uri/index.html $uri.html =404;
+					}
+				
+				定义客户端请求相关配置
+				13)keepalive_timeout timeout [heaer_timeout];
+					设定保持连接超时时长，0表示禁止连接，默认为75s
+				14) keepalive_requests number;
+					再一次长连接上所允许请求的资源的最大数量，默认为100.
+				15）keepalive_disable none | browser ...
+					对哪种浏览器禁用长连接
+				16）send_timeout time;
+					向客户端发送响应报文的超时时长，此处是指两次写操作之间的间隔时长，而非整个响应过程的传输时长。
+				17）client_body_buffer_size size;
+					用于接收每个客户端请求报文的body部分的缓冲区大小；默认为16k；超出此大小时，其将被暂存到磁盘上的由下面client_body_temp_path指令所定义的位置。
+				
+				18）client_body_temp_path path [level1[level2[level3]]];
+					设定存储客户端请求报文的body部分的临时存储路径及子目录结构和数量，目录名为16进制的数字；
+					client_body_temp_path /var/temp/client_body 1 2 2
+					1 1级目录占1位16进制，即2^4=16个目录0-f
+					2 2级目录占2位16进制，即2^8=256个目录00-ff
+					2 3级目录占2位16进制，即2^8=256个目录00-ff
+				
+				对客户端进行限制的相关配置
+				19）limit_rate rate;
+					限制响应给客户端的传输速率，单位是bytes/second，默认值0表示无限制
+					
+				20）limit_except method...{...},仅用于location
+					限制客户端使用除了指定的请求方法之外的其他方法
+					method:GET,HEAD,POST,PUT,DELETE，MKCOL,COPY,MOVE,OPTIONS,PROPFIND,PROPPATCH,LOCK,UNLOCK,PATCH
+					limit_except GET{
+						allow 192.16.1.0/24;
+						deny all;
+					} 除了GET和HEAD之外其他方法仅允许192.168.1.0/24网段主机使用。
+					
+				文件操作优化的配置
+					异步io
+				21） aio on|off |threads[=port];
+					是否启用aio功能
+					
+					同步io
+				22） directio size|off;
+					当文件大于等于给定大小时，例如directio 4m，同步（直接）写磁盘，而非写缓存。
+				23） open_file_cache off;
+					open_file_cache max=N [inactive=time];
+					nginx可以缓存以下三种信息：
+						a.文件元数据：文件的描述符、文件大小、最近一次的修改时间
+						b.打开的目录结构
+						c.没有找到的或者没有权限访问的文件的相关信息
+						max=N:可缓存的缓存项上限；达到上限后会使用LRU（最近最少算法）算法实现管理
+						inactive=time:缓存项的非活动时长，在此处指定的时长内未被命中的或命中的次数少于open_file_cache_min_uses指令所指定的次数的缓存项，极为非活动项，将被删除。
+				24） open_file_cache_errors on|off;
+					是否缓存查找时发生错误的文件一类的信息，默认值为off
+				25） open_file_cache_min_uses number;
+					open_file_cache指令的inactive参数指定的时长内，至少被命中此处指定的次数方可被归类为活动项，默认值为1
+				26） open_file_cache_valid time;
+					缓存项有效性额检查频率，默认值为60s。
+			
+			ngx_http_access_module
+			ngx_http_access_module 模块，实现基于IP的访问控制功能
+				1）allow address|CIDR|unix：|all;
+				2)deny address|CIDR|unix:|all;
+					http,server,location,limit_except	
+					自上而下检查，一旦匹配，将生效，条件严格的置前
+					示例：
+					location /{
+						deny 192.168.1.1;
+						allow 192.168.1.0/24;
+						allow 10.1.1.0/16;
+						allow 2001:0db8::/32;
+						deny all;
+					}
 		
 		
 		
