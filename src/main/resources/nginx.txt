@@ -522,11 +522,95 @@ Nginx介绍：
 						deny all;
 					}
 		
-		
-		
-		
-		
-		
-		
+			ngx_http_auth_basic_module
+				实现基于用户的访问控制，使用basic机制进行用户认证
+				1）auth_basic string|off;
+				2）auth_basic_user_file file;
+					location /admin/{
+						auth_basic "Admin Area";
+						auth_basic_user_file /etc/nginx/.ngxpasswd;
+					}
+					用户口令文件：
+						1.明文文本：
+							格式 name:password:comment
+						2.加密文本:
+							由htpasswd命令实现，httpd-tools所提供
+			
+			ngx_http_stub_status_module
+				用于输出nginx的基本状态信息
+					输出信息示例：
+						Active connections:291
+						server accepts handled requests
+							16630948 16630948 31070465
+							上面三个数组分别对应accepts,handled,requests三个值
+						Reading:6 Writing:179 Waiting:106
+			
+				Active connections:当前状态，活动状态的连接数
+				accepts:统计总值，已经接受的客户端请求的总数
+				handled:统计总值，已经处理完成的客户端请求的总数
+				requests:统计总值，客户端发来的总的请求数
+				Reading:当前状态，正在读取客户端请求报文首部的连接的连接数
+				Writing:当前状态，正在向客户端发送响应报文过程中的连接数
+				Waiting:当前状态，正在等待客户端发出请求的空闲连接数
+				1）stud_status；
+					示例：
+						location /status{
+							stub_status;
+							allow 172.16.0.0/16;
+							deny all;
+						}
+			
+			ngx_http_log_module
+				指定日志格式记录请求。
+				1）log_format name string ...;
+					string可以使用nginx核心模块及其他模块内嵌的变量
+				2）access_log path [format[buffer=size][gzip[=level]][flush=time][if=condition]]
+					access_log off;
+					访问日志文件路径，格式及相关的缓冲配置
+						buffer=size
+						flush=time
+				示例：
+					log_format compression '$remote_addr-$remote_user[$time_local]'
+						'"$request" $status $bytes_sent'
+						'"$http_referer" "http_user_agent" "gzip_ratio"';
+					access_log /spool/logs/nginx-access.log compression buffer=32k;	
+				3)open_log_file_cache ma=N[inactive=time][min_uses=N][valid=time];
+					open_log_file_cache off;
+						缓存个日志文件相关的元数据信息
+						max:缓存的最大文件描述符数量
+						min_uses:在inactive指定的时长内访问大于等于此值方可被当作活动项
+						inactive：非活动时常
+						valid：验证缓存中各缓存项是否为活动项的时间间隔
+			
+			ngx_http_gzip_module
+				用gzip方法压缩响应数据，节约带宽
+				1）gzip on|off;
+					启用或禁止gzip压缩
+				2）gzip_comp_level level;
+					压缩比由低到高： 1~9，默认1
+				3）gzip_disable regex ...;
+					匹配到客户端浏览器不执行压缩
+				4）gzip_min_length length;
+					启用压缩功能的响应报文大小阀值。
+				5）gzip_http_version 1.0|1.1
+					设定启用压缩功能时，协议的最小版本，默认 1.1
+				6）gzip_buffers number size;
+					支持实现压缩功能时缓冲区数量及每个缓存区的大小，默认32 4k 或16 8k
+				7)gzip_types mime-type ...;
+					指明仅对哪些类型的资源执行压缩操作；即压缩过滤器默认包含有text/html,不用显式指定，否则报错。
+				8）gzip_vary on|off;
+					如果启用压缩，是否在响应报文首部插入 “Vary:Accept-Encoding”
+				9) gzip_proxied off|expired|no-cache|no-store|private|no_last_modified | no_etag|auth|any...;
+					nginx充当代理服务器时，对于后端服务器的响应报文，在何种条件下启动压缩功能
+					off:不启用压缩
+					expired,no-cache,no-store,private:对后端服务器的响应报文首部Cache-Control值任何一个，启用压缩功能。
+					
+					示例：
+						gzip on;
+						gzip_comp_level 6;
+						gzip_min_length 64;
+						gzip_proxied any;
+						gzip_types text/xml text/css application/javascript;
+
 		
 	
