@@ -286,9 +286,9 @@ public class ExportExcel {
 	 * @Return java.lang.String
 	 */
 	private static String setFileName(String fileName) {
-		// 文件名包含了.xls,和.xlsx;直接使用
+		// 文件名包含了.xls,和.xlsx;修改成系统定义的格式excel格式使用
 		if(fileName.endsWith(".xls") || fileName.endsWith(".xlsx")){
-			return fileName;
+			return fileName.substring(0,fileName.lastIndexOf(".")) + SUFFIX;
 		}
 		// 默认 xlsx 格式
 		if (fileName.indexOf(".") == -1) {
