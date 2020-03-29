@@ -16,10 +16,10 @@
 
 
 
-	<!-- 允许注解形式声明bean -->
-	<!--<context:component-scan base-package="com.mf.ssm" use-default-filters="false">
+	 <!--允许注解形式声明bean-->
+	<context:component-scan base-package="com.spider" use-default-filters="false">
 		<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller" />
-	</context:component-scan>-->
+	</context:component-scan>
 	<!--定时器注解方式-->
 
 	<!-- 处理对静态资源的访问 -->
