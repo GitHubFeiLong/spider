@@ -45,6 +45,16 @@
           <contextPath>/</contextPath>
         </configuration>
       </plugin>
+      <plugin>
+        <!-- maven-compiler-plugin -->
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>${compiler.version}</version>
+        <configuration>
+          <source>${jdk.version}</source>
+          <target>${jdk.version}</target>
+          <encoding>${encoding}</encoding>
+        </configuration>
+      </plugin>
     </plugins>
     <resources>
       <resource>

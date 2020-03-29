@@ -1,10 +1,51 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <meta charset="UTF-8">
-    <title>管理员登陆</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>蜘蛛商务网管理系统</title>
+    <link href="css/login.css" rel="stylesheet" />
+    <script src="js/jquery-3.1.1.min.js"></script>
 </head>
 <body>
-
+<div class="main">
+    <div class="header hide">蜘蛛商务网管理系统</div>
+    <div class="content">
+        <div class="title hide">管理登录</div>
+        <form method="post" id="form1">
+            <div class="aspNetHidden">
+                <input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTIwNDc3MjM1NzdkZKaUeQq3KQV35ruc9+Mt3IjhXn6hIFYSnQox7z0g7Oif" />
+            </div>
+            <div class="aspNetHidden">
+                <input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEdAAVf1/h6vP9NX9N483ltdhWSf7+YnMy21eKmZSVeowBLLu4sciJO3Hoc68xTFtZGQEhsphB7lbp3KLYXeBJJzsPIxOEGgN58x+mOYj581GxBi01aBlva6Uyn+oInLu9c/GaZ11DmHC7B3EcTSt5UGrtP" />
+            </div>
+            <fieldset>
+                <div class="input">
+                    <input name="TextUserName" type="text" maxlength="20" id="TextUserName" class="input_all TextUserName" placeholder="用户名" onFocus="this.className=&#39;input_all TextUserName_now&#39;;" onBlur="this.className=&#39;input_all TextUserName&#39;" />
+                </div>
+                <div class="input">
+                    <input name="password" type="password" maxlength="30" id="password" class="input_all password" placeholder="密码" onFocus="this.className=&#39;input_all password_now&#39;;" onBlur="this.className=&#39;input_all password&#39;" />
+                </div>
+                <div class="input">
+                    <input name="yanzhengma" type="text" maxlength="5" id="yanzhengma" class="input_yzm_all yanzhengma" placeholder="验证码" onFocus="this.className=&#39;input_yzm_all yanzhengma_now&#39;;" onBlur="this.className=&#39;input_yzm_all yanzhengma&#39;" />
+                    <div style="width: 105px;height: 66px;float: right;margin-top: 5px;">
+                        <img src="code.jsp" id="check" alt="点击图片更换验证码"  onclick="this.src='code.jsp?'+Math.random()"/>
+                    </div>
+                </div>
+                <div class="enter">
+                    <input type="button" name="submit" value="登录" id="submit" class="button hide" />
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</div>
+<script>
+    // 提交数据
+    $("#submit").click(function(){
+        console.log($("#TextUserName").val());
+        console.log($("#password").val());
+        console.log($("#yanzhengma").val());
+    })
+</script>
 </body>
 </html>
