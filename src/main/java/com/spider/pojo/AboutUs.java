@@ -1,8 +1,11 @@
 package com.spider.pojo;
 
+import lombok.Data;
+
 /**关于我们
  * @author jingjing
  */
+@Data
 public class AboutUs {
     /**
      * id
@@ -22,35 +25,4 @@ public class AboutUs {
     private Long allId;
 
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getEnclosure() {
-        return enclosure;
-    }
-
-    public void setEnclosure(String enclosure) {
-        this.enclosure = enclosure;
-    }
-
-    public String getProductText() {
-        return productText;
-    }
-
-    public void setProductText(String productText) {
-        this.productText = productText;
-    }
-
-    public Long getAllId() {
-        return allId;
-    }
-
-    public void setAllId(Long allId) {
-        this.allId = allId;
-    }
 }

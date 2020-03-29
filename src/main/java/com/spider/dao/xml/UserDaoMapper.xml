@@ -4,6 +4,11 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <!--打分查询明细-->
-<mapper namespace="com.spider.dao.NCPMapper">
+<mapper namespace="com.spider.dao.UserDao">
+
+    <!-- selectUserById(int id);-->
+    <select id="" resultType="ZzUser" parameterType="long">
+        select * from zz_user where id=#{id}
+    </select>
 
 </mapper>
