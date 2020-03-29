@@ -3,13 +3,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>蜘蛛商务网管理系统</title>
+    <title>网罗天下网管理系统</title>
     <link href="css/login.css" rel="stylesheet" />
     <script src="js/jquery-3.1.1.min.js"></script>
 </head>
 <body>
 <div class="main">
-    <div class="header hide">蜘蛛商务网管理系统</div>
+    <div class="header hide">网罗天下网管理系统</div>
     <div class="content">
         <div class="title hide">管理登录</div>
         <form method="post" id="form1">
@@ -45,6 +45,20 @@
         console.log($("#TextUserName").val());
         console.log($("#password").val());
         console.log($("#yanzhengma").val());
+        var param = {};
+        param.loginUsername = $("#TextUserName").val();
+        param.password = $("#password").val();
+        param.yanzhengma = $("#yanzhengma").val();
+        $.ajax({
+            url:"./login/checkLogin.do",
+            data:param,
+            type:"post",
+            dataType:"json",
+            success:function(data){
+                console.log("data");
+                console.log(data);
+            }
+        })
     })
 </script>
 </body>
