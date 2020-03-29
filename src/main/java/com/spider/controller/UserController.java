@@ -42,12 +42,12 @@ public class UserController {
             if(!yanzhengma.equalsIgnoreCase(code)){
                 returnMap.put("error","true");
                 returnMap.put("message","验证码错误");
-               /* Cookie cookie = new Cookie("loginUsername", loginUsername);
+                Cookie cookie = new Cookie("loginUsername", loginUsername);
                 //设置Cookie的最大生命周期,否则浏览器关闭后Cookie即失效
                 cookie.setMaxAge(60);
                 //将Cookie加到response中
                 HttpServletResponse response = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getResponse();
-                response.addCookie(cookie);*/
+                response.addCookie(cookie);
                 return returnMap;
             }
             ZzUser zzUser = userService.getZzUserByLogin(loginUsername);
