@@ -88,12 +88,12 @@ form {
     background: url(images/login_bg.png) no-repeat top center
 }
 
-.title {
+/*.title {
     margin: 35px auto 20px;
     width: 229px;
     height: 36px;
     background: url(images/member_title.png) no-repeat top left
-}
+}*/
 
 .input {
     margin: 0 auto 11px;
