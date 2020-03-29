@@ -16,4 +16,11 @@ public class UserServiceIml implements UserService {
     public ZzUser getZzUserById(int id) {
         return userDao.selectUserById(id);
     }
+
+    @Override
+    public ZzUser getZzUserByLogin(String loginname) {
+        return userDao.selectUserByLogin(loginname);
+    }
+
+
 }

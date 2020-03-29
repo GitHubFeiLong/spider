@@ -4,4 +4,6 @@ import com.spider.pojo.ZzUser;
 
 public interface UserService {
     public ZzUser getZzUserById(int id);
+
+    ZzUser getZzUserByLogin(String loginname);
 }
