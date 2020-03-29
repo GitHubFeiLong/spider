@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-3.0.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
+
+">
+
+	<!-- 引入配置文件 -->
+	<context:property-placeholder order="0"  location="classpath:config.properties" ignore-unresolvable="true"/>
+
+	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource">
+		<property name="driverClassName" value="${dataSource.driverClass}"></property>
+		<property name="url" value="${dataSource.jdbcUrl}"></property>
+		<property name="username" value="${dataSource.username}"></property>
+		<property name="password" value="${dataSource.password}"></property>
+		<property name="initialSize" value="${dataSource.initialSize}"></property>
+		<property name="maxActive" value="${dataSource.maxActive}"></property>
+		<property name="minIdle" value="${dataSource.minIdle}"></property>
+		<property name="maxWait" value="${dataSource.maxWait}"></property>
+	</bean>
+
+	<!-- 加载mybatis文件 -->
+	<bean id="SqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"></property>
+		<property name="mapperLocations" value="classpath:com/spider/dao/xml/*.xml"></property>
+		<!--<property name="typeAliasesPackage" value="com.mf.ssm.core" />-->
+		<property name="configLocation" value="classpath:mybatis.xml"></property>
+	</bean>
+
+	<!-- 创建Mapper层的对象 -->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.spider.dao" />
+		<property name="sqlSessionFactoryBeanName" value="SqlSessionFactory" />
+	</bean>
+	<!-- 配置事务管理器 -->
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+	<!-- 使用声明式事务 transaction-manager：引用上面定义的事务管理器 -->
+	<tx:annotation-driven transaction-manager="transactionManager" />
+
+	<!-- 1.开启SpringMVC注解模式 -->
+	<!-- 简化配置： (1)自动注册DefaultAnootationHandlerMapping,AnotationMethodHandlerAdapter 
+		(2)提供一些列：数据绑定，数字和日期的format @NumberFormat, @DateTimeFormat, xml,json默认读写支持 -->
+	<mvc:annotation-driven />
+	<!-- 扫描注解包 -->
+	<context:component-scan base-package="com.spider" />
+
+
+	<!-- 视图 -->
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+
+
+</beans>
