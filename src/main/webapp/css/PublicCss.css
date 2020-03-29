@@ -1,0 +1,56 @@
+﻿
+/*样式文件*/
+
+/*按钮样式*/
+.btn {
+    width: 80px;
+    height: 30px;
+    background-color: #4e9ff1;
+    border-radius: 5px;
+    color: white;
+    font-size: 14px;
+}
+
+/*easyui表头样式*/
+.datagrid-header-row td {
+    background-color: #0255ec !important;
+    color: black;
+}
+h2 {
+    display: block;
+    font-size: 1.5em;
+    -webkit-margin-start: 0px;
+    font-weight: bold;
+}
+a {
+    color: black;
+    text-decoration: none;
+}
+.btn:hover,
+.btn:focus,
+.btn.focus {
+    color: #fff;
+    text-decoration: none;
+}
+a:hover,
+a:focus {
+    color: blue;
+    text-decoration: underline;
+}
+a:active {
+    color:red;
+}
+@media print {
+    a[href]:after {
+        content: normal;
+    }
+
+    abbr[title]:after {
+        content: normal;
+    }
+
+    a[href^="#"]:after,
+    a[href^="javascript:"]:after {
+        content: normal;
+    }
+}

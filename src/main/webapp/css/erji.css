@@ -1,0 +1,133 @@
+﻿.TowPageTopDiv {width: 100%;background-color:white;padding-left:15px;height:100%}
+
+.TowPageHr1 {width: 100%;border: none;border-top: 2px ridge #4F70E1;text-align: left;/*margin-left: 15px;*/margin-top: 0px;margin-bottom: 2px;}
+
+.TowPageHr2 {width: 100%;border: none;border-top: 1px ridge #EEF2F5;text-align: left;/*margin-left: 15px;*/margin-top: 2px;margin-bottom: 5px;}
+
+.TowPageSpanSearch {background-image: url(/Areas/ZFSYS/image/serach.jpg);background-repeat: no-repeat;background-size: 19px 19px;padding-left: 22px;/*margin-left: 15px;*/color: #5B5BFF;font-weight: bold;font-size: 18px;}
+
+.TowPageTowDiv {/*margin-left: 15px;*/padding-bottom: 7px;width: 100%;font-family: 微软雅黑;font-size: 12px;}
+.TowPageTowDiv label {width:75px !important;text-align:right !important;font-family: 微软雅黑!important;font-weight:100}
+.TowPageTowDiv table {
+    color: darkgrey;
+    font-family: 微软雅黑;
+    margin-top: 10px;
+    font-size: 12px;
+    text-align: right;
+    line-height: 25px;
+}
+
+.TowPageTowDiv table tr td {
+    width: 10%;
+}
+
+
+.TowPageSpanData {
+    background-image: url(/Areas/ZFSYS/image/index.png);
+    background-repeat: no-repeat;
+    background-size: 19px 19px;
+    padding-left: 22px;
+    /*margin-left: 15px;*/
+    color: #5B5BFF;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.TowPageASearch {
+    width: 80px;
+    font-size: 18px;
+    background-color: #4B72F1;
+    color: #ffffff;
+    font-weight: bold;
+}
+
+.TowPageAReast {
+    width: 80px;
+    font-size: 18px;
+    background-color: #F0A93D;
+    color: #ffffff;
+    font-weight: bold;
+}
+
+.centerdiv {
+    height: 270px;
+}
+
+.TowPageThreeDiv {
+    text-align: right;
+    width: 100%;
+    padding: 7px 0px 7px 7px;
+    margin-right: 100px;
+    padding-bottom: 7px;
+}
+
+.TowPageTowDiv input {
+    width: 130px;
+    height: 25px;
+}
+
+.TowPageTowDiv select {
+    width: 10%;
+    height: 25px;
+}
+
+.TowPagefourDiv input {
+    width: 10%;
+    height: 23px;
+}
+
+    .TowPagefourDiv input[type=button] {
+        width: 80px;
+        height: 23px;
+    }
+
+.TowPageFiveDiv {
+    width: 100%;
+    height: 420px;
+    /*margin-left: 15px;*/
+}
+
+.ThreePageTable table {
+    width: 100%;
+}
+
+#centerdiv {
+    height: 280px;
+}
+
+/*.TowPagefw2 {letter-spacing: 5em;}
+.TowPagefw3 {letter-spacing: 2em;}
+.TowPagefw4 {letter-spacing: 1em;}
+.TowPagefw5 {letter-spacing: 0.5em;}*/
+
+
+/*2017-12-23  yangpeng*/
+/*二级页面条件部分*/
+.tj_div {
+    padding-left: 15px;
+}
+
+    .tj_div table {
+        border-collapse: separate;
+        border-spacing: 0px 10px;
+    }
+
+        .tj_div table tr td {
+            text-align: right;
+        }
+
+        .tj_div table .fw4 {
+            width: 5em;
+        }
+
+        .tj_div table .fw6 {
+            width: 7em;
+        }
+
+        .tj_div table .ipt_time {
+            width: 210px;
+        }
+
+        .tj_div table .ipt {
+            width: 160px;
+        }

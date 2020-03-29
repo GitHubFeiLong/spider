@@ -1,0 +1,152 @@
+ /* 时间 */
+
+
+ .layui-date {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    margin-top: -10px;
+    cursor: pointer;
+    font-size: 20px;
+
+}
+
+#data_icon .layui-input {
+    width: 120px;
+    padding-left: 10px;
+    position: relative;
+    z-index: 1;
+    background: rgba(0, 0, 0, 0);
+}
+
+/* 时间 */
+.layui-form-item .rq {
+    width: 120px;
+}
+
+#data_icon {
+    margin-right: 0;
+}
+
+
+/* 统一样式表单边距 */
+.s_height {
+    margin-top: 25px;
+    margin-left: 5px;
+}
+
+/* 下边距清0 */
+.layui-table-view {
+    margin-bottom: 0
+}
+
+/* 表格去边距 */
+.layui-table-cell {
+    padding: 0;
+}
+
+.myleft {
+    text-align: left;
+    padding-left: 5px;
+}
+
+.myright {
+    text-align: right;
+    padding-right: 5px;
+}
+
+/* 表单统一30px高 */
+.layui-input,
+.layui-select,
+.layui-textarea {
+    height: 30px;
+    width: 160px;
+}
+
+.layui-form {
+    margin-bottom: 0;
+}
+
+/* label样式 */
+.layui-form-label {
+    padding: 5px 0;
+    width: auto;
+}
+
+.label_mleft {
+    margin-left: 15px;
+}
+
+
+
+/* 标准h2 */
+h2 {
+    text-align: center;
+    /* margin-top: 15px; */
+    line-height: 50px;
+    height: 50px;
+}
+
+/* 按钮颜色 */
+.btn {
+    background: #0089F1;
+}
+
+/* 表格外层 */
+.conter {
+    padding: 0 20px;
+}
+
+/*隐藏表格溢出下拉*/
+.layui-table-tips-main {
+    display: none
+}
+
+.layui-table-tips-c {
+    display: none
+}
+
+.layui-table-grid-down {
+    display: none
+}
+
+/* 字数过长 */
+.layui-table-body tbody>tr>td div {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap
+}
+
+
+
+/* 附加样式 */
+/* 按钮颜色 */
+.layui-btn {
+    background-color: #0089F1;
+}
+
+/* 下拉列表框背景颜色 */
+body .layui-form-select dl dd.layui-this {
+    background-color: #0089F1;
+}
+
+/* 分页背景颜色 */
+.layui-laypage .layui-laypage-curr .layui-laypage-em {
+    background-color: #0089F1;
+}
+
+/* 复选框颜色 */
+.layui-form-checked[lay-skin=primary] i {
+    background-color: #0089F1;
+    border-color: #0089F1 !important;
+}
+
+.layui-form-checkbox[lay-skin=primary]:hover i {
+    border-color: #0089F1;
+}
+
+/* 单选框颜色 */
+.layui-form-radio>i:hover,
+.layui-form-radioed>i {
+    color: #0089F1;
+}
