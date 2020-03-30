@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
+import org.springframework.web.context.request.ServletWebRequest;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
@@ -44,9 +45,10 @@ public class UserController {
                 returnMap.put("message","验证码错误");
                 Cookie cookie = new Cookie("loginUsername", loginUsername);
                 //设置Cookie的最大生命周期,否则浏览器关闭后Cookie即失效
-                cookie.setMaxAge(60);
+                cookie.setMaxAge(60*60);
+                cookie.setPath("/");
                 //将Cookie加到response中
-                HttpServletResponse response = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getResponse();
+                HttpServletResponse response = ((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getResponse();
                 response.addCookie(cookie);
                 return returnMap;
             }
