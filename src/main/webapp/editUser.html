@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>添加推广用户</title>
+    <title>用户修改</title>
     <link rel="stylesheet" href="./css/layui/css/layui.css">
 
     <style>
@@ -78,7 +78,6 @@
 <body>
 
 <form class="layui-form" action="">
-    <input type="hidden" id="customerId" value="-1">
     <div class="layui-form-item">
         <div class="layui-inline">
             <label class="layui-form-label">用户名</label>
@@ -169,7 +168,8 @@
     </div>
     <div class="layui-form-item">
         <div class="layui-input-block">
-            <button type="submit" class="layui-btn" lay-submit="" lay-filter="demo1" id="submit_button">立即提交</button>
+            <button type="submit" class="layui-btn" lay-submit="" lay-filter="demo1">立即提交</button>
+            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
         </div>
     </div>
 </form>
@@ -178,34 +178,17 @@
 
 <script src="./css/layui/layui.js" charset="utf-8"></script>
 <script src="./js/jquery-3.1.1.min.js" charset="utf-8"></script>
-<!--轮播图相关操作-->
 <script>
-
-    /*上传附件*/
     layui.use('upload', function(){
         var $ = layui.jquery
             ,upload = layui.upload;
 
         upload.render({
-            elem: '#test2',
-            url: './CustomerController/addSlideshow.do',
-            multiple: true,
-            accept:"images",//指定允许上传的文件类型
-           /* data:{customerId:$("#customerId").val()},*/
-            before: function(obj){
-                // 设置添加的客户id
-                $.ajax({
-                    url:"./CustomerController/addALL_COMPANY_MESSAGE.do",
-                    type:"post",
-                    dataType:"json",
-                    async:false,
-                    data:{customerId:$("#customerId").val()},
-                    success:function(data){
-                        $("#customerId").val(data.customerId);
-
-                    }
-                })
-                this.data={customerId:$('#customerId').val()};//关键代码
+            elem: '#test2'
+            ,url: './CustomerController/addSlideshow.do'
+            ,multiple: true,
+            accept:"images"//指定允许上传的文件类型
+            ,before: function(obj){
                 layer.msg('图片上传中...', {
                     icon: 16,
                     shade: 0.01,
@@ -214,27 +197,20 @@
             }
             ,done: function(res){
                 layer.close(layer.msg());//关闭上传提示窗口
+                console.log("res")
+                console.log(res)
                 //上传完毕
                 $('#uploader-list').append(
-                    `<div class="file-iteme">
-                        <div class="handle">
-                            <span class="glyphicon glyphicon-trash"
-                                use_file_id="${res.data.use_file_id}"
-                                all_company_message_id="${$("#customerId").val()}"
-                                key_call_id="${res.data.key_call_id}"
-                            ></span>
-                        </div>
-                        <img style="width: 100px;height: 100px;" src="${res.data.src}">
-                        <div class="info">${res.data.fileName}</div>
+                    `<div id="" class="file-iteme">
+                    <div class="handle"><span class="glyphicon glyphicon-trash"></span></div>
+                    <img style="width: 100px;height: 100px;" src="${res.data.src}">
+                    <div class="info">${res.data.fileName}</div>
                     </div>`
                 );
             }
         });
     });
 
-    /**
-     * 鼠标移动到轮播图上，修改样式
-     */
     $(document).on("mouseenter mouseleave", ".file-iteme", function(event){
         if(event.type === "mouseenter"){
             //鼠标悬浮
@@ -247,40 +223,10 @@
         }
     });
 
-    // 删除html的预览图片
+    // 删除图片
     $(document).on("click", ".file-iteme .handle", function(event){
-        var use_file_id = $($(this).html()).attr("use_file_id")
-        var all_company_message_id = $($(this).html()).attr("all_company_message_id")
-        var key_call_id = $($(this).html()).attr("key_call_id")
-        // 数据库删除
-        removePhoto(use_file_id, key_call_id);
-        // html删除
         $(this).parent().remove();
     });
-
-    /**
-     * 删除 附件
-     * @param use_file_id
-     * @param all_company_message_id
-     * @param key_call_id
-     */
-    function removePhoto(use_file_id, key_call_id){
-        $.post("./CustomerController/removeSlideshow.do", //控制器的方法名字
-            { use_file_id : use_file_id, key_call_id : key_call_id},
-            function (data) {   //data是object类型
-                // 状态码非0就是后端报错
-                if(data.code != 0){
-                    console.log(data);
-                    layui.use('layer', function(){
-                        var layer = layui.layer;
-                        layer.alert("服务器删除附件失败，请联系技术人员");
-                    });
-                }
-            },
-        'json');
-    }
-
 </script>
-
 </body>
 </html>

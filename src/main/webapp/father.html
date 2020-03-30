@@ -46,7 +46,8 @@
                 <li class="layui-nav-item">
                     <a href="javascript:;">用户管理</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="javascript:;">用户修改</a></dd>
+                        <dd><a href="javascript:;" onclick="changeIframeSrc('addUser.html',this.id)" id="yhxg">用户修改</a></dd>
+                        <dd><a href="javascript:;" onclick="changeIframeSrc('editUser.html',this.id)" id="yhxz">用户新增</a></dd>
                     </dl>
                 </li>
                 <!--<li class="layui-nav-item"><a href="">发布商品</a></li>-->
@@ -56,8 +57,8 @@
 
     <!--iframe 修改页面显示路径-->
     <div class="layui-body">
-        <div style="height:45px;width:100%;">
-            <div id="bread_div_id">
+        <div style="height:26px;width:100%;">
+            <div id="bread_div_id" style="margin-top:10px">
 
             </div>
         </div>
