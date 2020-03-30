@@ -39,11 +39,10 @@
       <param-name>excludedPages</param-name>
       <param-value>/index.html,/login.html</param-value><!-- 匹配不做拦截的请求声明-->
     </init-param>
-
   </filter>
   <filter-mapping>
     <filter-name>sessionFilter</filter-name>
-    <url-pattern>*.html</url-pattern>
+    <url-pattern>*.jsp</url-pattern>
   </filter-mapping>
 
 
