@@ -39,7 +39,7 @@ public class SessionFilter implements Filter {
             chain.doFilter(request, response);
         } else {//
             HttpSession session = ((HttpServletRequest) request).getSession();
-            if (session == null || session.getAttribute("") == null) {
+            if (session == null || session.getAttribute("logiName") == null) {
                 ((HttpServletResponse) response).sendRedirect("login.html");
             } else {
                 chain.doFilter(request, response);
