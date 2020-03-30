@@ -33,13 +33,11 @@ public class CustomerController {
     @RequestMapping("/addSlideshow")
     public Map<String, Object> addSlideshow(@RequestParam("file") MultipartFile file){
         Map<String, Object> map = new HashMap<>();
-        Map<String, Object> dataMap = new HashMap<>();
         try {
             map.put("status", "成功");
             map.put("code",0);
             map.put("msg","0");
-            customerService.addSlideshow(file);
-
+            Map<String, Object> dataMap = customerService.addSlideshow(file);
             map.put("data",dataMap);
         } catch(Exception e){
             log.error("上传轮播图失败：",e);

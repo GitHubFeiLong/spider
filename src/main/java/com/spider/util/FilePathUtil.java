@@ -43,10 +43,8 @@ public class FilePathUtil {
         } else{ // 不是图片
             prefix = PropertiesUtil.getPath("config.properties", "wirte_other");
         }
-        String uuid = UUID.randomUUID().toString().replace("-", "").toLowerCase();
+
         fullName.append(prefix).append(fileFullName);
-        // 文件名拼接uuid
-        fullName.insert(fullName.toString().lastIndexOf("."), uuid);
 
         return fullName.toString();
     }

@@ -11,6 +11,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 /**
  * @author msi
@@ -30,17 +31,23 @@ public class CustomerServiceIml implements CustomerService {
     @Override
     public Map<String, Object> addSlideshow(MultipartFile file) throws IOException {
         Map<String, Object> dataMap = new HashMap<>();
+        String uuid = UUID.randomUUID().toString().replace("-", "").toLowerCase();
         String fileFullName = file.getOriginalFilename();
 //        customerDao
         // 附件信息
         String savePath = FilePathUtil.getSaveUrl(fileFullName);
+        savePath = new StringBuffer().append(savePath).insert(savePath.lastIndexOf("."), uuid).toString();
+
         String readPath = FilePathUtil.getReadUrl(fileFullName);
+        readPath = new StringBuffer().append(readPath).insert(readPath.lastIndexOf("."), uuid).toString();
+
         // 保存文件到磁盘
         File newFile=new File(savePath);
         if(!newFile.exists()){
             newFile.mkdir();
         }
         file.transferTo(newFile);
+
 
         dataMap.put("src", readPath);
         dataMap.put("fileName", fileFullName);
