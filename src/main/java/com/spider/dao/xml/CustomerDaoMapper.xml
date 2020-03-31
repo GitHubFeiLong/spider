@@ -38,5 +38,15 @@
     <select id="selectUseFileById" resultType="com.spider.pojo.UseFile">
         select save_File_Path saveFilePath from use_file where id = #{use_file_id}
     </select>
+    <!--void insertAllCompanyMessage(AllCompanyMessage all);-->
+    <insert id="insertAllCompanyMessage" parameterType="com.spider.pojo.AllCompanyMessage" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+         insert into all_company_message (user_Name,company_Code,person,person_Phone,customer_Qq,jump_Page,customer_Page,art_Qq)
+        value(#{userName}, #{companyCode}, #{person}, #{personPhone}, #{customerQq}, #{jumpPage}, #{customerPage}, #{artQq})
+    </insert>
 
+    <!--void updateCustomer(AllCompanyMessage all);-->
+    <update id="updateCustomer" parameterType="com.spider.pojo.AllCompanyMessage" >
+         update all_company_message set user_Name=#{userName},company_Code=#{companyCode},person=#{person},person_Phone=#{personPhone},customer_Qq=#{customerQq}
+         ,jump_Page=#{jumpPage},customer_Page= #{customerPage},art_Qq=#{artQq} where id=#{id}
+    </update>
 </mapper>

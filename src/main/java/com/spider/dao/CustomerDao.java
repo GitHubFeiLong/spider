@@ -45,4 +45,16 @@ public interface CustomerDao {
      * @return
      */
     UseFile selectUseFileById(Integer use_file_id);
+
+    /**
+     * 添加推广信息
+     * @param all
+     */
+    void insertAllCompanyMessage(AllCompanyMessage all) ;
+
+    /**
+     * 修改推广信息
+     * @param all
+     */
+    void updateCustomer(AllCompanyMessage all);
 }

@@ -1,6 +1,7 @@
 package com.spider.service;
 
 
+import com.spider.pojo.AllCompanyMessage;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -31,5 +32,15 @@ public interface CustomerService {
      */
     void removeSlideshow(Integer use_file_id, Integer key_call_id);
 
+    /**
+     * 添加推广信息
+     * @param all
+     */
+    void addCustomer(AllCompanyMessage all);
 
+    /**
+     * 修改推广信息
+     * @param all
+     */
+    void updateCustomer(AllCompanyMessage all);
 }

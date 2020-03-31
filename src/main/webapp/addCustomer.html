@@ -83,7 +83,7 @@
         <div class="layui-inline">
             <label class="layui-form-label">用户名</label>
             <div class="layui-input-inline">
-                <input type="tel" name="phone" lay-verify="required|phone" autocomplete="off" class="layui-input">
+                <input type="tel" name="userName" id="userName" lay-verify="required|phone" autocomplete="off" class="layui-input">
             </div>
             <div class="layui-form-mid layui-word-aux"><span>* 网罗天下网管理系统登录用户名</span></div>
         </div>
@@ -92,7 +92,7 @@
         <div class="layui-inline">
             <label class="layui-form-label">公司简称</label>
             <div class="layui-input-inline">
-                <input type="text" name="email" lay-verify="email" autocomplete="off" class="layui-input">
+                <input type="text" name="companyCode" id="companyCode" lay-verify="companyCode" autocomplete="off" class="layui-input">
             </div>
             <div class="layui-form-mid layui-word-aux"><span>* 填写：【公司简称】 或 【关键词】</span></div>
         </div>
@@ -101,7 +101,7 @@
         <div class="layui-inline">
             <label class="layui-form-label">联系人</label>
             <div class="layui-input-inline">
-                <input type="text" name="email" lay-verify="email" autocomplete="off" class="layui-input">
+                <input type="text" name="person" id="person" lay-verify="person" autocomplete="off" class="layui-input">
             </div>
             <div class="layui-form-mid layui-word-aux"><span>* 必填</span></div>
         </div>
@@ -111,7 +111,7 @@
         <div class="layui-inline">
             <label class="layui-form-label">手机</label>
             <div class="layui-input-inline">
-                <input type="text" name="email" lay-verify="email" autocomplete="off" class="layui-input">
+                <input type="text" name="personPhone" id="personPhone" lay-verify="personPhone" autocomplete="off" class="layui-input">
             </div>
             <div class="layui-form-mid layui-word-aux"><span>* 必填</span></div>
         </div>
@@ -121,7 +121,7 @@
         <div class="layui-inline">
             <label class="layui-form-label">客户QQ号</label>
             <div class="layui-input-inline">
-                <input type="text" name="email" lay-verify="email" autocomplete="off" class="layui-input">
+                <input type="text" name="customerQq" id="customerQq" lay-verify="customerQq" autocomplete="off" class="layui-input">
             </div>
         </div>
     </div>
@@ -129,7 +129,7 @@
         <div class="layui-inline">
             <label class="layui-form-label">跳转页面</label>
             <div class="layui-input-inline" style="width: 400px;">
-                <input type="text" name="email" lay-verify="email" autocomplete="off" class="layui-input">
+                <input type="text" name="jumpPage" id="jumpPage" lay-verify="jumpPage" autocomplete="off" class="layui-input">
             </div>
         </div>
     </div>
@@ -137,7 +137,7 @@
         <div class="layui-inline">
             <label class="layui-form-label">客户网站</label>
             <div class="layui-input-inline" style="width: 400px;">
-                <input type="text" name="email" lay-verify="email" autocomplete="off" class="layui-input">
+                <input type="text" name="customerPage" id="customerPage" lay-verify="customerPage" autocomplete="off" class="layui-input">
             </div>
             <div class="layui-form-mid layui-word-aux">没有可不填</div>
         </div>
@@ -163,13 +163,13 @@
         <div class="layui-inline">
             <label class="layui-form-label">技术支持QQ</label>
             <div class="layui-input-inline">
-                <input type="text" name="email" lay-verify="email" autocomplete="off" class="layui-input">
+                <input type="text" name="artQq" id="artQq" lay-verify="artQq" autocomplete="off" class="layui-input">
             </div>
         </div>
     </div>
     <div class="layui-form-item">
         <div class="layui-input-block">
-            <button type="submit" class="layui-btn" lay-submit="" lay-filter="demo1" id="submit_button">立即提交</button>
+            <button type="button" class="layui-btn" id="submit" lay-submit="" lay-filter="demo1" id="submit_button">立即提交</button>
         </div>
     </div>
 </form>
@@ -279,7 +279,42 @@
             },
         'json');
     }
-
+    $("#submit").click(function(){
+        console.log($("#TextUserName").val());
+        console.log($("#password").val());
+        console.log($("#yanzhengma").val());
+        var param = {};
+        param.userName = $("#userName").val();
+        param.companyCode = $("#companyCode").val();
+        param.person = $("#person").val();
+        param.personPhone = $("#personPhone").val();
+        param.customerQq = $("#customerQq").val();
+        param.jumpPage = $("#jumpPage").val();
+        param.customerPage = $("#customerPage").val();
+        param.artQq = $("#artQq").val();
+        param.id = $("#customerId").val();
+        $.ajax({
+            url:"./CustomerController/addCustomer.do",
+            data:param,
+            type:"post",
+            dataType:"json",
+            success:function(data){
+                console.log("data");
+                console.log(data);
+                if(data.error){
+                    layer.alert("服务器删除附件失败，请联系技术人员");
+                }else{
+                    layer.alert(data.success);
+                }
+                // getCookie("loginUsername");
+            },
+            error:function(data){
+                console.log("data");
+                console.log(data);
+                getCookie("loginName");
+            }
+        })
+    })
 </script>
 
 </body>

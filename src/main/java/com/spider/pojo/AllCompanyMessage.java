@@ -1,8 +1,11 @@
 package com.spider.pojo;
 
+import lombok.Data;
+
 /**主表信息
  * @author jingjing
  */
+@Data
 public class AllCompanyMessage {
 
     /**
@@ -29,52 +32,36 @@ public class AllCompanyMessage {
      * 公司描述
      */
     private String companyText;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getPhoneText() {
-        return phoneText;
-    }
-
-    public void setPhoneText(String phoneText) {
-        this.phoneText = phoneText;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    public String getCompanyName() {
-        return companyName;
-    }
-
-    public void setCompanyName(String companyName) {
-        this.companyName = companyName;
-    }
-
-    public String getCompanyText() {
-        return companyText;
-    }
-
-    public void setCompanyText(String companyText) {
-        this.companyText = companyText;
-    }
+    /**
+     * 用户名
+     */
+   private String userName;
+    /**
+     * 公司简称
+     */
+   private String companyCode;
+    /**
+     * 联系人
+     */
+   private String person;
+    /**
+     * 联系人联系电话
+     */
+   private String personPhone;
+    /**
+     * 客户QQ
+     */
+   private String customerQq;
+    /**
+     * 跳转页面
+     */
+   private String jumpPage;
+    /**
+     * 客户网站
+     */
+   private String customerPage;
+    /**
+     * 技术支持qq
+     */
+   private String artQq;
 }

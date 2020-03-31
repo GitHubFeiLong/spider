@@ -1,5 +1,6 @@
 package com.spider.controller;
 
+import com.spider.pojo.AllCompanyMessage;
 import com.spider.service.CustomerService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -87,4 +88,26 @@ public class CustomerController {
         return map;
     }
 
+    /**
+     *
+     * @param all
+     * @return
+     */
+    @RequestMapping("/addCustomer")
+    public Map<String, Object> addCustomer(AllCompanyMessage all){
+        Map<String, Object> map = new HashMap<>();
+        try {
+            if(all.getId() < 0){
+                customerService.addCustomer(all);
+            }else{
+                customerService.updateCustomer(all);
+            }
+            map.put("success", "成功");
+        } catch(Exception e){
+            log.error("删除轮播图失败：",e);
+            map.put("error", "true");
+            map.put("code",e.getMessage());
+        }
+        return map;
+    }
 }

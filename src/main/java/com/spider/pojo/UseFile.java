@@ -1,8 +1,11 @@
 package com.spider.pojo;
 
+import lombok.Data;
+
 /**附件
  * @author jingjing
  */
+@Data
 public class UseFile {
     /**
      * id
@@ -25,43 +28,5 @@ public class UseFile {
      */
     private String saveFilePath;
 
-    public Long getId() {
-        return id;
-    }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getFileName() {
-        return fileName;
-    }
-
-    public void setFileName(String fileName) {
-        this.fileName = fileName;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public String getPath() {
-        return path;
-    }
-
-    public void setPath(String path) {
-        this.path = path;
-    }
-
-    public String getSaveFilePath() {
-        return saveFilePath;
-    }
-
-    public void setSaveFilePath(String saveFilePath) {
-        this.saveFilePath = saveFilePath;
-    }
 }

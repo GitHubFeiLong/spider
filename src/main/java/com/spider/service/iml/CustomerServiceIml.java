@@ -133,5 +133,15 @@ public class CustomerServiceIml implements CustomerService {
 
     }
 
+    @Override
+    public void addCustomer(AllCompanyMessage all) {
+         customerDao.insertAllCompanyMessage(all);
+    }
+
+    @Override
+    public void updateCustomer(AllCompanyMessage all) {
+        customerDao.updateCustomer(all);
+    }
+
 
 }
