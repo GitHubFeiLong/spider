@@ -6,48 +6,146 @@
     <link rel="stylesheet" href="./css/layui/css/layui.css">
     <style>
         body{
-            margin:0px;
-            padding: 0px;
+            background: #fff;
+            font-family: -apple-system, BlinkMacSystemFont, 'Microsoft YaHei', sans-serif;
+            font-size: 16px;
+            color: #333;
+            line-height: 1.75;
         }
+
+        /*定义css变量*/
+        :root{
+            --h1color:#0068b3;
+        }
+
+
         .mydiv{
             border:1px solid #00F;
             height:100%;
         }
+
+        /*页面第一行内容*/
+        .head-one{
+            height: 29px;
+            margin: 10px;
+        }
+        .head-one img{
+            max-height: 100%;
+            opacity: 0.7;
+            width: 116px;
+        }
+        .head-one .head-one-explain{
+            text-align:center;
+        }
+        .head-one div .head-one-explain-phone{
+            text-align: right;
+        }
+        .head-one div .head-one-phone{
+            color: rgb(245, 0, 0);
+            text-align: center;
+        }
+
+        /*head two*/
+        .head-two{
+            height:73px;
+            margin: 10px;
+        }
+        .head-two h1{
+            font-weight: bold;
+            font-size: 40px;
+            line-height: 50px;
+            color: var(--h1color,black);
+            padding-top: 10px;
+        }
+        .head-two .head-two-explain{
+            padding-top:5px;
+        }
+        .head-two div span{
+            line-height: 25px;
+            color: #c00000;
+        }
+        .head-two div small{
+            font-size: 12px;
+            color: #333;
+        }
+
+        /*head three*/
+        .head-three{
+            height:553px;
+        }
     </style>
 </head>
 <body>
-<div class="layui-container">
-    <!--head-->
-    <div class="layui-row" style="width:100%;height:100px;">
-        <div class="layui-col-md2 layui-col-xs2 mydiv">
+
+<div class="layui-fluid">
+    <!--head one-->
+    <div class="layui-row head-one">
+        <div class="layui-col-md4 layui-col-xs4 mydiv">
             <img src="/imgUrl/logo.png">
         </div>
-        <div class="layui-col-md8 layui-col-xs8 mydiv">
-            全国100多家分支机构 产品服务 立足本地 服务全国
+        <div class="layui-col-md4 layui-col-xs4  mydiv ">
+            <div class="layui-row">
+                <div class="layui-col-md12 layui-hide-xs head-one-explain">
+                    全国100多家分支机构 产品服务 立足本地 服务全国
+                </div>
+            </div>
         </div>
-        <div class="layui-col-md2 layui-col-xs2 mydiv">
-            全国服务热线： 4000-119-709
+        <div class="layui-col-md4 layui-col-xs4  mydiv">
+            <div class="layui-row">
+                <div class="layui-col-md9 layui-hide-xs head-one-explain-phone">
+                    全国服务热线：
+                </div>
+                <div class="layui-col-md3 head-one-phone">4000-1190-709</div>
+            </div>
         </div>
     </div>
 
-    移动设备、平板、桌面端的不同表现：
-    <div class="layui-row">
-        <div class="layui-col-xs6 layui-col-sm6 layui-col-md4">
-            移动：6/12 | 平板：6/12 | 桌面：4/12
+    <!--head two-->
+    <div class="layui-row head-two">
+        <div class="layui-col-md1 layui-hide-xs">
+            &nbsp;
         </div>
-        <div class="layui-col-xs6 layui-col-sm6 layui-col-md4">
-            移动：6/12 | 平板：6/12 | 桌面：4/12
+        <div class="layui-col-md2 layui-col-xs12 mydiv">
+            <h1>圣浩钛金瓦</h1>
         </div>
-        <div class="layui-col-xs4 layui-col-sm12 layui-col-md4">
-            移动：4/12 | 平板：12/12 | 桌面：4/12
-        </div>
-        <div class="layui-col-xs4 layui-col-sm7 layui-col-md8">
-            移动：4/12 | 平板：7/12 | 桌面：8/12
-        </div>
-        <div class="layui-col-xs4 layui-col-sm5 layui-col-md4">
-            移动：4/12 | 平板：5/12 | 桌面：4/12
+        <div class="layui-col-md9 layui-hide-xs mydiv">
+            <div class="head-two-explain">
+                <span>专业从事宗教庙宇建材销售与施工</span>
+                <br>
+                <small>集设计、安装、售后于一体，为客户提供“一站式”的优质服务</small>
+            </div>
         </div>
     </div>
+
+    <!--head three-->
+    <div class="layui-row head-three">
+        <div class="layui-col-xs12 layui-col-md12 mydiv">
+            <div class="layui-carousel" id="test1" lay-filter="test1">
+                <div carousel-item="">
+                    <div>条目1</div>
+                    <div>条目2</div>
+                    <div>条目3</div>
+                    <div>条目4</div>
+                    <div>条目5</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>
+
+<script src="./css/layui/layui.js"></script>
+<script src="./js/jquery-3.1.1.min.js"></script>
+<script>
+    layui.use('carousel', function(){
+        var carousel = layui.carousel;
+        //建造实例
+        carousel.render({
+            elem: '#test1'
+            ,width: '100%' //设置容器宽度
+            ,arrow: 'always' //始终显示箭头
+            //,anim: 'updown' //切换动画方式
+        });
+    });</script>
 </body>
 </html>
