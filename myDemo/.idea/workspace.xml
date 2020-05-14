@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="01314207-96f8-481d-84f3-ead48aedf25a" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../spider/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/spider/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/spider/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/spider/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/spider/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/spider/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/spider/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/main/java/com/cfl/qq_42428264/App.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/main/java/com/cfl/qq_42428264/excel/check_excel/AbstractCheckColumn.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/main/java/com/cfl/qq_42428264/excel/check_excel/CheckCellValue.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/main/java/com/cfl/qq_42428264/excel/check_excel/exte/WeddingCheckColumn.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/main/java/com/cfl/qq_42428264/excel/check_excel/parse_xml/CheckWeddingXMLUtil.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/main/java/com/cfl/qq_42428264/excel/export/ExportExcel.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/main/java/com/cfl/qq_42428264/excel/export/ProjectXMLUtil.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/main/java/com/cfl/qq_42428264/lang/SumProperty.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/main/java/com/cfl/qq_42428264/lang/exceptions/Demo.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/test/java/com/cfl/qq_42428264/AppTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/test/java/com/cfl/qq_42428264/lang/SumPropertyTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/test/java/com/cfl/qq_42428264/lang/pojo/User.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/test/java/com/cfl/qq_42428264/thinks/Address.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/test/java/com/cfl/qq_42428264/thinks/Demo1.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/test/java/com/cfl/qq_42428264/thinks/Test1.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/test/java/com/cfl/qq_42428264/thinks/Test2.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../util-java.iml" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/spider" />
+    <option name="ROOT_SYNC" value="DONT_SYNC" />
+  </component>
+  <component name="IgnoredFileRootStore">
+    <option name="generatedRoots">
+      <set>
+        <option value="D:\workspaces\idea\myDemo\.idea" />
+      </set>
+    </option>
+  </component>
+  <component name="ProjectId" id="1ZmXkd4SWmHPyDDSHo90tkQtHov" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+    <option name="showMembers" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/spider" />
+    <property name="settings.editor.selected.configurable" value="vcs.Git" />
+  </component>
+  <component name="RebelAgentSelection">
+    <selection>jr</selection>
+  </component>
+  <component name="ServiceViewManager">
+    <option name="viewStates">
+      <list>
+        <serviceView>
+          <treeState>
+            <expand />
+            <select />
+          </treeState>
+        </serviceView>
+      </list>
+    </option>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="01314207-96f8-481d-84f3-ead48aedf25a" name="Default Changelist" comment="" />
+      <created>1585445386573</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1585445386573</updated>
+      <workItem from="1585445388683" duration="478000" />
+    </task>
+    <task id="LOCAL-00001" summary="commons-fileupload.version 1.3.2 -&gt; 1.3.3">
+      <created>1585445486221</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1585445486221</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="commons-fileupload.version 1.3.2 -&gt; 1.3.3" />
+    <option name="LAST_COMMIT_MESSAGE" value="commons-fileupload.version 1.3.2 -&gt; 1.3.3" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="474" y="39" key="CommitChangelistDialog2" timestamp="1585445477206">
+      <screen x="0" y="0" width="1920" height="1030" />
+    </state>
+    <state x="474" y="39" key="CommitChangelistDialog2/0.0.1920.1030@0.0.1920.1030" timestamp="1585445477206" />
+    <state x="686" y="211" key="FileChooserDialogImpl" timestamp="1585445408811">
+      <screen x="0" y="0" width="1920" height="1030" />
+    </state>
+    <state x="686" y="211" key="FileChooserDialogImpl/0.0.1920.1030@0.0.1920.1030" timestamp="1585445408811" />
+    <state x="451" y="183" key="Vcs.Push.Dialog.v2" timestamp="1585445497979">
+      <screen x="0" y="0" width="1920" height="1030" />
+    </state>
+    <state x="451" y="183" key="Vcs.Push.Dialog.v2/0.0.1920.1030@0.0.1920.1030" timestamp="1585445497979" />
+  </component>
+</project>

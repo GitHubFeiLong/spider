@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.spider.dao.CustomerDao">
+
+    <!--Integer insertALL_COMPANY_MESSAGE();-->
+    <insert id="insertALL_COMPANY_MESSAGE" parameterType="com.spider.pojo.AllCompanyMessage" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+        insert into all_company_message (id) value(null)
+    </insert>
+
+    <!--Integer insertUseFile(UseFile useFile);;-->
+    <insert id="insertUseFile" parameterType="com.spider.pojo.UseFile" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+        insert into use_file (file_name,type,path,save_File_Path)
+        value(#{fileName}, #{type}, #{path}, #{saveFilePath})
+    </insert>
+
+
+    <!--Integer insertKEY_CALL(KeyCall keyCall);;-->
+    <insert id="insertKEY_CALL" parameterType="com.spider.pojo.KeyCall" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+        insert into key_call (all_id,enclosure)
+        value(#{allId}, #{enclosure})
+    </insert>
+
+    <!--void deleteUseFileById(Integer use_file_id);-->
+    <delete id="deleteUseFileById">
+        delete from use_file where id=#{use_file_id}
+    </delete>
+
+    <!--void deleteKeyCallById(Integer key_call_id);-->
+    <delete id="deleteKeyCallById">
+        delete from KEY_CALL where id=#{key_call_id}
+    </delete>
+
+
+    <!--UseFile selectUseFileById(Integer use_file_id);-->
+    <select id="selectUseFileById" resultType="com.spider.pojo.UseFile">
+        select save_File_Path saveFilePath from use_file where id = #{use_file_id}
+    </select>
+    <!--void insertAllCompanyMessage(AllCompanyMessage all);-->
+    <insert id="insertAllCompanyMessage" parameterType="com.spider.pojo.AllCompanyMessage" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+         insert into all_company_message (user_Name,company_Code,person,person_Phone,customer_Qq,jump_Page,customer_Page,art_Qq)
+        value(#{userName}, #{companyCode}, #{person}, #{personPhone}, #{customerQq}, #{jumpPage}, #{customerPage}, #{artQq})
+    </insert>
+
+    <!--void updateCustomer(AllCompanyMessage all);-->
+    <update id="updateCustomer" parameterType="com.spider.pojo.AllCompanyMessage" >
+         update all_company_message set user_Name=#{userName},company_Code=#{companyCode},person=#{person},person_Phone=#{personPhone},customer_Qq=#{customerQq}
+         ,jump_Page=#{jumpPage},customer_Page= #{customerPage},art_Qq=#{artQq} where id=#{id}
+    </update>
+</mapper>
