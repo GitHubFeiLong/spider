@@ -1,0 +1,180 @@
+@charset "utf-8";
+* {
+    font-size: 12px
+}
+
+html {
+    margin: 0;
+    padding: 0
+}
+
+body {
+    background-color: #ededed;
+    color: #b5b5b5;
+    font-family: "宋体", arial;
+    font-size: 12px;
+    font-style: normal;
+    margin: 0;
+    padding: 0
+}
+
+a {
+    color: #b5b5b5;
+    cursor: pointer;
+    text-decoration: none
+}
+
+a:hover {
+    color: #c1272d
+}
+
+h1, h2, h3, h4, h5, h6, form, div, p, i, img, ul, li, ol, table, tr, td, dl, dt, dd, fieldset, label, legend {
+    margin: 0;
+    padding: 0
+}
+
+ul li {
+    list-style: none
+}
+
+fieldset, img, table {
+    border: 0
+}
+
+td {
+    font-size: 12px;
+    line-height: 180%
+}
+
+form {
+    margin: 0;
+    padding: 0
+}
+
+*:focus {
+    outline: 0
+}
+
+.clear {
+    clear: both
+}
+
+.hide {
+    display: block;
+    overflow: hidden;
+    text-indent: -900px
+}
+
+.main {
+    overflow: hidden;
+    width: 100%;
+    height: auto;
+    min-width: 1000px;
+    background: url(images/header_bg.png) top repeat-x
+}
+
+.header {
+    margin: 123px auto 0;
+    width: 330px;
+    height: 41px;
+    background: url(images/logo_ico.png) no-repeat top left
+}
+
+.content {
+    margin: 69px auto 0;
+    width: 423px;
+    height: 400px;
+    border: 1px solid #ededed;
+    background: url(images/login_bg.png) no-repeat top center
+}
+
+/*.title {
+    margin: 35px auto 20px;
+    width: 229px;
+    height: 36px;
+    background: url(images/member_title.png) no-repeat top left
+}*/
+
+.input {
+    margin: 0 auto 11px;
+    width: 237px
+}
+
+.input_all {
+    padding: 10px 0 10px 46px;
+    width: 237px;
+    height: 30px;
+    border: 0;
+    color: #555;
+    vertical-align: middle;
+    font-size: 14px;
+    line-height: 30px
+}
+
+.input_yzm_all {
+    padding: 10px 0 10px 15px;
+    width: 105px;
+    height: 30px;
+    border: 0;
+    color: #555;
+    vertical-align: middle;
+    font-size: 14px;
+    line-height: 30px
+}
+
+.TextUserName {
+    background: url(images/input_name.png) no-repeat top left
+}
+
+.TextUserName_now {
+    background: url(images/input_name_hover.png) no-repeat top left
+}
+
+.password {
+    background: url(images/input_password.png) no-repeat top left
+}
+
+.password_now {
+    background: url(images/input_password_hover.png) no-repeat top left
+}
+
+.yanzhengma {
+    background: url(images/input_yzm.png) no-repeat top left
+}
+
+.yanzhengma_now {
+    background: url(images/input_yzm_hover.png) no-repeat top left
+}
+
+.enter {
+    margin-top: 25px
+}
+
+.button {
+    margin: 0 auto;
+    width: 150px;
+    height: 55px;
+    border: 0;
+    background: url(images/button.png) no-repeat center;
+    cursor: pointer
+}
+
+.checkbox {
+    margin: 0 auto;
+    width: 237px;
+    height: 30px;
+    font-size: 12px
+}
+
+.checkbox input {
+    float: left;
+    display: block;
+    margin-right: 4px
+}
+
+.checkbox span {
+    float: left;
+    display: block;
+    line-height: 20px;
+    xheight: 20px
+}

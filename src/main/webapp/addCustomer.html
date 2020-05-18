@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>添加推广用户</title>
+    <link rel="stylesheet" href="./css/layui/css/layui.css">
+
+    <style>
+        body{
+            margin:0px;
+            padding: 0px;
+        }
+        .layui-form{
+            margin-top: 40px;
+        }
+        .layui-form .layui-input-inline{
+            width:300px;
+        }
+        .layui-form .layui-word-aux span{
+            color:red;
+        }
+
+        /*上传图片*/
+
+        .layui-inline .layui-upload .layui-word-aux{
+            position: absolute;
+            margin-left: 120px;
+            margin-top: -37px;
+            width: 300px;
+        }
+        .uploader-list {
+            margin-left: -15px;
+        }
+
+        .uploader-list .info {
+            position: relative;
+            margin-top: -25px;
+            background-color: black;
+            color: white;
+            filter: alpha(Opacity=80);
+            -moz-opacity: 0.5;
+            opacity: 0.5;
+            width: 100px;
+            height: 25px;
+            text-align: center;
+            display: none;
+        }
+
+        .uploader-list .handle {
+            position: relative;
+            background-color: black;
+            color: white;
+            filter: alpha(Opacity=80);
+            -moz-opacity: 0.5;
+            opacity: 0.5;
+            width: 100px;
+            text-align: right;
+            height: 18px;
+            margin-bottom: -18px;
+            display: none;
+        }
+
+        .uploader-list .handle span {
+            margin-right: 5px;
+        }
+
+        .uploader-list .handle span:hover {
+            cursor: pointer;
+        }
+
+        .uploader-list .file-iteme {
+            margin: 12px 0 0 15px;
+            padding: 1px;
+            float: left;
+        }
+    </style>
+</head>
+<body>
+
+<form class="layui-form" action="">
+    <input type="hidden" id="customerId" value="-1">
+    <div class="layui-form-item">
+        <div class="layui-inline">
+            <label class="layui-form-label">用户名</label>
+            <div class="layui-input-inline">
+                <input type="tel" name="userName" id="userName" lay-verify="required|phone" autocomplete="off" class="layui-input">
+            </div>
+            <div class="layui-form-mid layui-word-aux"><span>* 网罗天下网管理系统登录用户名</span></div>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-inline">
+            <label class="layui-form-label">公司简称</label>
+            <div class="layui-input-inline">
+                <input type="text" name="companyCode" id="companyCode" lay-verify="companyCode" autocomplete="off" class="layui-input">
+            </div>
+            <div class="layui-form-mid layui-word-aux"><span>* 填写：【公司简称】 或 【关键词】</span></div>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-inline">
+            <label class="layui-form-label">联系人</label>
+            <div class="layui-input-inline">
+                <input type="text" name="person" id="person" lay-verify="person" autocomplete="off" class="layui-input">
+            </div>
+            <div class="layui-form-mid layui-word-aux"><span>* 必填</span></div>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <div class="layui-inline">
+            <label class="layui-form-label">手机</label>
+            <div class="layui-input-inline">
+                <input type="text" name="personPhone" id="personPhone" lay-verify="personPhone" autocomplete="off" class="layui-input">
+            </div>
+            <div class="layui-form-mid layui-word-aux"><span>* 必填</span></div>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <div class="layui-inline">
+            <label class="layui-form-label">客户QQ号</label>
+            <div class="layui-input-inline">
+                <input type="text" name="customerQq" id="customerQq" lay-verify="customerQq" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-inline">
+            <label class="layui-form-label">跳转页面</label>
+            <div class="layui-input-inline" style="width: 400px;">
+                <input type="text" name="jumpPage" id="jumpPage" lay-verify="jumpPage" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-inline">
+            <label class="layui-form-label">客户网站</label>
+            <div class="layui-input-inline" style="width: 400px;">
+                <input type="text" name="customerPage" id="customerPage" lay-verify="customerPage" autocomplete="off" class="layui-input">
+            </div>
+            <div class="layui-form-mid layui-word-aux">没有可不填</div>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-inline">
+            <label class="layui-form-label">轮播图</label>
+            <div class="layui-inline layui-upload">
+                <button type="button" class="layui-btn" id="test2">多图片上传</button>
+                <div class="layui-form-mid layui-word-aux">建议尺寸:1900px*350px</div>
+                <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
+                        预览图：
+                        <div class="layui-upload-list uploader-list" style="overflow: auto;" id="uploader-list">
+
+                        </div>
+                </blockquote>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <div class="layui-inline">
+            <label class="layui-form-label">技术支持QQ</label>
+            <div class="layui-input-inline">
+                <input type="text" name="artQq" id="artQq" lay-verify="artQq" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button type="button" class="layui-btn" id="submit" lay-submit="" lay-filter="demo1" id="submit_button">立即提交</button>
+        </div>
+    </div>
+</form>
+
+
+
+<script src="./css/layui/layui.js" charset="utf-8"></script>
+<script src="./js/jquery-3.1.1.min.js" charset="utf-8"></script>
+<!--轮播图相关操作-->
+<script>
+
+    /*上传附件*/
+    layui.use('upload', function(){
+        var $ = layui.jquery
+            ,upload = layui.upload;
+
+        upload.render({
+            elem: '#test2',
+            url: './CustomerController/addSlideshow.do',
+            multiple: true,
+            accept:"images",//指定允许上传的文件类型
+           /* data:{customerId:$("#customerId").val()},*/
+            before: function(obj){
+                // 设置添加的客户id
+                $.ajax({
+                    url:"./CustomerController/addALL_COMPANY_MESSAGE.do",
+                    type:"post",
+                    dataType:"json",
+                    async:false,
+                    data:{customerId:$("#customerId").val()},
+                    success:function(data){
+                        $("#customerId").val(data.customerId);
+
+                    }
+                })
+                this.data={customerId:$('#customerId').val()};//关键代码
+                layer.msg('图片上传中...', {
+                    icon: 16,
+                    shade: 0.01,
+                    time: 0
+                })
+            }
+            ,done: function(res){
+                layer.close(layer.msg());//关闭上传提示窗口
+                //上传完毕
+                $('#uploader-list').append(
+                    `<div class="file-iteme">
+                        <div class="handle">
+                            <span class="glyphicon glyphicon-trash"
+                                use_file_id="${res.data.use_file_id}"
+                                all_company_message_id="${$("#customerId").val()}"
+                                key_call_id="${res.data.key_call_id}"
+                            ></span>
+                        </div>
+                        <img style="width: 100px;height: 100px;" src="${res.data.src}">
+                        <div class="info">${res.data.fileName}</div>
+                    </div>`
+                );
+            }
+        });
+    });
+
+    /**
+     * 鼠标移动到轮播图上，修改样式
+     */
+    $(document).on("mouseenter mouseleave", ".file-iteme", function(event){
+        if(event.type === "mouseenter"){
+            //鼠标悬浮
+            $(this).children(".info").fadeIn("fast");
+            $(this).children(".handle").fadeIn("fast");
+        }else if(event.type === "mouseleave") {
+            //鼠标离开
+            $(this).children(".info").hide();
+            $(this).children(".handle").hide();
+        }
+    });
+
+    // 删除html的预览图片
+    $(document).on("click", ".file-iteme .handle", function(event){
+        var use_file_id = $($(this).html()).attr("use_file_id")
+        var all_company_message_id = $($(this).html()).attr("all_company_message_id")
+        var key_call_id = $($(this).html()).attr("key_call_id")
+        // 数据库删除
+        removePhoto(use_file_id, key_call_id);
+        // html删除
+        $(this).parent().remove();
+    });
+
+    /**
+     * 删除 附件
+     * @param use_file_id
+     * @param all_company_message_id
+     * @param key_call_id
+     */
+    function removePhoto(use_file_id, key_call_id){
+        $.post("./CustomerController/removeSlideshow.do", //控制器的方法名字
+            { use_file_id : use_file_id, key_call_id : key_call_id},
+            function (data) {   //data是object类型
+                // 状态码非0就是后端报错
+                if(data.code != 0){
+                    console.log(data);
+                    layui.use('layer', function(){
+                        var layer = layui.layer;
+                        layer.alert("服务器删除附件失败，请联系技术人员");
+                    });
+                }
+            },
+        'json');
+    }
+    $("#submit").click(function(){
+        console.log($("#TextUserName").val());
+        console.log($("#password").val());
+        console.log($("#yanzhengma").val());
+        var param = {};
+        param.userName = $("#userName").val();
+        param.companyCode = $("#companyCode").val();
+        param.person = $("#person").val();
+        param.personPhone = $("#personPhone").val();
+        param.customerQq = $("#customerQq").val();
+        param.jumpPage = $("#jumpPage").val();
+        param.customerPage = $("#customerPage").val();
+        param.artQq = $("#artQq").val();
+        param.id = $("#customerId").val();
+        $.ajax({
+            url:"./CustomerController/addCustomer.do",
+            data:param,
+            type:"post",
+            dataType:"json",
+            success:function(data){
+                console.log("data");
+                console.log(data);
+                if(data.error){
+                    layer.alert("服务器删除附件失败，请联系技术人员");
+                }else{
+                    layer.alert(data.success);
+                }
+                // getCookie("loginUsername");
+            },
+            error:function(data){
+                console.log("data");
+                console.log(data);
+                getCookie("loginName");
+            }
+        })
+    })
+</script>
+
+</body>
+</html>

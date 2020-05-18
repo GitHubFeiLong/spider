@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>网罗天下网管理系统</title>
+    <link rel="stylesheet" href="./css/layui/css/layui.css">
+    <style>
+        body{
+            margin:0px;
+            padding:0px;
+        }
+    </style>
+</head>
+<body class="layui-layout-body">
+<div class="layui-layout layui-layout-admin">
+    <div class="layui-header">
+        <div class="layui-logo">网罗天下网管理系统</div>
+
+        <ul class="layui-nav layui-layout-right">
+            <li class="layui-nav-item">
+                <a href="javascript:;">
+                    <img src="./css/images/user.gif" class="layui-nav-img">
+                    贤心
+                </a>
+               <!-- <dl class="layui-nav-child">
+                    <dd><a href="">基本资料</a></dd>
+                    <dd><a href="">安全设置</a></dd>
+                </dl>-->
+            </li>
+            <li class="layui-nav-item"><a href="">退出登录</a></li>
+        </ul>
+    </div>
+    <div class="layui-side layui-bg-black">
+        <div class="layui-side-scroll">
+            <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+            <ul class="layui-nav layui-nav-tree"  lay-filter="test">
+                <li class="layui-nav-item layui-nav-itemed">
+                    <a href="javascript:;"><span>推广页面制作</span></a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="javascript:;" onclick="changeIframeSrc('editCustomer.html',this.id)" id="tgxxgl">推广信息管理</a></dd>
+                        <dd><a href="javascript:;" onclick="changeIframeSrc('addCustomer.html',this.id)" id="tjtgxx">添加推广信息</a></dd>
+                        <!--<dd><a href="">超链接</a></dd>-->
+                    </dl>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="javascript:;">用户管理</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="javascript:;" onclick="changeIframeSrc('addUser.html',this.id)" id="yhxg">用户修改</a></dd>
+                        <dd><a href="javascript:;" onclick="changeIframeSrc('editUser.html',this.id)" id="yhxz">用户新增</a></dd>
+                    </dl>
+                </li>
+                <!--<li class="layui-nav-item"><a href="">发布商品</a></li>-->
+            </ul>
+        </div>
+    </div>
+
+    <!--iframe 修改页面显示路径-->
+    <div class="layui-body">
+        <div style="height:26px;width:100%;">
+            <div id="bread_div_id" style="margin-top:10px">
+
+            </div>
+        </div>
+        <div id="iframe_div_id" style="height: 100%;width: 100%;position: fixed">
+
+        </div>
+    </div>
+</div>
+<script src="./css/layui/layui.js"></script>
+<script src="./js/jquery-3.1.1.min.js"></script>
+<script>
+    var element;
+    //JavaScript代码区域
+    layui.use('element', function(){
+        element = layui.element;
+    });
+    //var element = layui.element;
+</script>
+
+<script>
+    //根据浏览器大小调整iframe高度
+    window.onresize = reSetSize;
+    function reSetSize() {
+        var windowsHeight = window.innerHeight;
+        var windowsWidth = window.innerWidth;
+        document.getElementById("content").style.height = (windowsHeight-105) + "px";
+        document.getElementById("content").style.width = (windowsWidth-200) + "px";
+    }
+
+    /**
+     * 改变 iframe的路径
+     * @param src iframe的src属性值
+     * @param thisId：点击的id
+     */
+    function changeIframeSrc(src,thisId){
+        var html = `<iframe id="content" src="${src}"></iframe>`;
+        $("#iframe_div_id").html(html);
+        reSetSize();
+        changeBread(thisId);
+    }
+
+    /**
+     * 修改面包片 html
+     */
+    function changeBread(thisId){
+        var obj = $("#"+thisId);
+        var towBread = $(obj).parent().parent().parent().find("span").html()
+        var threeBread = $(obj).html()
+        var html = `<span class="layui-breadcrumb">
+                  <a href="javascript:;">首页</a>
+                  <a href="javascript:;">${towBread}</a>
+                  <a><cite>${threeBread}</cite></a>
+                </span>`;
+
+        $("#bread_div_id").html(html);
+
+        element.render('bread_div_id');
+    }
+
+</script>
+</body>
+</html>

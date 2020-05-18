@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>用户新增</title>
+    <link rel="stylesheet" href="./css/layui/css/layui.css">
+
+    <style>
+        body{
+            margin:0px;
+            padding: 0px;
+        }
+        .layui-form{
+            margin-top: 40px;
+        }
+        .layui-form .layui-input-inline{
+            width:300px;
+        }
+        .layui-form .layui-word-aux span{
+            color:red;
+        }
+
+        /*上传图片*/
+
+        .layui-inline .layui-upload .layui-word-aux{
+            position: absolute;
+            margin-left: 120px;
+            margin-top: -37px;
+            width: 300px;
+        }
+        .uploader-list {
+            margin-left: -15px;
+        }
+
+        .uploader-list .info {
+            position: relative;
+            margin-top: -25px;
+            background-color: black;
+            color: white;
+            filter: alpha(Opacity=80);
+            -moz-opacity: 0.5;
+            opacity: 0.5;
+            width: 100px;
+            height: 25px;
+            text-align: center;
+            display: none;
+        }
+
+        .uploader-list .handle {
+            position: relative;
+            background-color: black;
+            color: white;
+            filter: alpha(Opacity=80);
+            -moz-opacity: 0.5;
+            opacity: 0.5;
+            width: 100px;
+            text-align: right;
+            height: 18px;
+            margin-bottom: -18px;
+            display: none;
+        }
+
+        .uploader-list .handle span {
+            margin-right: 5px;
+        }
+
+        .uploader-list .handle span:hover {
+            cursor: pointer;
+        }
+
+        .uploader-list .file-iteme {
+            margin: 12px 0 0 15px;
+            padding: 1px;
+            float: left;
+        }
+    </style>
+</head>
+<body>
+
+<form class="layui-form" action="">
+    <div class="layui-form-item">
+        <div class="layui-inline">
+            <label class="layui-form-label">用户名</label>
+            <div class="layui-input-inline">
+                <input type="tel" name="phone" lay-verify="required|phone" autocomplete="off" class="layui-input">
+            </div>
+            <div class="layui-form-mid layui-word-aux"><span>* 网罗天下网管理系统登录用户名</span></div>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-inline">
+            <label class="layui-form-label">公司简称</label>
+            <div class="layui-input-inline">
+                <input type="text" name="email" lay-verify="email" autocomplete="off" class="layui-input">
+            </div>
+            <div class="layui-form-mid layui-word-aux"><span>* 填写：【公司简称】 或 【关键词】</span></div>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-inline">
+            <label class="layui-form-label">联系人</label>
+            <div class="layui-input-inline">
+                <input type="text" name="email" lay-verify="email" autocomplete="off" class="layui-input">
+            </div>
+            <div class="layui-form-mid layui-word-aux"><span>* 必填</span></div>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <div class="layui-inline">
+            <label class="layui-form-label">手机</label>
+            <div class="layui-input-inline">
+                <input type="text" name="email" lay-verify="email" autocomplete="off" class="layui-input">
+            </div>
+            <div class="layui-form-mid layui-word-aux"><span>* 必填</span></div>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <div class="layui-inline">
+            <label class="layui-form-label">客户QQ号</label>
+            <div class="layui-input-inline">
+                <input type="text" name="email" lay-verify="email" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-inline">
+            <label class="layui-form-label">跳转页面</label>
+            <div class="layui-input-inline" style="width: 400px;">
+                <input type="text" name="email" lay-verify="email" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-inline">
+            <label class="layui-form-label">客户网站</label>
+            <div class="layui-input-inline" style="width: 400px;">
+                <input type="text" name="email" lay-verify="email" autocomplete="off" class="layui-input">
+            </div>
+            <div class="layui-form-mid layui-word-aux">没有可不填</div>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-inline">
+            <label class="layui-form-label">轮播图</label>
+            <div class="layui-inline layui-upload">
+                <button type="button" class="layui-btn" id="test2">多图片上传</button>
+                <div class="layui-form-mid layui-word-aux">建议尺寸:1900px*350px</div>
+                <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;width: 88%">
+                        预览图：
+                        <div class="layui-upload-list uploader-list" style="overflow: auto;" id="uploader-list">
+
+                        </div>
+                </blockquote>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <div class="layui-inline">
+            <label class="layui-form-label">技术支持QQ</label>
+            <div class="layui-input-inline">
+                <input type="text" name="email" lay-verify="email" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button type="submit" class="layui-btn" lay-submit="" lay-filter="demo1">立即提交</button>
+            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+        </div>
+    </div>
+</form>
+
+
+
+<script src="./css/layui/layui.js" charset="utf-8"></script>
+<script src="./js/jquery-3.1.1.min.js" charset="utf-8"></script>
+<script>
+    layui.use('upload', function(){
+        var $ = layui.jquery
+            ,upload = layui.upload;
+
+        upload.render({
+            elem: '#test2'
+            ,url: './CustomerController/addSlideshow.do'
+            ,multiple: true,
+            accept:"images"//指定允许上传的文件类型
+            ,before: function(obj){
+                layer.msg('图片上传中...', {
+                    icon: 16,
+                    shade: 0.01,
+                    time: 0
+                })
+            }
+            ,done: function(res){
+                layer.close(layer.msg());//关闭上传提示窗口
+                console.log("res")
+                console.log(res)
+                //上传完毕
+                $('#uploader-list').append(
+                    `<div id="" class="file-iteme">
+                    <div class="handle"><span class="glyphicon glyphicon-trash"></span></div>
+                    <img style="width: 100px;height: 100px;" src="${res.data.src}">
+                    <div class="info">${res.data.fileName}</div>
+                    </div>`
+                );
+            }
+        });
+    });
+
+    $(document).on("mouseenter mouseleave", ".file-iteme", function(event){
+        if(event.type === "mouseenter"){
+            //鼠标悬浮
+            $(this).children(".info").fadeIn("fast");
+            $(this).children(".handle").fadeIn("fast");
+        }else if(event.type === "mouseleave") {
+            //鼠标离开
+            $(this).children(".info").hide();
+            $(this).children(".handle").hide();
+        }
+    });
+
+    // 删除图片
+    $(document).on("click", ".file-iteme .handle", function(event){
+        $(this).parent().remove();
+    });
+</script>
+</body>
+</html>
