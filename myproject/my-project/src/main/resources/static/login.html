@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>登录</title>
+    <link rel="stylesheet" href="/bootstrap-4.4.1-dist/css/bootstrap.css">
+    <!--    标题栏：-->
+    <link rel="icon" href="/image/icon/title.ico" type="image/x-icon">
+
+    <script src="/js/jquery/jquery-3.4.1.min.js" type="text/javascript"></script>
+    <script src="/bootstrap-4.4.1-dist/js/bootstrap.js" type="text/javascript"></script>
+
+    <style>
+        :root {
+            --body-background: linear-gradient(180deg, #b7333340, rgba(21, 254, 82, 0));
+            --login-prompt-bgcolor: #fff8f0;
+        }
+
+        body {
+            margin: 0px;
+            padding: 0px;
+            width: 100%;
+            height: auto;
+            background: white;
+            color: #999;
+            font: 12px/150% Arial, Verdana, "\5b8b\4f53";
+            font-style: normal;
+            font-variant-ligatures: normal;
+            font-variant-caps: normal;
+            font-variant-numeric: normal;
+            font-variant-east-asian: normal;
+            font-weight: normal;
+            font-stretch: normal;
+            font-size: 12px;
+            line-height: 150%;
+            font-family: Arial, Verdana, 宋体;
+        }
+
+        #login-header {
+            width: 100%;
+            height: 80px;
+        }
+
+        .row {
+            height: 100%;
+            display: -ms-flexbox;
+            display: flex;
+            -ms-flex-wrap: wrap;
+            flex-wrap: wrap;
+            /*margin-right: 0px !important;*/
+            /*margin-left: 0px !important;*/
+        }
+
+        #login-header-row-1 {
+            height: 80px;
+        }
+
+        div[class^="col-"] {
+            /*border:1px solid red;*/
+        }
+
+        a {
+            color: #666;
+            text-decoration: none;
+        }
+
+        #login-header-center {
+            height: 100%;
+        }
+
+        .login-header-center-left {
+            padding-left: 55px;
+        }
+
+        .login-header-center-left-img {
+            padding-top: 10px
+        }
+
+        .login-header-center-center, .login-header-center-center-img {
+            position: relative;
+        }
+
+        .login-header-center-center {
+            padding-left: 60px;
+        }
+
+        .login-header-center-center-img {
+            position: absolute;
+            margin: auto;
+            top: 20px;
+            bottom: 0;
+        }
+
+        .login-header-center-right {
+            display: flex;
+            align-items: flex-end;
+            padding-bottom: 10px;
+            padding-left: 160px;
+
+        }
+
+        .login-header-center-right > div {
+            width: 100%;
+            height: 18px;
+        }
+
+        #login-header-row-2 {
+            color: #999;
+            font-size: 12px;
+            height: 40px;
+            text-align: center;
+            line-height: 40px;
+            background: #fff8f0;
+            /*width: 100%;*/
+        }
+
+        #login-header-row-2 i {
+            width: 16px;
+            height: 16px;
+            display: inline-block;
+            margin-right: 10px;
+            margin-bottom: -3px;
+            background-image: url("/image/login/icon-tips.png");
+        }
+
+        #login-header-row-3 {
+            height: 475px;
+            background: #e93854;
+        }
+
+        #login-body {
+            height: 100%;
+        }
+
+        .login-body-bg {
+            background: url("/image/login/5aa68632Nd7790d0c.png");
+            background-repeat: no-repeat;
+            margin-left: 25px;
+            height: 475px;
+        }
+
+        #login-body-info {
+            z-index: 4;
+            background: #fff;
+            width: 350px;
+            height: 428px;
+            float: right;
+            top: 15px;
+            position: relative;
+        }
+
+        #login-body-info > div:nth-child(1) {
+            height: 40px;
+            background: var(--login-prompt-bgcolor);
+        }
+
+        /*扫码登录 账号登录*/
+        #login-body-info > div:nth-child(2) {
+            height: 55px;
+            border-bottom: 1px solid #f4f4f4;
+            display: flex;
+        }
+
+        #login-body-info > div:nth-child(2) div {
+            width: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #login-body-info > div:nth-child(2) div a {
+            font-size: 18px;
+            font-family: "microsoft yahei";
+        }
+
+        /*登录选择样式*/
+        .login-a {
+            font-weight: 700;
+            color: #e4393c;
+        }
+
+        #loggin-div {
+            width: 100%;
+            height: 280px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            /*justify-content: space-around;*/
+        }
+
+        #login-body-info > div:nth-child(4) {
+            width: 100%;
+            height: 50px;
+            border-top: 1px solid #f4f4f4;
+            /*height: auto;*/
+            background-color: #fcfcfc;
+            display: flex;
+        }
+
+        #login-body-info {
+            font-size: 12px;
+            text-align: center;
+            line-height: 40px;
+        }
+
+        #login-body-info .head i {
+            width: 16px;
+            height: 16px;
+            display: inline-block;
+            margin-right: 10px;
+            margin-bottom: -3px;
+            background-image: url("/image/login/icon-tips.png");
+        }
+
+        .ewm {
+            /*width:100%;*/
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+            height: 167px;
+        }
+
+        .ewm-left {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .ewm-left img {
+            vertical-align: middle;
+        }
+
+        .ewm-right {
+            display: none;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .ewm-right img {
+            vertical-align: middle;
+        }
+
+        .ewm div {
+            width: 176px;
+        }
+
+        .ewm-bottom span {
+            color: #e4393c;
+        }
+
+        .ewm-features {
+            width: 80%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+        }
+
+        .ewm-features > div {
+            width: 33%;
+            margin-right: 10px;
+        }
+
+        .ewm-features > div b {
+            display: inline-block;
+            width: 25px;
+            height: 25px;
+            position: relative;
+            margin-bottom: -7px;
+        }
+
+        .ewm-features > div span {
+            font-family: "microsoft yahei";
+            color: #999;
+            line-height: 25px;
+            font-size: 15px;
+        }
+
+        .icon-1 {
+            background: url("/image/login/qr-coagent_01.png");
+        }
+
+        .icon-2 {
+            background: url("/image/login/qr-coagent_02.png");
+        }
+
+        .icon-3 {
+            background: url("/image/login/qr-coagent_03.png");
+        }
+
+
+        .lxfs-div {
+            width: 40%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-left: 20px;
+        }
+
+        .lxfs-div b {
+            width: 19px;
+            height: 18px;
+            display: inline-block;
+            position: relative;
+            margin-bottom: -3px;
+
+        }
+
+        /*用户名密码登录*/
+        div[class^="entry-"] {
+            width: 304px;
+            height: 38px;
+        }
+
+        .bottom-icon {
+            width: 39px;
+            height: 38px;
+        }
+
+        #login_username, #login_password {
+            border: 0;
+            width: 254px;
+            font-size: 14px;
+            font-family: '\5b8b\4f53';
+            border: 1px solid #eaeaea;
+        }
+
+        #loggin-div .entry-login {
+            display: flex;
+            /* align-items: center; */
+            justify-content: center;
+        }
+
+        #loggin-div > div[class='entry-login']:nth-child(1) {
+            margin-top: 30px;
+        }
+
+        #loggin-div > div[class='entry-login']:nth-child(2) {
+            margin-top: 20px;
+        }
+
+        .enter-forget-password {
+            display: flex;
+            justify-content: flex-end;
+            color: #666;
+            text-decoration: none;
+            margin: 10px 0 15px 245px;
+        }
+
+        .enter-button, .enter-button input {
+
+        }
+
+        .enter-button {
+            width: 304px;
+            height: 35px !important;
+            border: 1px solid #cb2a2d;
+            margin-bottom: 30px;
+        }
+
+        .enter-button input {
+            border: 1px solid #e85356;
+            width: 303px;
+            height: 33px !important;
+            background: #e4393c;
+            line-height: 31px;
+            color: #fff;
+            font-size: 20px;
+            font-family: 'Microsoft YaHei';
+        }
+
+
+        .icon-qq {
+            background: url("/image/login/QQ-weixin_01.png");
+        }
+
+        .icon-wx {
+            background: url("/image/login/QQ-weixin_02.png");
+        }
+
+
+        .zc {
+            width: 60%;
+            color: #b61d1d;
+            font-size: 14px;
+        }
+
+        .zc > div {
+            float: right;
+            position: relative;
+            margin-right: 20px;
+            height: 100%;
+            line-height: 50px;
+        }
+
+        .zc b {
+            width: 16px;
+            height: 16px;
+            display: inline-block;
+            position: relative;
+            margin-bottom: -3px;
+        }
+
+        .icon-zc {
+            background: url("/image/login/regist.png");
+        }
+
+        .links a {
+            margin: 0px 10px 0px 10px;
+        }
+
+        #foot {
+            display: flex;
+            align-items: center;
+            justify-content: space-evenly;
+            height: 90px;
+            flex-direction: column;
+        }
+
+        #ewm-mask {
+            width: 176px;
+            height: 167px;
+            background: rgba(0, 0, 0, 0.5);
+            margin-top: 20px;
+            position: absolute;
+            display: none;
+            align-items: center;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+
+    </style>
+</head>
+<body>
+<div id="login-header" class="container-fluid">
+    <div id="login-header-row-1" class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <div id="login-header-center" class="container">
+                <div class="row">
+                    <div class="col-md-2 login-header-center-left">
+                        <img class="login-header-center-left-img" src="/image/login/logo-20200504-b.png" alt="京东logo"/>
+                    </div>
+                    <div class="col-md-6 login-header-center-center">
+                        <img class="login-header-center-center-img" src="/image/login/l-icon.png" alt="欢迎登录"/>
+                    </div>
+                    <div class="col-md-4 login-header-center-right">
+                        <div>
+                            <img class="login-header-center-right-img" src="/image/login/q-icon.png" alt="登录页面评价"/>
+                            <a href="javascript:void(0);" onclick="alert('do not')">登录页面，调查问卷</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+    <div id="login-header-row-2" class="row">
+        <div class="col-md-12">
+            <i></i>依据《网络安全法》，为保障您的账户安全和正常使用，请尽快完成手机号验证！ 新版《京东隐私政策》已上线，将更有利于保护您的个人隐私。
+        </div>
+    </div>
+    <div id="login-header-row-3" class="row">
+        <div class="col-md-12">
+            <div id="login-body" class="container-fluid">
+                <div class="row">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-7 login-body-bg">
+                        <div id="login-body-info">
+                            <div class="head">
+                                <i></i>京东不会以任何理由要求您转账汇款，谨防诈骗。
+                            </div>
+                            <div>
+                                <div>
+                                    <a class="login-a" href="javascript:void(0);"
+                                       onclick="switchLoginQRcode(this)">扫码登录</a>
+                                </div>
+                                <div style="width: 0px;">|</div>
+                                <div>
+                                    <a href="javascript:void(0);" onclick="switchLoginEntry(this)">账户登录</a>
+                                </div>
+                            </div>
+                            <div id="loggin-div">
+                                <div class="ewm">
+                                    <div id="ewm-left" class="ewm-left">
+                                        <img src="/image/login/show.png" alt="二维码"/>
+                                    </div>
+                                    <div class="ewm-right">
+                                        <img src="/image/login/phone-orange.png" alt="二维码"
+                                             style="width:100%;height:100%"/>
+                                    </div>
+
+                                </div>
+                                <div id="ewm-mask">
+                                    <div style="color: white;font-weight: 700;">
+                                        <span>二维码已失效</span>
+                                    </div>
+                                    <div onclick="flushEwm()"
+                                         style="width: 80px;height: 30px; background: #e4393c;line-height: 30px; opacity: 1;z-index: 19;color: #fbfbfb;margin-top: 8px;cursor:pointer;">
+                                        <span>刷新</span>
+                                    </div>
+                                </div>
+                                <div class="ewm-bottom">
+                                    打开<span>手机京东</span> &nbsp;扫描二维码
+                                </div>
+                                <div class="ewm-features">
+                                    <div>
+                                        <b class="icon-1"></b>
+                                        &nbsp;
+                                        <span>免输入</span>
+                                    </div>
+                                    <div>
+                                        <b class="icon-2"></b>
+                                        &nbsp;
+                                        <span>更快</span>
+                                    </div>
+                                    <div>
+                                        <b class="icon-3"></b>
+                                        &nbsp;
+                                        <span>更安全</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="lxfs-div">
+                                    <div>
+                                        <b class="icon-qq"></b>
+                                        <span>&nbsp;QQ</span>
+                                    </div>
+                                    <span class="line">|</span>
+                                    <div>
+                                        <b class="icon-wx"></b>
+                                        <span>&nbsp;微信</span>
+                                    </div>
+                                </div>
+                                <div class="zc">
+                                    <div>
+                                        <b class="icon-zc"></b>
+                                        <span>立即注册</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="login-header-row-4" class="row">
+        <div id="foot" class="col-md-12">
+            <div class="links">
+                <a rel="nofollow" target="_blank" href="//about.jd.com/">
+                    关于我们
+                </a>
+                |
+                <a rel="nofollow" target="_blank" href="//www.jd.com/contact/">
+                    联系我们
+                </a>
+                |
+                <a rel="nofollow" target="_blank" href="//zhaopin.jd.com/">
+                    人才招聘
+                </a>
+                |
+                <a rel="nofollow" target="_blank" href="//lai.jd.com/">
+                    商家入驻
+                </a>
+                |
+                <a rel="nofollow" target="_blank" href="//jzt.jd.com/">
+                    广告服务
+                </a>
+                |
+                <a rel="nofollow" target="_blank" href="//app.jd.com/">
+                    手机京东
+                </a>
+                |
+                <a target="_blank" href="//club.jd.com/links.aspx">
+                    友情链接
+                </a>
+                |
+                <a target="_blank" href="//media.jd.com/">
+                    销售联盟
+                </a>
+                |
+                <a href="//pro.jd.com/mall/active/3WA2zN8wkwc9fL9TxAJXHh5Nj79u/index.html" target="_blank">
+                    京东社区
+                </a>
+                |
+                <a href="//gongyi.jd.com" target="_blank">
+                    京东公益
+                </a>
+                |
+                <a target="_blank" href="//www.joybuy.com/" clstag="pageclick|keycount|20150112ABD|9">English Site</a>
+            </div>
+            <div class="copyright">
+                Copyright&nbsp;©&nbsp;2004-2020&nbsp;&nbsp;京东JD.com&nbsp;版权所有
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    const EWM_EXPIRED = 1000;//二维码过期时间
+    var ewmIsExpired = false;//默认未过期
+    var wemItervalId;
+    var wemTimeOutId;
+    ewmHover()
+
+    /**
+     * 二维码移入移出事件
+     */
+    function ewmHover() {
+        $(".ewm").hover(
+            function () {
+                // console.log("移入");
+                $(".ewm-right").css("display", "block");
+            },
+            function () {
+                // console.log("移出");
+                $(".ewm-right").css("display", "none");
+            }
+        )
+    }
+
+    /**
+     * 扫码方式登录
+     */
+    function switchLoginQRcode(obj) {
+        // 修改a标签样式
+        $(".login-a").each(function (i, x) {
+            $(x).removeClass("login-a");
+        });
+        $(obj).addClass("login-a");
+        $("#loggin-div").html("");
+        let txt = `<div class="ewm">
+                <div id="ewm-left" class="ewm-left">
+                <img src="/image/login/show.png" alt="二维码" />
+                </div>
+                <div class="ewm-right">
+                <img src="/image/login/phone-orange.png" alt="二维码" style="width:100%;height:100%"/>
+                </div>
+                </div>
+                <div id="ewm-mask">
+                <div style="color: white;font-weight: 700;">
+                <span>二维码已失效</span>
+                </div>
+                <div onclick="flushEwm()" style="width: 80px;height: 30px; background: #e4393c;line-height: 30px; opacity: 1;z-index: 19;color: #fbfbfb;margin-top: 8px;cursor:pointer;">
+                <span>刷新</span>
+                </div>
+                </div>
+                <div class="ewm-bottom">
+                打开<span>手机京东</span> &nbsp;扫描二维码
+                </div>
+                <div class="ewm-features">
+                <div>
+                <b class="icon-1"></b>
+                &nbsp;
+        <span>免输入</span>
+            </div>
+            <div>
+            <b class="icon-2"></b>
+                &nbsp;
+        <span>更快</span>
+            </div>
+            <div>
+            <b class="icon-3"></b>
+                &nbsp;
+        <span>更安全</span>
+            </div>
+            </div>`
+
+        $("#loggin-div").html(txt);
+
+        // 修改框大小
+        $("#login-body-info").height("428px");
+        $("#loggin-div").height("280px");
+
+        if(ewmIsExpired){
+            $("#ewm-mask").css("display", "flex");
+        } else {
+            flushEwm();
+        }
+
+        ewmHover();
+
+    }
+
+    /**
+     * 手动输入登录方式
+     */
+    function switchLoginEntry(obj) {
+        //修改a标签样式
+        $(".login-a").each(function (i, x) {
+            $(x).removeClass("login-a");
+        });
+        $(obj).addClass("login-a");
+
+        $("#loggin-div").html("");
+        let html = "<div class=\"entry-login\">\n" +
+            "                                        <label class=\"bottom-icon\" for=\"login_username\" style=\"background: url('/image/login/pwd-icons-new_01.png')\"></label>\n" +
+            "                                        <input id=\"login_username\" type=\"text\" placeholder=\"   邮箱/用户名/登录手机\"/>\n" +
+            "                                    </div>\n" +
+            "                                    <div class=\"entry-login\">\n" +
+            "                                        <label class=\"bottom-icon\" for=\"login_password\" style=\"background: url('/image/login/pwd-icons-new_01.png')\"></label>\n" +
+            "                                        <input id=\"login_password\" type=\"text\" placeholder=\"   密码\"/>\n" +
+            "                                    </div>\n" +
+            "                                    <div class=\"enter-forget-password\">\n" +
+            "                                        <a href=\"www.baidu.com\">忘记密码</a>\n" +
+            "                                    </div>\n" +
+            "                                    <div class=\"enter-button\">\n" +
+            "                                        <input type=\"button\" value=\"登   录\" />\n" +
+            "                                    </div>"
+        $("#loggin-div").html(html);
+
+        // 修改框大小
+        $("#login-body-info").height("398px");
+        $("#loggin-div").height("250px");
+
+    }
+
+
+    flushEwm();
+
+    /**
+     * 二维码蒙版
+     * 点击按钮刷新或页面加载时执行
+     */
+    function flushEwm() {
+        console.log("点击事件");
+        // 隐藏二维码蒙版
+        $("#ewm-mask").css("display", "none");
+
+        wemTimeOutId = setTimeout(function () {
+            // 启动二维码蒙版
+            $("#ewm-mask").css("display", "flex");
+            ewmIsExpired = true;
+            clearTimeout(wemTimeOutId);
+        }, EWM_EXPIRED);
+    }
+
+
+</script>
+
+</body>
+</html>
