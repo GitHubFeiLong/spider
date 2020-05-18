@@ -19,6 +19,8 @@ public class RegistController {
     @Autowired
     private AmqpTemplate rabbitTemplate;
 
+    @Autowired
+    private HelloReceive helloReceive;
 
     @RequestMapping("/send")
     public String send(){
