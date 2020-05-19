@@ -1,6 +1,7 @@
 package com.cfl.myproject.controller;
 
 import com.cfl.myproject.config.HelloReceive;
+import com.cfl.myproject.config.RabbitMQConfig;
 import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.amqp.rabbit.annotation.RabbitHandler;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
@@ -26,7 +27,7 @@ public class RegistController {
     public String send(){
         String context = "hello:" + LocalDate.now();
         System.out.println("Sender : " + context);
-        this.rabbitTemplate.convertAndSend("hello", context);
+        this.rabbitTemplate.convertAndSend(RabbitMQConfig.USER_REGIST_QUEUE, context);
         return "helle";
     }
 

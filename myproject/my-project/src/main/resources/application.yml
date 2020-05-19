@@ -2,6 +2,8 @@ server:
   port: 8000
 
 spring:
+  application:
+    name: cfl-jd
   datasource:
     url: jdbc:mysql://localhost:3306/hungry
     username: root
