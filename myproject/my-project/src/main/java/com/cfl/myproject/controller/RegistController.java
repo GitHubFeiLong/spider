@@ -8,12 +8,14 @@ import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.time.LocalDate;
 
 @Controller
+@RequestMapping("/user")
 @ResponseBody
 public class RegistController {
 
@@ -35,6 +37,18 @@ public class RegistController {
     public String receive(){
 //        helloReceive.process();
         return "接收成功";
+    }
+
+    /*
+    * @GetMapping，处理get请求
+    @PostMapping，处理post请求
+    @PutMapping，处理put请求
+    @DeleteMapping，处理delete请求
+    * */
+    @PutMapping("/registUser")
+    public String registUser(){
+
+        return null;
     }
 
 }
