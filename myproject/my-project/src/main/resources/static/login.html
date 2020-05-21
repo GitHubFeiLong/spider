@@ -324,6 +324,7 @@
             font-size: 14px;
             font-family: '\5b8b\4f53';
             border: 1px solid #eaeaea;
+            padding-left:20px;
         }
 
         #loggin-div .entry-login {
@@ -395,8 +396,8 @@
         }
 
         .zc b {
-            width: 16px;
-            height: 16px;
+            width: 18px;
+            height: 18px;
             display: inline-block;
             position: relative;
             margin-bottom: -3px;
@@ -538,7 +539,7 @@
                                 <div class="zc">
                                     <div>
                                         <b class="icon-zc"></b>
-                                        <span>立即注册</span>
+                                        <span id="regist_span">立即注册</span>
                                     </div>
                                 </div>
                             </div>
@@ -701,17 +702,17 @@
         $("#loggin-div").html("");
         let html = "<div class=\"entry-login\">\n" +
             "                                        <label class=\"bottom-icon\" for=\"login_username\" style=\"background: url('/image/login/pwd-icons-new_01.png')\"></label>\n" +
-            "                                        <input id=\"login_username\" type=\"text\" placeholder=\"   邮箱/用户名/登录手机\"/>\n" +
+            "                                        <input id=\"login_username\" type=\"text\" placeholder=\"邮箱/用户名/登录手机\"/>\n" +
             "                                    </div>\n" +
             "                                    <div class=\"entry-login\">\n" +
             "                                        <label class=\"bottom-icon\" for=\"login_password\" style=\"background: url('/image/login/pwd-icons-new_01.png')\"></label>\n" +
-            "                                        <input id=\"login_password\" type=\"text\" placeholder=\"   密码\"/>\n" +
+            "                                        <input id=\"login_password\" type=\"text\" placeholder=\"密码\"/>\n" +
             "                                    </div>\n" +
             "                                    <div class=\"enter-forget-password\">\n" +
             "                                        <a href=\"www.baidu.com\">忘记密码</a>\n" +
             "                                    </div>\n" +
             "                                    <div class=\"enter-button\">\n" +
-            "                                        <input type=\"button\" value=\"登   录\" />\n" +
+            "                                        <input id='login_button' type=\"button\" value=\"登   录\" />\n" +
             "                                    </div>"
         $("#loggin-div").html(html);
 
@@ -741,7 +742,17 @@
         }, EWM_EXPIRED);
     }
 
+    $("#login-body-info").on("click","#login_button", function(){
+        let loginUsername = $("#login_username").val();
+        let loginPassword = $("#login_password").val();
+        console.log("点击登录");
+    });
 
+    $("#regist_span").click(function(){
+        $("#login-header-row-2").html("");
+        $("#login-header-row-2").html("");
+        console.log("点击注册");
+    })
 </script>
 
 </body>
