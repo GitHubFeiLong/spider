@@ -77,7 +77,7 @@
             padding-top: 10px
         }
 
-        .login-header-center-center, .login-header-center-center-img {
+        .login-header-center-center{
             position: relative;
         }
 
@@ -85,11 +85,13 @@
             padding-left: 60px;
         }
 
-        .login-header-center-center-img {
+        #login-header-center-center-div {
+            font-size: 30px;
+            color: black;
+            font-family: -webkit-body;
+            line-height: 80px;
             position: absolute;
-            margin: auto;
-            top: 20px;
-            bottom: 0;
+            margin-top: 10px;
         }
 
         .login-header-center-right {
@@ -431,6 +433,9 @@
             justify-content: center;
         }
 
+        #regist_span{
+            cursor:pointer;
+         }
 
     </style>
 </head>
@@ -445,7 +450,8 @@
                         <img class="login-header-center-left-img" src="/image/login/logo-20200504-b.png" alt="京东logo"/>
                     </div>
                     <div class="col-md-6 login-header-center-center">
-                        <img class="login-header-center-center-img" src="/image/login/l-icon.png" alt="欢迎登录"/>
+<!--                        <img class="login-header-center-center-img" src="/image/login/l-icon.png" alt="欢迎登录"/>-->
+                        <div id="login-header-center-center-div">欢迎登录</div>
                     </div>
                     <div class="col-md-4 login-header-center-right">
                         <div>
@@ -749,9 +755,7 @@
     });
 
     $("#regist_span").click(function(){
-        $("#login-header-row-2").html("");
-        $("#login-header-row-2").html("");
-        console.log("点击注册");
+        window.location.href = "/regist.html"
     })
 </script>
 

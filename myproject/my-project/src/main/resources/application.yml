@@ -50,4 +50,17 @@ spring:
   #spring.rabbitmq.listener.direct.acknowledge-mode=manual
   #spring.rabbitmq.listener.simple.acknowledge-mode=manual
 
+# mail
+  mail:
+   host: smtp.qq.com
+   username: 1696741038@qq.com
+   password: fnlrignacikzcagc
+   port: 25
+   protocol: smtp
+   default-encoding: UTF-8
+   smtp:
+     connectiontimeout: 5000
+     timeout: 3000
+     writetimeout: 5000
+
 

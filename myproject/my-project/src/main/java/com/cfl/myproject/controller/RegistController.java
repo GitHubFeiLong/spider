@@ -2,6 +2,7 @@ package com.cfl.myproject.controller;
 
 import com.cfl.myproject.config.HelloReceive;
 import com.cfl.myproject.config.RabbitMQConfig;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.amqp.rabbit.annotation.RabbitHandler;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
@@ -17,6 +18,7 @@ import java.time.LocalDate;
 @Controller
 @RequestMapping("/user")
 @ResponseBody
+@Slf4j
 public class RegistController {
 
     @Autowired
@@ -49,6 +51,19 @@ public class RegistController {
     public String registUser(){
 
         return null;
+    }
+
+    @RequestMapping("/registSendEmail")
+    public String sendCodeToEmail(String email){
+        log.info("进入：" + email);
+        return null;
+    }
+
+    // 发送邮件
+    @RequestMapping("/sendEmail")
+    public String sendEmail(){
+
+        return "hello email";
     }
 
 }
