@@ -55,12 +55,23 @@ spring:
    host: smtp.qq.com
    username: 1696741038@qq.com
    password: fnlrignacikzcagc
-   port: 25
+   port: 587 #端口号465或587
    protocol: smtp
    default-encoding: UTF-8
    smtp:
      connectiontimeout: 5000
      timeout: 3000
      writetimeout: 5000
+
+
+
+mybatis:
+  mapper-locations: classpath:com/cfl/myproject/dao/mapper/*.xml
+#  type-aliases-package: com.example.entity
+
+
+customize:
+  exception:
+   email: 603088455@qq.com
 
 

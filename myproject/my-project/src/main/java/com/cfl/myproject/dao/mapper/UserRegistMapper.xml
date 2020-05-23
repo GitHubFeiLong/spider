@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cfl.myproject.dao.UserRegistDao">
+
+
+    <insert id="insertUser" parameterType="com.cfl.myproject.entity.User">
+        insert into jd.user(id,username, email, ip,create_time) value(null,#{username}, #{email}, #{ip}, #{createTime});
+    </insert>
+</mapper>

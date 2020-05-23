@@ -1,19 +1,20 @@
 package com.cfl.myproject.controller;
 
-import com.cfl.myproject.config.HelloReceive;
-import com.cfl.myproject.config.RabbitMQConfig;
+import com.cfl.myproject.config.ApplicationValue;
+import com.cfl.myproject.service.RegistService;
+import com.cfl.myproject.util.IpAddressUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.AmqpTemplate;
-import org.springframework.amqp.rabbit.annotation.RabbitHandler;
-import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.time.LocalDate;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.util.HashMap;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/user")
@@ -22,24 +23,14 @@ import java.time.LocalDate;
 public class RegistController {
 
     @Autowired
-    private AmqpTemplate rabbitTemplate;
+    private RegistService registService;
 
     @Autowired
-    private HelloReceive helloReceive;
+    private HttpSession httpSession;
 
-    @RequestMapping("/send")
-    public String send(){
-        String context = "hello:" + LocalDate.now();
-        System.out.println("Sender : " + context);
-        this.rabbitTemplate.convertAndSend(RabbitMQConfig.USER_REGIST_QUEUE, context);
-        return "helle";
-    }
+    @Autowired
+    private HttpServletRequest httpServletRequest;
 
-    @RequestMapping("/receive")
-    public String receive(){
-//        helloReceive.process();
-        return "接收成功";
-    }
 
     /*
     * @GetMapping，处理get请求
@@ -47,23 +38,36 @@ public class RegistController {
     @PutMapping，处理put请求
     @DeleteMapping，处理delete请求
     * */
-    @PutMapping("/registUser")
+    /*@PutMapping("/registUser")
     public String registUser(){
 
         return null;
-    }
+    }*/
 
+    /**
+     * 发送 验证码
+     * @param email
+     * @return
+     */
     @RequestMapping("/registSendEmail")
-    public String sendCodeToEmail(String email){
+    public Map sendCodeToEmail(String email){
+        Map<String, Object> msgMap = new HashMap();
         log.info("进入：" + email);
-        return null;
+        registService.sendCaptcha(email);
+        String ip = IpAddressUtil.getIpAddress(httpServletRequest);
+        log.info(ip);
+        msgMap.put("code", 200);
+        return msgMap;
     }
 
-    // 发送邮件
-    @RequestMapping("/sendEmail")
-    public String sendEmail(){
 
-        return "hello email";
+    @RequestMapping("/registUser")
+    public Map registUser(String registUsername, String registPin){
+        Map<String, Object> msgMap = new HashMap();
+        msgMap.put("code", 200);
+        log.info(registUsername);
+        log.info(registPin);
+        registService.registUser(registUsername, registPin);
+        return msgMap;
     }
-
 }

@@ -226,11 +226,13 @@
             width:300px;
             height:46px;
             padding-left: 20px;
+            font-size:18px;
         }
         #regist-pin{
             width:300px;
             height:46px;
             padding-left: 20px;
+            font-size:18px;
         }
         #regist-one-div{
             width: 400px;
@@ -428,6 +430,10 @@
         }
     });
 
+    /**
+     * 发送邮件
+     * @returns {boolean}
+     */
     function sendEmail(){
         let registUsername = $("#regist-username").val();
         if(registUsername == "" || registUsername == null){
@@ -443,9 +449,22 @@
             $("#regist-username-error").addClass("error");
         } else {
             $("#prompt-head-circle-1").css("background", "#46cd4c");
-            $("#regist-username-error").html("已发送邮件请查收");
+            $("#regist-username-error").html("已发送邮件请查收 <span id='email-span'></span> ");
             $("#regist-username-error").removeClass("error");
             $("#regist-username-error").addClass("success");
+            $("#regist-username").attr("disabled", "disabled");
+
+            let second = 3000;
+            let intervalId = setInterval(function(){
+                $("#email-span").text(second);
+                if(second == 0){
+                    clearInterval(intervalId);
+                    $("#regist-username").removeAttr("disabled");
+                    $("#regist-username-error").html("请输入邮箱");
+                }else {
+                    second--;
+                }
+            },1000);
             // 异步发送邮件
             $.ajax({
                 url:"/user/registSendEmail",
@@ -453,11 +472,9 @@
                 type:"post",
                 dataType:"json",
                 success:function (data) {
-
+                    console.log(data);
                 },
             });
-
-
         }
     }
 
@@ -469,6 +486,10 @@
         }
     });
 
+    /**
+     * 输入验证码 进行验证
+     * @returns {boolean}
+     */
     function regist(){
         let registUsername = $("#regist-username").val();
         let registPin = $("#regist-pin").val();
@@ -478,7 +499,15 @@
             $("#regist-pin-error").addClass("error");
             return false;
         } else {
-            // 后端判断 pin
+            $.ajax({
+                url:"/user/registUser",
+                data: {"registUsername":registUsername, "registPin":registPin},
+                type:"post",
+                dataType:"json",
+                success:function(data){
+                    console.log(data);
+                }
+            })
 
         }
 
