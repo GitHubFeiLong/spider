@@ -292,8 +292,6 @@
                     </div>
                     <div class="col-md-4 login-header-center-right">
                         <div id="head-right-div">
-                           <!-- <img class="login-header-center-right-img" src="/image/login/q-icon.png" alt="登录页面评价"/>
-                            <a href="javascript:void(0);" onclick="alert('do not')">登录页面，调查问卷</a>-->
                             已有账号？&nbsp;&nbsp;<a href="javascript:void(0);" style="color:red;" onclick="window.location.href='/login.html'">请登录&gt;</a>
                         </div>
                     </div>
@@ -316,7 +314,7 @@
                                 </div>
                                 <div>
                                     <div id="prompt-head-circle-2" style="margin-top: -40px; width: 170px;">
-                                        <img style="width:100%" src="/image/regist/reg-icon_02.png" alt="箭头">
+                                        <img id="prompt-head-arrow1" style="width:100%" src="/image/regist/reg-icon_02.png" alt="箭头">
                                     </div>
                                 </div>
                                 <div id="prompt-success">
@@ -327,14 +325,14 @@
                             <div class="regist-one">
                                 <div id="regist-one-div">
                                     <label class="regist-username-label" for="regist-username" style="background: url('/image/login/pwd-icons-new_01.png')"></label>
-                                    <input id="regist-username" type="text" placeholder="邮箱"/>
+                                    <input id="regist-username" type="text" placeholder="请输入邮箱后回车接收验证码"/>
                                 </div>
                                 <div class="regist-error" id="regist-username-error">邮箱格式错误</div>
                             </div>
                             <div class="regist-two">
                                 <div id="regist-two-div">
                                     <label class="regist-pin-label" for="regist-pin" style="background: url('/image/login/pwd-icons-new_01.png')"></label>
-                                    <input id="regist-pin" type="text" placeholder="验证码"/>
+                                    <input id="regist-pin" type="text" placeholder="请输入验证码"/>
                                 </div>
                                 <div class="regist-error" id="regist-pin-error">验证码错误</div>
                             </div>
@@ -416,7 +414,7 @@
      * 注册
      */
     $("#regis-btn").click(function(){
-
+        regist()
     })
 
 
@@ -448,13 +446,14 @@
             $("#regist-username-error").removeClass("success");
             $("#regist-username-error").addClass("error");
         } else {
+            $("#prompt-head-arrow1").attr("src", "/image/regist/reg-icon_05.png")
             $("#prompt-head-circle-1").css("background", "#46cd4c");
             $("#regist-username-error").html("已发送邮件请查收 <span id='email-span'></span> ");
             $("#regist-username-error").removeClass("error");
             $("#regist-username-error").addClass("success");
             $("#regist-username").attr("disabled", "disabled");
 
-            let second = 3000;
+            let second = 300;
             let intervalId = setInterval(function(){
                 $("#email-span").text(second);
                 if(second == 0){
@@ -494,8 +493,15 @@
         let registUsername = $("#regist-username").val();
         let registPin = $("#regist-pin").val();
         // 前端只判断是否为空
-        if(registPin == "" || registPin == null){
+        if(registUsername == "" || registUsername == null){
+            $("#prompt-head-circle-1").css("background", "#9e9e9e");
+            $("#regist-username-error").html("请输入邮箱");
+            $("#regist-username-error").removeClass("success");
+            $("#regist-username-error").addClass("error");
+            return false;
+        }else if(registPin == "" || registPin == null){
             $("#regist-pin-error").html("请输入验证码");
+            $("#regist-username-error").removeClass("success");
             $("#regist-pin-error").addClass("error");
             return false;
         } else {
@@ -506,6 +512,19 @@
                 dataType:"json",
                 success:function(data){
                     console.log(data);
+                    console.log(data.code);
+                    if(data.code == 200 ){
+                        if(data.captchaMatch){
+                            $("#regist-pin-error").html("验证码输入正确");
+                            $("#regist-username-error").removeClass("error");
+                            $("#regist-pin-error").addClass("success");
+                            window.location.href = "/login.html";
+                        } else {
+                            $("#regist-pin-error").html("验证码输入错误");
+                            $("#regist-username-error").removeClass("success");
+                            $("#regist-pin-error").addClass("error");
+                        }
+                    }
                 }
             })
 

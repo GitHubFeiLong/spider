@@ -70,7 +70,8 @@ public class RegistServiceImpl implements RegistService {
      * @param captcha
      */
     @Override
-    public void registUser(String email, String captcha) {
+    public boolean registUser(String email, String captcha) {
+        boolean boo = false;
         // redis 取
         String verCode = (String) redisUtil.get(REGIST_CAPTCHA + httpSession.getId());
         // 验证码 与 用户输入的验证码 比较
@@ -86,10 +87,11 @@ public class RegistServiceImpl implements RegistService {
             user.setStatus(0);
             user.setCreateTime(GetNowUtil.getDateTime());
             userRegistDao.insertUser(user);
-
+            boo = true;
         } else {
-
+            boo = false;
         }
+        return boo;
     }
 
 

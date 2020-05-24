@@ -8,5 +8,5 @@ public interface RegistService {
      */
     void sendCaptcha(String receiver);
 
-    void registUser(String email, String captcha);
+    boolean registUser(String email, String captcha);
 }

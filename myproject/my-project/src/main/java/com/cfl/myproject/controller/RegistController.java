@@ -65,9 +65,11 @@ public class RegistController {
     public Map registUser(String registUsername, String registPin){
         Map<String, Object> msgMap = new HashMap();
         msgMap.put("code", 200);
+//        msgMap.put("");
         log.info(registUsername);
         log.info(registPin);
-        registService.registUser(registUsername, registPin);
+        boolean boo = registService.registUser(registUsername, registPin);
+        msgMap.put("captchaMatch", boo);
         return msgMap;
     }
 }
