@@ -44,6 +44,13 @@ public class RegistController {
         return null;
     }*/
 
+    @RequestMapping("/test")
+    public String test(){
+        log.info("进入测试log4j2");
+        log.error("进入测试log4j2");
+        return "hello log4j";
+    }
+
     /**
      * 发送 验证码
      * @param email

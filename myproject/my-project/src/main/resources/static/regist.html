@@ -318,7 +318,7 @@
                                     </div>
                                 </div>
                                 <div id="prompt-success">
-                                    <div class="prompt-head-circle">2</div>
+                                    <div id="prompt-head-circle-3" class="prompt-head-circle">2</div>
                                     注册成功
                                 </div>
                             </div>
@@ -515,10 +515,12 @@
                     console.log(data.code);
                     if(data.code == 200 ){
                         if(data.captchaMatch){
+                            $("#prompt-head-circle-3").css("background", "#46cd4c");
                             $("#regist-pin-error").html("验证码输入正确");
                             $("#regist-username-error").removeClass("error");
                             $("#regist-pin-error").addClass("success");
-                            window.location.href = "/login.html";
+                            setTimeout(function(){window.location.href = "/login.html";}, 1000);
+
                         } else {
                             $("#regist-pin-error").html("验证码输入错误");
                             $("#regist-username-error").removeClass("success");
