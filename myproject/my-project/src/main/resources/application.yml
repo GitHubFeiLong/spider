@@ -5,7 +5,7 @@ spring:
   application:
     name: cfl-jd
   datasource:
-    url: jdbc:mysql://localhost:3306/hungry
+    url: jdbc:mysql://localhost:3306/jd
     username: root
     password: 123456
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -69,6 +69,13 @@ mybatis:
   mapper-locations: classpath:com/cfl/myproject/dao/mapper/*.xml
 #  type-aliases-package: com.example.entity
 
+
+ #                         __                .--
+ #    ____  __ __  ____   /  |_  ___   _____ |__|_______ ____
+ # _/ ___\|  |  \/  ___/\_ _ __\/ _ \ /     \|  \___   // __ \
+ # \  \___|  |  /\___ \  |  | (  <_> )  Y Y  \  |/    /\  ___/
+ # \___  >____//____  >  |__|  \____/|__|_|  /__/_____ \\___ >
+ #     \/           \/                    \/          \/    \/
 
 customize:
   exception:

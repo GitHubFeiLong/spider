@@ -712,13 +712,13 @@
             "                                    </div>\n" +
             "                                    <div class=\"entry-login\">\n" +
             "                                        <label class=\"bottom-icon\" for=\"login_password\" style=\"background: url('/image/login/pwd-icons-new_01.png')\"></label>\n" +
-            "                                        <input id=\"login_password\" type=\"text\" placeholder=\"密码\"/>\n" +
+            "                                        <input id=\"login_password\" type=\"text\" placeholder=\"密码\" autocomplete=\"off\"/>\n" +
             "                                    </div>\n" +
             "                                    <div class=\"enter-forget-password\">\n" +
             "                                        <a href=\"www.baidu.com\">忘记密码</a>\n" +
             "                                    </div>\n" +
             "                                    <div class=\"enter-button\">\n" +
-            "                                        <input id='login_button' type=\"button\" value=\"登   录\" />\n" +
+            "                                        <input id='login_button' type=\"button\" value=\"登   录\" onclick='login()'/>\n" +
             "                                    </div>"
         $("#loggin-div").html(html);
 
@@ -757,6 +757,28 @@
     $("#regist_span").click(function(){
         window.location.href = "/regist.html"
     })
+</script>
+<script>
+    // 登录
+    function login(){
+        let loginUsername =  $("#login_username").val();
+        let loginPassword = $("#login_password").val();
+        if(loginUsername == "" || loginUsername == null) {
+            alert("请输入用户名");
+        } else if(loginPassword == "" || loginPassword == null){
+            alert("请输入密码");
+        } else {
+            $.ajax({
+                url:"/user/login",
+                data:{"loginUsername":loginUsername, "loginPassword":loginPassword},
+                type:"post",
+                dataType:"json",
+                success:function(data){
+                    console.log(data);
+                }
+            })
+        }
+    }
 </script>
 
 </body>

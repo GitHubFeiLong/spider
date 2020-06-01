@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -30,19 +32,6 @@ public class RegistController {
 
     @Autowired
     private HttpServletRequest httpServletRequest;
-
-
-    /*
-    * @GetMapping，处理get请求
-    @PostMapping，处理post请求
-    @PutMapping，处理put请求
-    @DeleteMapping，处理delete请求
-    * */
-    /*@PutMapping("/registUser")
-    public String registUser(){
-
-        return null;
-    }*/
 
     @RequestMapping("/test")
     public String test(){
@@ -68,15 +57,39 @@ public class RegistController {
     }
 
 
+    /**
+     * 注册账号
+     * @param registUsername
+     * @param registPin
+     * @return
+     */
     @RequestMapping("/registUser")
-    public Map registUser(String registUsername, String registPin){
-        Map<String, Object> msgMap = new HashMap();
-        msgMap.put("code", 200);
-//        msgMap.put("");
+    public Map registUser(String registUsername, String registPassword, String registPin) throws Exception {
+        Map<String, Object> controllerMap = new HashMap();
+        controllerMap.put("code", 200);
         log.info(registUsername);
         log.info(registPin);
-        boolean boo = registService.registUser(registUsername, registPin);
-        msgMap.put("captchaMatch", boo);
-        return msgMap;
+        boolean boo = registService.registUser(registUsername, registPassword, registPin);
+        controllerMap.put("captchaMatch", boo);
+        return controllerMap;
+    }
+
+
+    /**
+     * 登录
+     * 有三种状态：第一种直接登录成功
+     *          第二种账号不存在
+     *          第三种账号密码不匹配
+     * @param loginUsername
+     * @param loginPassword
+     * @return
+     */
+    @RequestMapping("/login")
+    public Map login(String loginUsername, String loginPassword) throws Exception {
+        Map<String, Object> controllerMap = new HashMap();
+        controllerMap.put("code", 200);
+        Map serviceMap = registService.userLogin(loginUsername, loginPassword);
+        controllerMap.putAll(serviceMap);
+       return controllerMap;
     }
 }

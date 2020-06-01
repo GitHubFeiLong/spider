@@ -1,15 +1,19 @@
 package com.cfl.myproject.entity;
 
+import lombok.Data;
+
+import java.util.Date;
 import java.io.Serializable;
 
 /**
- * (User)实体类
+ * 用户表(User)实体类
  *
  * @author makejava
- * @since 2020-05-23 21:09:07
+ * @since 2020-05-30 16:18:44
  */
+@Data
 public class User implements Serializable {
-    private static final long serialVersionUID = 445129826210204759L;
+    private static final long serialVersionUID = -86622663040604873L;
     /**
     * 主键id
     */
@@ -23,6 +27,10 @@ public class User implements Serializable {
     */
     private String password;
     /**
+    * 随机盐
+    */
+    private String salt;
+    /**
     * 电话
     */
     private String phone;
@@ -31,13 +39,17 @@ public class User implements Serializable {
     */
     private String email;
     /**
-    * ip地址
-    */
-    private String ip;
-    /**
     * 数据的状态（0表示正常，-1表示删除）
     */
     private Integer status;
+    /**
+    * 最后登录ip地址
+    */
+    private String ip;
+    /**
+    * 最后登录时间
+    */
+    private String lastLoginTime;
     /**
     * 创建时间
     */
@@ -49,87 +61,9 @@ public class User implements Serializable {
     /**
     * 更新时间
     */
-    private String upStringTime;
+    private String updateTime;
 
 
-    public Integer getId() {
-        return id;
-    }
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getIp() {
-        return ip;
-    }
-
-    public void setIp(String ip) {
-        this.ip = ip;
-    }
-
-    public Integer getStatus() {
-        return status;
-    }
-
-    public void setStatus(Integer status) {
-        this.status = status;
-    }
-
-    public String getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(String createTime) {
-        this.createTime = createTime;
-    }
-
-    public String getDeleteTime() {
-        return deleteTime;
-    }
-
-    public void setDeleteTime(String deleteTime) {
-        this.deleteTime = deleteTime;
-    }
-
-    public String getUpStringTime() {
-        return upStringTime;
-    }
-
-    public void setUpStringTime(String upStringTime) {
-        this.upStringTime = upStringTime;
-    }
 
 }
