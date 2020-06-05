@@ -114,6 +114,7 @@ public class RegistServiceImpl implements RegistService {
         // 1. 先查询用户信息
         User user = userRegistDao.selectUserByNameOrEmailOrPhone(loginUsername);
         String msg = "用户不存在";    // 具体信息，默认登录用户不存在
+        String code = "";
         boolean passwordIsSame = false; // false 表示不能登录
         // 2.判断用户是否存在
         if(!ObjectUtils.isEmpty(user)){
@@ -124,6 +125,7 @@ public class RegistServiceImpl implements RegistService {
             passwordIsSame = PasswordEncryption.authenticate(loginPassword, password, salt);
             if(passwordIsSame){
                 msg = "登录验证通过";
+                code = applicationValue.getUserPasswordMatch();
                 String emailSubject = "欢迎注册账号";
                 String emailContext = "尊敬的用户,您好:\n"
                         + "\n欢迎登录XXX(这是一封自动发送的邮件，请不要直接回复）\n" + LocalDateTime.now().toLocalDate() + "-" + LocalDateTime.now().toLocalTime();
@@ -131,9 +133,14 @@ public class RegistServiceImpl implements RegistService {
                 emailUtil.sendSimpleEmail(applicationValue.getSenderEmail(), user.getEmail(), emailSubject, emailContext);
             } else {
                 msg = "密码错误";
+                code = applicationValue.getUserWrongPassword();
             }
+        } else {
+            code = applicationValue.getUserNotExist();
         }
 
+
+        serviceMap.put("code", code);
         serviceMap.put("isSame", passwordIsSame);
         serviceMap.put("message", msg);
 

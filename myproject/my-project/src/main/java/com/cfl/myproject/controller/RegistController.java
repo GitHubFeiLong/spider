@@ -52,7 +52,7 @@ public class RegistController {
         registService.sendCaptcha(email);
         String ip = IpAddressUtil.getIpAddress(httpServletRequest);
         log.info(ip);
-        msgMap.put("code", 200);
+        msgMap.put("responseCode", 200);
         return msgMap;
     }
 
@@ -66,7 +66,7 @@ public class RegistController {
     @RequestMapping("/registUser")
     public Map registUser(String registUsername, String registPassword, String registPin) throws Exception {
         Map<String, Object> controllerMap = new HashMap();
-        controllerMap.put("code", 200);
+        controllerMap.put("responseCode", 200);
         log.info(registUsername);
         log.info(registPin);
         boolean boo = registService.registUser(registUsername, registPassword, registPin);
@@ -87,7 +87,7 @@ public class RegistController {
     @RequestMapping("/login")
     public Map login(String loginUsername, String loginPassword) throws Exception {
         Map<String, Object> controllerMap = new HashMap();
-        controllerMap.put("code", 200);
+        controllerMap.put("responseCode", 200);
         Map serviceMap = registService.userLogin(loginUsername, loginPassword);
         controllerMap.putAll(serviceMap);
        return controllerMap;

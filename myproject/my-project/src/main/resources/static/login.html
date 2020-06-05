@@ -610,7 +610,7 @@
 </div>
 
 <script>
-    const EWM_EXPIRED = 1000;//二维码过期时间
+    const EWM_EXPIRED = 10000;//二维码过期时间
     var ewmIsExpired = false;//默认未过期
     var wemItervalId;
     var wemTimeOutId;
@@ -707,12 +707,12 @@
 
         $("#loggin-div").html("");
         let html = "<div class=\"entry-login\">\n" +
-            "                                        <label class=\"bottom-icon\" for=\"login_username\" style=\"background: url('/image/login/pwd-icons-new_01.png')\"></label>\n" +
+            "                                        <label id='login_username_label' class=\"bottom-icon\" for=\"login_username\" style=\"background: url('/image/login/pwd-icons-new_01.png')\"></label>\n" +
             "                                        <input id=\"login_username\" type=\"text\" placeholder=\"邮箱/用户名/登录手机\"/>\n" +
             "                                    </div>\n" +
             "                                    <div class=\"entry-login\">\n" +
-            "                                        <label class=\"bottom-icon\" for=\"login_password\" style=\"background: url('/image/login/pwd-icons-new_01.png')\"></label>\n" +
-            "                                        <input id=\"login_password\" type=\"text\" placeholder=\"密码\" autocomplete=\"off\"/>\n" +
+            "                                        <label id='login_password_label' class=\"bottom-icon\" for=\"login_password\" style=\"background: url('/image/login/pwd-icons-new_03.png')\"></label>\n" +
+            "                                        <input id=\"login_password\" type=\"password\" placeholder=\"密码\" autocomplete=\"off\"/>\n" +
             "                                    </div>\n" +
             "                                    <div class=\"enter-forget-password\">\n" +
             "                                        <a href=\"www.baidu.com\">忘记密码</a>\n" +
@@ -763,11 +763,11 @@
     function login(){
         let loginUsername =  $("#login_username").val();
         let loginPassword = $("#login_password").val();
-        if(loginUsername == "" || loginUsername == null) {
-            alert("请输入用户名");
-        } else if(loginPassword == "" || loginPassword == null){
-            alert("请输入密码");
-        } else {
+
+        let boo1 = checkUsernameIsNull(loginUsername);
+        let boo2 = checkPasswordIsNull(loginPassword);
+
+        if(boo1 && boo2) {
             $.ajax({
                 url:"/user/login",
                 data:{"loginUsername":loginUsername, "loginPassword":loginPassword},
@@ -777,6 +777,26 @@
                     console.log(data);
                 }
             })
+        }
+    }
+
+    function checkUsernameIsNull(loginUsername){
+        if(loginUsername == "" || loginUsername == null) {
+            $("#login_username_label").css("background","url('/image/login/pwd-icons-new_02.png')")
+            return false;
+        } else {
+            $("#login_username_label").css("background","url('/image/login/pwd-icons-new_01.png')")
+            return true;
+        }
+    }
+
+    function checkPasswordIsNull(loginPassword){
+        if(loginPassword == "" || loginPassword == null){
+            $("#login_password_label").css("background","url('/image/login/pwd-icons-new_04.png')")
+            return false;
+        } else {
+            $("#login_password_label").css("background","url('/image/login/pwd-icons-new_03.png')")
+            return true;
         }
     }
 </script>

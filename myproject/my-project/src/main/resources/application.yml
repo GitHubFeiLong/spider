@@ -5,7 +5,7 @@ spring:
   application:
     name: cfl-jd
   datasource:
-    url: jdbc:mysql://localhost:3306/jd
+    url: jdbc:mysql://localhost:3306/jd?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
     username: root
     password: 123456
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -53,8 +53,10 @@ spring:
 # mail
   mail:
    host: smtp.qq.com
-   username: 1696741038@qq.com
-   password: fnlrignacikzcagc
+#   username: 1696741038@qq.com
+#   password: fnlrignacikzcagc
+   username: 603088455@qq.com
+   password: jxhfoesryuafbdgh
    port: 587 #端口号465或587
    protocol: smtp
    default-encoding: UTF-8
@@ -69,8 +71,10 @@ mybatis:
   mapper-locations: classpath:com/cfl/myproject/dao/mapper/*.xml
 #  type-aliases-package: com.example.entity
 
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
- #                         __                .--
+  #                         __                .--
  #    ____  __ __  ____   /  |_  ___   _____ |__|_______ ____
  # _/ ___\|  |  \/  ___/\_ _ __\/ _ \ /     \|  \___   // __ \
  # \  \___|  |  /\___ \  |  | (  <_> )  Y Y  \  |/    /\  ___/
@@ -80,5 +84,12 @@ mybatis:
 customize:
   exception:
    email: 603088455@qq.com
+   code:
+     user_password_match: 600 #用户名和密码匹配
+     user_not_exist: 601  #用户不存在
+     user_wrong_password: 602  #密码错误
+
+
+
 
 
