@@ -83,7 +83,7 @@ mybatis:
 
 customize:
   exception:
-   email: 603088455@qq.com
+   email: 1696741038@qq.com
    code:
      user_password_match: 600 #用户名和密码匹配
      user_not_exist: 601  #用户不存在
