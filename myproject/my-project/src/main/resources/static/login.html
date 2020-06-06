@@ -447,7 +447,7 @@
             <div id="login-header-center" class="container">
                 <div class="row">
                     <div class="col-md-2 login-header-center-left">
-                        <img class="login-header-center-left-img" src="/image/login/logo-20200504-b.png" alt="京东logo"/>
+                        <img class="login-header-center-left-img" src="/image/login/logo-20200504-b.png" alt="狗东logo"/>
                     </div>
                     <div class="col-md-6 login-header-center-center">
 <!--                        <img class="login-header-center-center-img" src="/image/login/l-icon.png" alt="欢迎登录"/>-->
@@ -466,7 +466,7 @@
     </div>
     <div id="login-header-row-2" class="row">
         <div class="col-md-12">
-            <i></i>依据《网络安全法》，为保障您的账户安全和正常使用，请尽快完成手机号验证！ 新版《京东隐私政策》已上线，将更有利于保护您的个人隐私。
+            <i></i>依据《网络安全法》，为保障您的账户安全和正常使用，请尽快完成手机号验证！ 新版《狗东隐私政策》已上线，将更有利于保护您的个人隐私。
         </div>
     </div>
     <div id="login-header-row-3" class="row">
@@ -477,7 +477,7 @@
                     <div class="col-md-7 login-body-bg">
                         <div id="login-body-info">
                             <div class="head">
-                                <i></i>京东不会以任何理由要求您转账汇款，谨防诈骗。
+                                <i></i>狗东不会以任何理由要求您转账汇款，谨防诈骗。
                             </div>
                             <div>
                                 <div>
@@ -510,7 +510,7 @@
                                     </div>
                                 </div>
                                 <div class="ewm-bottom">
-                                    打开<span>手机京东</span> &nbsp;扫描二维码
+                                    打开<span>手机狗东</span> &nbsp;扫描二维码
                                 </div>
                                 <div class="ewm-features">
                                     <div>
@@ -658,7 +658,7 @@
                 </div>
                 </div>
                 <div class="ewm-bottom">
-                打开<span>手机京东</span> &nbsp;扫描二维码
+                打开<span>手机狗东</span> &nbsp;扫描二维码
                 </div>
                 <div class="ewm-features">
                 <div>
@@ -758,7 +758,7 @@
     })
 </script>
 <script>
-    // 登录
+    // 点击登录
     function login(){
         let loginUsername =  $("#login_username").val();
         let loginPassword = $("#login_password").val();
@@ -773,12 +773,35 @@
                 type:"post",
                 dataType:"json",
                 success:function(data){
-                    console.log(data);
+                    /**
+                     * 600  #用户名和密码匹配
+                     * 601  #用户不存在
+                     * 602  #密码错误
+                     */
+                    switch(Number(data.responseCode)){
+                        case 600:
+                            console.log("登录成功");
+                            break;
+                        case 601:
+                            $("#login_username_label").css("background", "url('/image/login/pwd-icons-new_02.png')")
+                            alert(data.message);
+                            break;
+                        case 602:
+                            $("#login_password_label").css("background", "url('/image/login/pwd-icons-new_04.png')")
+                            alert(data.message);
+                            break;
+                    }
+
                 }
             })
         }
     }
 
+    /**
+     * 检查用户名
+     * @param loginUsername
+     * @returns {boolean}
+     */
     function checkUsernameIsNull(loginUsername){
         if(loginUsername == "" || loginUsername == null) {
             $("#login_username_label").css("background","url('/image/login/pwd-icons-new_02.png')")
@@ -789,6 +812,11 @@
         }
     }
 
+    /**
+     * 检查密码
+     * @param loginPassword
+     * @returns {boolean}
+     */
     function checkPasswordIsNull(loginPassword){
         if(loginPassword == "" || loginPassword == null){
             $("#login_password_label").css("background","url('/image/login/pwd-icons-new_04.png')")
