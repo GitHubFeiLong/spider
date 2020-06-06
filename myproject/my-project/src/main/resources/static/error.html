@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>错误</title>
+    <link rel="stylesheet" href="/bootstrap-4.4.1-dist/css/bootstrap.css">
+    <!--    标题栏：-->
+    <link rel="icon" href="/image/icon/title.ico" type="image/x-icon">
+
+    <script src="/js/jquery/jquery-3.4.1.min.js" type="text/javascript"></script>
+    <script src="/bootstrap-4.4.1-dist/js/bootstrap.js" type="text/javascript"></script>
+
+    <style>
+        :root {
+            --body-background: linear-gradient(180deg, #b7333340, rgba(21, 254, 82, 0));
+            --login-prompt-bgcolor: #fff8f0;
+        }
+
+        body {
+            margin: 0px;
+            padding: 0px;
+            width: 100%;
+            height: auto;
+            background: white;
+            color: #999;
+            font: 12px/150% Arial, Verdana, "\5b8b\4f53";
+            font-style: normal;
+            font-variant-ligatures: normal;
+            font-variant-caps: normal;
+            font-variant-numeric: normal;
+            font-variant-east-asian: normal;
+            font-weight: normal;
+            font-stretch: normal;
+            font-size: 12px;
+            line-height: 150%;
+            font-family: Arial, Verdana, 宋体;
+        }
+
+        #error-header {
+            width: 100%;
+            height: 80px;
+        }
+
+        .row {
+            height: 100%;
+            display: -ms-flexbox;
+            display: flex;
+            -ms-flex-wrap: wrap;
+            flex-wrap: wrap;
+            /*margin-right: 0px !important;*/
+            /*margin-left: 0px !important;*/
+        }
+
+        #error-header-row-1 {
+            height: 110px;
+            box-shadow: -4px 3px 11px 2px;
+        }
+
+
+
+        a {
+            color: #666;
+            text-decoration: none;
+        }
+
+        #error-header-center {
+            height: 100%;
+        }
+
+        .error-header-center-left {
+            padding-left: 55px;
+        }
+
+        .error-header-center-left-img {
+            padding-top: 10px
+        }
+
+        .error-header-center-center{
+            position: relative;
+        }
+
+        .error-header-center-center {
+            padding-left: 60px;
+        }
+
+        #error-header-center-center-div {
+            font-size: 30px;
+            color: black;
+            font-family: -webkit-body;
+            line-height: 80px;
+            position: absolute;
+            margin-top: 10px;
+            margin-left: 10px;
+        }
+
+        .error-header-center-right {
+            display: flex;
+            align-items: flex-end;
+            padding-bottom: 10px;
+            padding-left: 160px;
+
+        }
+
+        .error-header-center-right > div {
+            width: 100%;
+            height: 18px;
+        }
+
+        #error-header-row-2 i {
+            width: 16px;
+            height: 16px;
+            display: inline-block;
+            margin-right: 10px;
+            margin-bottom: -3px;
+            background-image: url("/image/login/icon-tips.png");
+        }
+
+        #error-header-row-3 {
+            height: 475px;
+            margin-top: 50px;
+        }
+
+
+
+        .lxfs-div b {
+            width: 19px;
+            height: 18px;
+            display: inline-block;
+            position: relative;
+            margin-bottom: -3px;
+
+        }
+
+        .enter-button input {
+            border: 1px solid #e85356;
+            width: 303px;
+            height: 33px !important;
+            background: #e4393c;
+            line-height: 31px;
+            color: #fff;
+            font-size: 20px;
+            font-family: 'Microsoft YaHei';
+        }
+
+        .links a {
+            margin: 0px 10px 0px 10px;
+        }
+
+        #foot {
+            display: flex;
+            align-items: center;
+            justify-content: space-evenly;
+            height: 90px;
+            flex-direction: column;
+        }
+
+        #head-right-div{
+            position: relative;
+            margin-bottom: 19px;
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        #prompt-head > div{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+
+        #error-header-row-4{
+            margin-top: 200px;
+        }
+
+        #error-main-left-big{
+            display: flex;
+            flex-direction: column;
+            height: 475px;
+            box-shadow: -3px 7px 11px 2px;
+        }
+        #error-main-left-one, #error-main-right-one{
+            width:100%;
+            height: 100px;
+            text-align: center;
+            line-height: 100px;
+            font-size: 24px;
+            font-family: '微软雅黑';
+            color: black;
+            opacity: 0.8;
+        }
+        #error-main-left-two{
+            width: 100%;
+            height: 375px;
+            background: url(/image/error/veer-375301152.jpg);
+            background-repeat: no-repeat;
+            background-position-x: center;
+            background-position-y: center;
+            background-size: contain;
+        }
+        #error-main-right-big{
+            height: 475px;
+            box-shadow: -3px 7px 11px 2px;
+        }
+        #error-main-right-two{
+            width: 100%;
+            height: 375px;
+        }
+        #error-message{
+            height: 100%;
+            font-family: '微软雅黑';
+            font-size: 14px;
+            line-height: 26px;
+        }
+    </style>
+</head>
+<body>
+<div id="error-header" class="container-fluid">
+    <div id="error-header-row-1" class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <div id="error-header-center" class="container">
+                <div class="row">
+                    <div class="col-md-2 error-header-center-left">
+                        <img class="error-header-center-left-img" src="/image/login/logo-20200504-b.png" alt="京东logo"/>
+                    </div>
+                    <div class="col-md-6 error-header-center-center">
+                        <div id="error-header-center-center-div">出错了</div>
+                    </div>
+                    <div class="col-md-4 error-header-center-right">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+    <div id="error-header-row-3" class="row">
+        <div class="col-md-6">
+            <div id="error-main-left-big">
+                <div id="error-main-left-one">服务器出现错误了，请联系管理员</div>
+                <div id="error-main-left-two"></div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div id="error-main-right-big">
+                <div id="error-main-right-one">具体错误如下</div>
+                <div id="error-main-right-two">
+                    <pre id="error-message">
+                    </pre>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="error-header-row-4" class="row">
+        <div id="foot" class="col-md-12">
+            <div class="links">
+                <a rel="nofollow" target="_blank" href="//about.jd.com/">
+                    关于我们
+                </a>
+                |
+                <a rel="nofollow" target="_blank" href="//www.jd.com/contact/">
+                    联系我们
+                </a>
+                |
+                <a rel="nofollow" target="_blank" href="//zhaopin.jd.com/">
+                    人才招聘
+                </a>
+                |
+                <a rel="nofollow" target="_blank" href="//lai.jd.com/">
+                    商家入驻
+                </a>
+                |
+                <a rel="nofollow" target="_blank" href="//jzt.jd.com/">
+                    广告服务
+                </a>
+                |
+                <a rel="nofollow" target="_blank" href="//app.jd.com/">
+                    手机京东
+                </a>
+                |
+                <a target="_blank" href="//club.jd.com/links.aspx">
+                    友情链接
+                </a>
+                |
+                <a target="_blank" href="//media.jd.com/">
+                    销售联盟
+                </a>
+                |
+                <a href="//pro.jd.com/mall/active/3WA2zN8wkwc9fL9TxAJXHh5Nj79u/index.html" target="_blank">
+                    京东社区
+                </a>
+                |
+                <a href="//gongyi.jd.com" target="_blank">
+                    京东公益
+                </a>
+                |
+                <a target="_blank" href="//www.joybuy.com/" clstag="pageclick|keycount|20150112ABD|9">English Site</a>
+            </div>
+            <div class="copyright">
+                Copyright&nbsp;©&nbsp;2004-2020&nbsp;&nbsp;京东JD.com&nbsp;版权所有
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script th:inline="javascript">
+    let errorMessage = localStorage.getItem("errorMessage");
+    $("#error-message").text(errorMessage);
+
+</script>
+
+</body>
+</html>

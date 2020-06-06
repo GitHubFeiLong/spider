@@ -5,6 +5,14 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface UserRegistDao {
+
+    /**
+     * 根据邮箱查询是否存在账号
+     * @param email
+     * @return
+     */
+    User selectUserByEmail(String email);
+
     /**
      * 插入用户基本信息
      * @param user

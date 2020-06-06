@@ -38,8 +38,14 @@ public class User implements Serializable {
     * 邮箱
     */
     private String email;
+
     /**
-    * 数据的状态（0表示正常，-1表示删除）
+     * 0表示被删除
+     */
+    private Integer delete;
+
+    /**
+    * 数据的状态（0表示正常）
     */
     private Integer status;
     /**

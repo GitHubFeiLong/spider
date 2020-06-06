@@ -18,30 +18,29 @@ import java.security.spec.InvalidKeySpecException;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * 用户登录注册控制器
+ */
 @Controller
 @RequestMapping("/user")
 @ResponseBody
 @Slf4j
 public class RegistController {
 
+    /**
+     * 用户登录注册业务层
+     */
     @Autowired
     private RegistService registService;
 
-    @Autowired
-    private HttpSession httpSession;
-
+    /**
+     * 请求对象
+     */
     @Autowired
     private HttpServletRequest httpServletRequest;
 
-    @RequestMapping("/test")
-    public String test(){
-        log.info("进入测试log4j2");
-        log.error("进入测试log4j2");
-        return "hello log4j";
-    }
-
     /**
-     * 发送 验证码
+     * 注册时发送 验证码
      * @param email
      * @return
      */
@@ -51,7 +50,6 @@ public class RegistController {
         log.info("进入：" + email);
         registService.sendCaptcha(email);
         String ip = IpAddressUtil.getIpAddress(httpServletRequest);
-        log.info(ip);
         msgMap.put("responseCode", 200);
         return msgMap;
     }

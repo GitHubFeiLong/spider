@@ -8,7 +8,7 @@ public interface RegistService {
 
     /**
      * 发送验证码
-     * receiver: 接收者
+     * @param receiver: 接收者
      */
     void sendCaptcha(String receiver);
 
@@ -23,5 +23,13 @@ public interface RegistService {
     boolean registUser(String email, String password, String captcha) throws NoSuchAlgorithmException, InvalidKeySpecException;
 
 
+    /**
+     * 用户登录
+     * @param loginUsername
+     * @param loginPassword
+     * @return
+     * @throws InvalidKeySpecException
+     * @throws NoSuchAlgorithmException
+     */
     Map userLogin(String loginUsername, String loginPassword) throws InvalidKeySpecException, NoSuchAlgorithmException;
 }

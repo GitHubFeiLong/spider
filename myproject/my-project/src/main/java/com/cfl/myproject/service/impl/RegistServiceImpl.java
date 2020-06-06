@@ -31,46 +31,79 @@ public class RegistServiceImpl implements RegistService {
      */
     public static final String REGIST_CAPTCHA = "jd:user:regist:captcha:";
 
+    /**
+     * session对象
+     */
     @Autowired
     private HttpSession httpSession;
 
+    /**
+     *
+     */
     @Autowired
     private JavaMailSenderImpl mailSender;
 
+    /**
+     * redis工具类
+     */
     @Autowired
     private RedisUtil redisUtil;
 
+    /**
+     * rabbitMQ模板类对象
+     */
     @Autowired
     private AmqpTemplate rabbitTemplate;
 
+    /**
+     * 在application.yml自定义的配置的对象
+     */
     @Autowired
     private ApplicationValue applicationValue;
 
+    /**
+     * 请求对象
+     */
     @Autowired
     private HttpServletRequest httpServletRequest;
 
+    /**
+     * 用户注册登录数据层
+     */
     @Autowired
     private UserRegistDao userRegistDao;
 
+    /**
+     * 邮件工具类
+     */
     @Autowired
     private EmailUtil emailUtil;
+
     /**
      * 发送验证码
      */
     @Override
     public void sendCaptcha(String receiver) {
-        int expiredTime = 3000;
-        String verCode = VerCodeGenerateUtil.generateVerCode();
+        // 1. 先查询邮箱是否已经存在
+        User user = userRegistDao.selectUserByEmail(receiver);
+        // 2.判断，不存在进入if语句内，发送验证码。
+        if(ObjectUtils.isEmpty(user)){
+            int expiredTime = 3000;
+            String verCode = VerCodeGenerateUtil.generateVerCode();
 
-        // 放置验证码到redis中 key : 使用了sessionId保证一个用户对应一条
-        this.redisUtil.set(REGIST_CAPTCHA + httpSession.getId(), verCode, expiredTime);
+            // 放置验证码到redis中 key : 使用了sessionId保证一个用户对应一条
+            this.redisUtil.set(REGIST_CAPTCHA + httpSession.getId(), verCode, expiredTime);
 
-        String emailSubject = "欢迎注册账号";
-        String emailContext = "尊敬的用户,您好:\n"
-                + "\n本次请求的邮件验证码为:" + verCode + ",本验证码5分钟内有效，请及时输入。（请勿泄露此验证码）\n"
-                + "\n如非本人操作，请忽略该邮件。\n(这是一封自动发送的邮件，请不要直接回复）";
-        // 发送邮件
-        emailUtil.sendSimpleEmail(applicationValue.getSenderEmail(), receiver, emailSubject, emailContext);
+            String emailSubject = "欢迎注册账号";
+            String emailContext = "尊敬的用户,您好:\n"
+                    + "\n本次请求的邮件验证码为:" + verCode + ",本验证码5分钟内有效，请及时输入。（请勿泄露此验证码）\n"
+                    + "\n如非本人操作，请忽略该邮件。\n(这是一封自动发送的邮件，请不要直接回复）";
+            // 发送邮件
+            emailUtil.sendSimpleEmail(applicationValue.getSenderEmail(), receiver, emailSubject, emailContext);
+        } else {
+            // 3.邮箱已被注册
+            throw new RuntimeException("账号已经被注册，请登录");
+        }
     }
 
     /**
@@ -108,6 +141,14 @@ public class RegistServiceImpl implements RegistService {
         }
     }
 
+    /**
+     * 用户登录验证
+     * @param loginUsername 登录用户名
+     * @param loginPassword 用户密码
+     * @return serviceMap 装有自定义返回码code和
+     * @throws InvalidKeySpecException
+     * @throws NoSuchAlgorithmException
+     */
     @Override
     public Map userLogin(String loginUsername, String loginPassword) throws InvalidKeySpecException, NoSuchAlgorithmException {
         Map<String, Object> serviceMap = new HashMap<>();
@@ -139,11 +180,10 @@ public class RegistServiceImpl implements RegistService {
             code = applicationValue.getUserNotExist();
         }
 
-
+        // 状态码，参考配置文件application.yml
         serviceMap.put("code", code);
-        serviceMap.put("isSame", passwordIsSame);
+        // 错误信息
         serviceMap.put("message", msg);
-
 
         return serviceMap;
     }

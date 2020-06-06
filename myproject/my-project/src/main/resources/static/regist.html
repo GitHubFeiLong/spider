@@ -305,7 +305,7 @@
             <div id="login-header-center" class="container">
                 <div class="row">
                     <div class="col-md-2 login-header-center-left">
-                        <img class="login-header-center-left-img" src="/image/login/logo-20200504-b.png" alt="京东logo"/>
+                        <img class="login-header-center-left-img" src="/image/login/logo-20200504-b.png" alt="狗东logo"/>
                     </div>
                     <div class="col-md-6 login-header-center-center">
 <!--                        <img class="login-header-center-center-img" src="/image/login/l-icon.png" alt="欢迎登录"/>-->
@@ -377,50 +377,50 @@
     <div id="login-header-row-4" class="row">
         <div id="foot" class="col-md-12">
             <div class="links">
-                <a rel="nofollow" target="_blank" href="//about.jd.com/">
+                <a rel="nofollow" target="_blank">
                     关于我们
                 </a>
                 |
-                <a rel="nofollow" target="_blank" href="//www.jd.com/contact/">
+                <a rel="nofollow" target="_blank">
                     联系我们
                 </a>
                 |
-                <a rel="nofollow" target="_blank" href="//zhaopin.jd.com/">
+                <a rel="nofollow" target="_blank" >
                     人才招聘
                 </a>
                 |
-                <a rel="nofollow" target="_blank" href="//lai.jd.com/">
+                <a rel="nofollow" target="_blank" >
                     商家入驻
                 </a>
                 |
-                <a rel="nofollow" target="_blank" href="//jzt.jd.com/">
+                <a rel="nofollow" target="_blank" >
                     广告服务
                 </a>
                 |
-                <a rel="nofollow" target="_blank" href="//app.jd.com/">
-                    手机京东
+                <a rel="nofollow" target="_blank" >
+                    手机狗东
                 </a>
                 |
-                <a target="_blank" href="//club.jd.com/links.aspx">
+                <a target="_blank" >
                     友情链接
                 </a>
                 |
-                <a target="_blank" href="//media.jd.com/">
+                <a target="_blank">
                     销售联盟
                 </a>
                 |
-                <a href="//pro.jd.com/mall/active/3WA2zN8wkwc9fL9TxAJXHh5Nj79u/index.html" target="_blank">
-                    京东社区
+                <a target="_blank">
+                    狗东社区
                 </a>
                 |
-                <a href="//gongyi.jd.com" target="_blank">
-                    京东公益
+                <a target="_blank">
+                    狗东公益
                 </a>
                 |
-                <a target="_blank" href="//www.joybuy.com/" clstag="pageclick|keycount|20150112ABD|9">English Site</a>
+                <a target="_blank" clstag="pageclick|keycount|20150112ABD|9">English Site</a>
             </div>
             <div class="copyright">
-                Copyright&nbsp;©&nbsp;2004-2020&nbsp;&nbsp;京东JD.com&nbsp;版权所有
+                Copyright&nbsp;©&nbsp;2020-2020&nbsp;&nbsp;demo&nbsp;版权所有
             </div>
         </div>
     </div>
@@ -436,16 +436,6 @@
         let loginPassword = $("#login_password").val();
         console.log("点击登录");
     });
-
-
-    /**
-     * 注册
-     */
-    $("#regis-btn").click(function(){
-        regist()
-    })
-
-
 
     //回车事件绑定
     $('#regist-username').bind('keypress', function(event) {
@@ -488,6 +478,10 @@
                 type:"post",
                 dataType:"json",
                 success:function (data) {
+                    if(data.responseCode!=200){
+                        localStorage.setItem("errorMessage", data.detailed)
+                        window.location.href="error.html";
+                    }
                     console.log(data);
                 },
             });
@@ -530,9 +524,9 @@
                 dataType:"json",
                 success:function(data){
                     console.log(data);
-                    console.log(data.code);
+                    console.log(data.responseCode);
                     checkPassword(0);
-                    if(data.code == 200 ){
+                    if(data.responseCode == 200 ){
                         if(data.captchaMatch){
                             $("#prompt-head-circle-3").css("background", "#46cd4c");
                             $("#regist-pin-error").html("验证码输入正确");
@@ -545,6 +539,9 @@
                             $("#regist-username-error").removeClass("success");
                             $("#regist-pin-error").addClass("error");
                         }
+                    }else {
+                        localStorage.setItem("errorMessage", data.detailed)
+                        window.location.href="error.html";
                     }
                 }
             })
