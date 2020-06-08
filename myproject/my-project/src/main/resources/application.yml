@@ -82,6 +82,7 @@ mybatis:
  #     \/           \/                    \/          \/    \/
 
 customize:
+  uniqueToken: demo
   exception:
    email: 1696741038@qq.com
    code:

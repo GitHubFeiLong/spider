@@ -1,6 +1,8 @@
 package com.cfl.myproject.controller;
 
+import cn.hutool.core.lang.UUID;
 import com.cfl.myproject.config.ApplicationValue;
+import com.cfl.myproject.controller.parent.MemberVariable;
 import com.cfl.myproject.service.RegistService;
 import com.cfl.myproject.util.IpAddressUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -25,7 +27,7 @@ import java.util.Map;
 @RequestMapping("/user")
 @ResponseBody
 @Slf4j
-public class RegistController {
+public class RegistController extends MemberVariable {
 
     /**
      * 用户登录注册业务层
@@ -33,11 +35,19 @@ public class RegistController {
     @Autowired
     private RegistService registService;
 
-    /**
+  /*  *//**
      * 请求对象
-     */
+     *//*
     @Autowired
     private HttpServletRequest httpServletRequest;
+
+    *//**
+     * session
+     *//*
+    @Autowired
+    private HttpSession httpSession;*/
+
+
 
     /**
      * 注册时发送 验证码
@@ -84,10 +94,12 @@ public class RegistController {
      */
     @RequestMapping("/login")
     public Map login(String loginUsername, String loginPassword) throws Exception {
+        // 给当前用户设置一个token，防止重复提交
+        httpSession.setAttribute("uniqueToken", UUID.randomUUID());
         Map<String, Object> controllerMap = new HashMap();
         controllerMap.put("responseCode", 200);
         Map serviceMap = registService.userLogin(loginUsername, loginPassword);
         controllerMap.putAll(serviceMap);
-       return controllerMap;
+        return controllerMap;
     }
 }

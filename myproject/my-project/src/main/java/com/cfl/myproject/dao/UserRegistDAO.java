@@ -3,8 +3,8 @@ package com.cfl.myproject.dao;
 import com.cfl.myproject.entity.User;
 import org.springframework.stereotype.Repository;
 
-@Repository
-public interface UserRegistDao {
+//@Repository
+public interface UserRegistDAO {
 
     /**
      * 根据邮箱查询是否存在账号

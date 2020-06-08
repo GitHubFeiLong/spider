@@ -30,6 +30,12 @@ public class ApplicationValue {
     @Value("${customize.exception.email}")
     public String receiveEmail;
 
+    /**
+     * 防止用户重复提交
+     */
+    @Value("${customize.uniqueToken}")
+    public String uniqueToken;
+
 
     /**
      * 用户密码匹配状态码

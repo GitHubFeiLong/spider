@@ -2,23 +2,20 @@ package com.cfl.myproject.service.impl;
 
 import com.cfl.myproject.config.ApplicationValue;
 import com.cfl.myproject.config.RabbitMQConfig;
-import com.cfl.myproject.dao.UserRegistDao;
+import com.cfl.myproject.dao.UserRegistDAO;
 import com.cfl.myproject.entity.User;
 import com.cfl.myproject.service.RegistService;
 import com.cfl.myproject.util.*;
-import javafx.beans.binding.ObjectExpression;
 import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.stereotype.Service;
-import com.cfl.myproject.entity.User;
 import org.springframework.util.ObjectUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
@@ -71,7 +68,7 @@ public class RegistServiceImpl implements RegistService {
      * 用户注册登录数据层
      */
     @Autowired
-    private UserRegistDao userRegistDao;
+    private UserRegistDAO userRegistDAO;
 
     /**
      * 邮件工具类
@@ -85,7 +82,7 @@ public class RegistServiceImpl implements RegistService {
     @Override
     public void sendCaptcha(String receiver) {
         // 1. 先查询邮箱是否已经存在
-        User user = userRegistDao.selectUserByEmail(receiver);
+        User user = userRegistDAO.selectUserByEmail(receiver);
         // 2.判断，不存在进入if语句内，发送验证码。
         if(ObjectUtils.isEmpty(user)){
             int expiredTime = 3000;
@@ -134,7 +131,7 @@ public class RegistServiceImpl implements RegistService {
             user.setIp(ip);
             user.setStatus(0);
             user.setCreateTime(GetNowUtil.getDateTime());
-            userRegistDao.insertUser(user);
+            userRegistDAO.insertUser(user);
             return true;
         } else {
             return false;
@@ -153,7 +150,7 @@ public class RegistServiceImpl implements RegistService {
     public Map userLogin(String loginUsername, String loginPassword) throws InvalidKeySpecException, NoSuchAlgorithmException {
         Map<String, Object> serviceMap = new HashMap<>();
         // 1. 先查询用户信息
-        User user = userRegistDao.selectUserByNameOrEmailOrPhone(loginUsername);
+        User user = userRegistDAO.selectUserByNameOrEmailOrPhone(loginUsername);
         String msg = "用户不存在";    // 具体信息，默认登录用户不存在
         String responseCode = "";
         boolean passwordIsSame = false; // false 表示不能登录
