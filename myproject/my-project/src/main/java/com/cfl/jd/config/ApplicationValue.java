@@ -37,21 +37,4 @@ public class ApplicationValue {
     public String uniqueToken;
 
 
-    /**
-     * 用户密码匹配状态码
-     */
-    @Value("${customize.exception.code.user_password_match}")
-    public String userPasswordMatch;
-
-    /**
-     * 用户不存在code类似响应码
-     */
-    @Value("${customize.exception.code.user_not_exist}")
-    public String userNotExist;
-
-    /**
-     * 密码错误状态码
-     */
-    @Value("${customize.exception.code.user_wrong_password}")
-    public String userWrongPassword;
 }

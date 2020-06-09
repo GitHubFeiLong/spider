@@ -86,10 +86,6 @@ customize:
   exception:
 #   email: 1696741038@qq.com
    email: 603088455@qq.com  #发生异常时接收异常邮箱
-   code:
-     user_password_match: 600 #用户名和密码匹配
-     user_not_exist: 601  #用户不存在
-     user_wrong_password: 602  #密码错误
 
 
 

@@ -6,6 +6,7 @@ import com.cfl.jd.entity.UserDO;
 import com.cfl.jd.config.RabbitMQConfig;
 import com.cfl.jd.constant.CacheConsts;
 import com.cfl.jd.dao.UserRegistDAO;
+import com.cfl.jd.enumerate.UserLoginEnum;
 import com.cfl.jd.service.RegistService;
 import com.cfl.jd.util.*;
 import org.springframework.amqp.core.AmqpTemplate;
@@ -112,8 +113,8 @@ public class RegistServiceImpl extends MemberVariable implements RegistService {
         Map<String, Object> serviceMap = new HashMap<>();
         // 1. 先查询用户信息
         UserDO user = userRegistDAO.selectUserByNameOrEmailOrPhone(loginUsername);
-        String msg = "用户不存在";    // 具体信息，默认登录用户不存在
-        String responseCode = "";
+        String msg = UserLoginEnum.USER_NOT_EXIST.getMessage();    // 具体信息，默认登录用户不存在
+        Integer responseCode = UserLoginEnum.USER_NOT_EXIST.getCode();
         boolean passwordIsSame = false; // false 表示不能登录
         // 2.判断用户是否存在
         if(!ObjectUtils.isEmpty(user)){
@@ -123,22 +124,20 @@ public class RegistServiceImpl extends MemberVariable implements RegistService {
             // 判断密码是否相同
             passwordIsSame = PasswordEncryption.authenticate(loginPassword, password, salt);
             if(passwordIsSame){
-                msg = "登录验证通过";
-                responseCode = applicationValue.getUserPasswordMatch();
-                String emailSubject = "欢迎注册账号";
-                String emailContext = "尊敬的用户,您好:\n"
-                        + "\n欢迎登录XXX(这是一封自动发送的邮件，请不要直接回复）\n" + LocalDateTime.now().toLocalDate() + "-" + LocalDateTime.now().toLocalTime();
+                msg = UserLoginEnum.USER_PASSWORD_MATCH.getMessage();
+                responseCode = UserLoginEnum.USER_PASSWORD_MATCH.getCode();
+//                String emailSubject = "谢谢登录";
+//                String emailContext = "尊敬的用户,您好:\n"
+//                        + "\n欢迎登录XXX(这是一封自动发送的邮件，请不要直接回复）\n" + LocalDateTime.now().toLocalDate() + "-" + LocalDateTime.now().toLocalTime();
                 // 发送邮件
-                emailUtil.sendSimpleEmail(applicationValue.getSenderEmail(), user.getEmail(), emailSubject, emailContext);
+//                emailUtil.sendSimpleEmail(applicationValue.getSenderEmail(), user.getEmail(), emailSubject, emailContext);
             } else {
-                msg = "密码错误";
-                responseCode = applicationValue.getUserWrongPassword();
+                msg = UserLoginEnum.USER_WRONG_PASSWORD.getMessage();
+                responseCode = UserLoginEnum.USER_WRONG_PASSWORD.getCode();
             }
-        } else {
-            responseCode = applicationValue.getUserNotExist();
         }
 
-        // 状态码，参考配置文件application.yml
+        // 状态码
         serviceMap.put("responseCode", responseCode);
         // 错误信息
         serviceMap.put("message", msg);
