@@ -53,10 +53,10 @@ spring:
 # mail
   mail:
    host: smtp.qq.com
-#   username: 1696741038@qq.com
-#   password: fnlrignacikzcagc
-   username: 603088455@qq.com
-   password: jxhfoesryuafbdgh
+   username: 1696741038@qq.com
+   password: fnlrignacikzcagc
+#   username: 603088455@qq.com
+#   password: jxhfoesryuafbdgh
    port: 587 #端口号465或587
    protocol: smtp
    default-encoding: UTF-8
@@ -68,7 +68,7 @@ spring:
 
 
 mybatis:
-  mapper-locations: classpath:com/cfl/myproject/dao/mapper/*.xml
+  mapper-locations: classpath:com/cfl/jd/dao/mapper/*.xml
 #  type-aliases-package: com.example.entity
 
   configuration:
@@ -80,11 +80,12 @@ mybatis:
  # \  \___|  |  /\___ \  |  | (  <_> )  Y Y  \  |/    /\  ___/
  # \___  >____//____  >  |__|  \____/|__|_|  /__/_____ \\___ >
  #     \/           \/                    \/          \/    \/
-
+# 自定义配置
 customize:
   uniqueToken: demo
   exception:
-   email: 1696741038@qq.com
+#   email: 1696741038@qq.com
+   email: 603088455@qq.com  #发生异常时接收异常邮箱
    code:
      user_password_match: 600 #用户名和密码匹配
      user_not_exist: 601  #用户不存在
