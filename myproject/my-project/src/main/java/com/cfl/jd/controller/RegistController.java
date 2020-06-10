@@ -14,7 +14,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * 类描述：
  * 用户登录注册控制器
+ * @ClassName RegistController
+ * @Description TODO
+ * @Author msi
+ * @Date 2020/6/10 14:04
+ * @Version 1.0
  */
 @Controller
 @RequestMapping("/user")
