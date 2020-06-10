@@ -1,6 +1,5 @@
 package com.cfl.jd.controller;
 
-import cn.hutool.core.lang.UUID;
 import com.cfl.jd.annotation.RepeatSubmit;
 import com.cfl.jd.controller.parent.MemberVariable;
 import com.cfl.jd.service.RegistService;
@@ -76,7 +75,6 @@ public class RegistController extends MemberVariable {
     @RepeatSubmit
     public Map login(String loginUsername, String loginPassword) throws Exception {
         // 给当前用户设置一个token，防止重复提交
-        httpSession.setAttribute("uniqueToken", UUID.randomUUID());
         Map<String, Object> controllerMap = new HashMap();
         controllerMap.put("responseCode", 200);
         Map serviceMap = registService.userLogin(loginUsername, loginPassword);
