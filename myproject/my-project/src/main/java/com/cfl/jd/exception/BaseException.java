@@ -11,8 +11,14 @@ package com.cfl.jd.exception;
  */
 public class BaseException extends RuntimeException{
 
-    private String code;
-    private String message;
+    /**
+     * 错误代码
+     */
+    protected String code;
+    /**
+     * 错误信息
+     */
+    protected String message;
 
     public BaseException() {
     }
@@ -32,6 +38,7 @@ public class BaseException extends RuntimeException{
     public BaseException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
         super(message, cause, enableSuppression, writableStackTrace);
     }
+
 
     public String getCode() {
         return code;

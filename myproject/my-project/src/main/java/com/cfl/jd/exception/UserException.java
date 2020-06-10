@@ -13,27 +13,26 @@ import com.cfl.jd.enumerate.UserExceptionEnum;
  */
 public class UserException extends BaseException{
 
-    /**
-     * 错误代码
-     */
-    private String code;
-    /**
-     * 错误信息
-     */
-    private String message;
+    public UserException(String message) {
+        super(message);
+    }
 
+    /**
+     * 用户模块的异常枚举类，定义了异常码和异常信息
+     * @param userExceptionEnum 用户模块的异常枚举类
+     */
     public UserException(UserExceptionEnum userExceptionEnum) {
-
         this("错误代码(" + userExceptionEnum.getCode() + ")->" + userExceptionEnum.getMessage());
         this.code = userExceptionEnum.getCode();
         this.message = userExceptionEnum.getMessage();
 
     }
 
-    public UserException(String message) {
-        super(message);
-    }
-
+    /**
+     * 指定异常的状态码和异常信息
+     * @param code 异常码
+     * @param message 异常详细信息
+     */
     public UserException(String code, String message) {
         this("错误代码(" + code + ")->" + message);
         this.code = code;
