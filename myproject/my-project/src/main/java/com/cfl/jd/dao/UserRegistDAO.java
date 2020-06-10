@@ -2,6 +2,15 @@ package com.cfl.jd.dao;
 
 import com.cfl.jd.entity.UserDO;
 
+/**
+ * 类描述：
+ * 用户的DAO层
+ * @ClassName UserRegistDAO
+ * @Description TODO
+ * @Author msi
+ * @Date 2020/6/10 19:35
+ * @Version 1.0
+ */
 public interface UserRegistDAO {
 
     /**

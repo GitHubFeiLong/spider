@@ -10,6 +10,8 @@
 
     <script src="/js/jquery/jquery-3.4.1.min.js" type="text/javascript"></script>
     <script src="/bootstrap-4.4.1-dist/js/bootstrap.js" type="text/javascript"></script>
+    <script src="/js/UserJs.js" type="text/javascript"></script>
+
 
     <style>
         :root {
@@ -478,9 +480,8 @@
                 type:"post",
                 dataType:"json",
                 success:function (data) {
-                    if(data.responseCode!=200){
-                        localStorage.setItem("errorMessage", data.detailed)
-                        window.location.href="error.html";
+                    if (data.responseCode!=200) {
+                        setErrorDataToLocalStorage(data);
                     }
                     console.log(data);
                 },
@@ -526,7 +527,7 @@
                     console.log(data);
                     console.log(data.responseCode);
                     checkPassword(0);
-                    if(data.responseCode == 200 ){
+                    if(data.responseCode == 200 ) {
                         if(data.captchaMatch){
                             $("#prompt-head-circle-3").css("background", "#46cd4c");
                             $("#regist-pin-error").html("验证码输入正确");
@@ -539,9 +540,8 @@
                             $("#regist-username-error").removeClass("success");
                             $("#regist-pin-error").addClass("error");
                         }
-                    }else {
-                        localStorage.setItem("errorMessage", data.detailed)
-                        window.location.href="error.html";
+                    } else {
+                        setErrorDataToLocalStorage(data);
                     }
                 }
             })

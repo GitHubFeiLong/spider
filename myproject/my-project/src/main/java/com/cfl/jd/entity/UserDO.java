@@ -6,9 +6,13 @@ import java.util.Date;
 import java.io.Serializable;
 
 /**
- * 用户表(User)实体类
- * @author makejava
- * @since 2020-05-30 16:18:44
+ * 类描述：
+ * jd.user表的对象
+ * @ClassName UserDO
+ * @Description TODO
+ * @Author msi
+ * @Date 2020/6/10 19:36
+ * @Version 1.0
  */
 @Data
 public class UserDO implements Serializable {

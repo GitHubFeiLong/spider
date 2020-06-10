@@ -1,13 +1,20 @@
 package com.cfl.jd.enumerate;
 
 /**
- * 用户登录的枚举类：包含三种情况
- *      user_password_match: 600 #用户名和密码匹配
- *      user_not_exist: 601  #用户不存在
- *      user_wrong_password: 602  #密码错误
+ *
+ *
  * @ClassName UserLoginEnum
  * @Author msi
  * @Date 2020/6/9 19:31
+ * @Version 1.0
+ */
+/**
+ * 类描述：
+ * 用户登录的枚举类：包含三种情况
+ * @ClassName UserLoginEnum
+ * @Description TODO
+ * @Author msi
+ * @Date 2020/6/10 19:37
  * @Version 1.0
  */
 public enum UserLoginEnum {
@@ -25,14 +32,28 @@ public enum UserLoginEnum {
      */
     private Integer code;
 
+    /**
+     * 构造器
+     * @param message
+     * @param code
+     */
     UserLoginEnum(String message, Integer code){
         this.message = message;
         this.code = code;
     }
 
+    /**
+     * 获取信息
+     * @return
+     */
     public String getMessage(){
         return message;
     }
+
+    /**
+     * 获取状态码
+     * @return
+     */
     public Integer getCode() {
         return code;
     }

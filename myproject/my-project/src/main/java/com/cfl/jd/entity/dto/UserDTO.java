@@ -5,8 +5,13 @@ import lombok.Data;
 import java.io.Serializable;
 
 /**
- * 用户表(User)实体类
- *
+ * 类描述：
+ * user表的传输对象
+ * @ClassName UserDTO
+ * @Description TODO
+ * @Author msi
+ * @Date 2020/6/10 19:37
+ * @Version 1.0
  */
 @Data
 public class UserDTO implements Serializable {

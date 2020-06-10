@@ -5,9 +5,12 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 
 /**
+ * 类描述：
+ * SpringMVC的拦截器
  * @ClassName WebMvcConfig
+ * @Description TODO  SpringMVC的拦截器，未使用
  * @Author msi
- * @Date 2020/6/8 13:00
+ * @Date 2020/6/10 19:34
  * @Version 1.0
  */
 //@Configuration

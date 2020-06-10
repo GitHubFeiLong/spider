@@ -30,4 +30,6 @@ public class EmailUtil {
         mailSender.send(message);	//发送邮件
         message = null; // 回收资源
     }
+
+
 }

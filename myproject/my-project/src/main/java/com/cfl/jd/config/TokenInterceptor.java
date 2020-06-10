@@ -9,9 +9,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * @ClassName A
+ * 类描述：
+ * 拦截器
+ * @ClassName TokenInterceptor
+ * @Description TODO 拦截器，之前想的是用来解决表单重复提交，暂时未用
  * @Author msi
- * @Date 2020/6/8 12:55
+ * @Date 2020/6/10 19:34
  * @Version 1.0
  */
 @Configuration

@@ -11,12 +11,23 @@ import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 /**
- * redis配置类
+ * 类描述：
+ * RedisTemplate的配置类
+ * @ClassName RedisConfig
+ * @Description TODO
+ * @Author msi
+ * @Date 2020/6/10 19:31
+ * @Version 1.0
  */
 @Configuration
 public class RedisConfig {
 
 
+    /**
+     * 配置RedisTemplate
+     * @param factory
+     * @return
+     */
     @Bean
     @SuppressWarnings("all")
     public RedisTemplate<String, Object> redisTemplate(RedisConnectionFactory factory) {
@@ -37,6 +48,8 @@ public class RedisConfig {
         // hash的value序列化方式采用jackson
         template.setHashValueSerializer(jackson2JsonRedisSerializer);
         template.afterPropertiesSet();
+
         return template;
     }
+
 }

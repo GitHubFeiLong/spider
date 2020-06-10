@@ -5,6 +5,15 @@ import lombok.Setter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+/**
+ * 类描述：
+ * 装载application.yml文件中的自定义配置
+ * @ClassName ApplicationValue
+ * @Description TODO
+ * @Author msi
+ * @Date 2020/6/10 19:28
+ * @Version 1.0
+ */
 @Component
 @Getter
 public class ApplicationValue {

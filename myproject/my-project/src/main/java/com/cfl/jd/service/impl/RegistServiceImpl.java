@@ -6,7 +6,10 @@ import com.cfl.jd.entity.UserDO;
 import com.cfl.jd.config.RabbitMQConfig;
 import com.cfl.jd.constant.CacheConsts;
 import com.cfl.jd.dao.UserRegistDAO;
+import com.cfl.jd.enumerate.UserExceptionEnum;
 import com.cfl.jd.enumerate.UserLoginEnum;
+import com.cfl.jd.exception.BaseException;
+import com.cfl.jd.exception.UserException;
 import com.cfl.jd.service.RegistService;
 import com.cfl.jd.util.*;
 import org.springframework.amqp.core.AmqpTemplate;
@@ -45,7 +48,7 @@ public class RegistServiceImpl extends MemberVariable implements RegistService {
         // 1. 先查询邮箱是否已经存在
         UserDO user = userRegistDAO.selectUserByEmail(receiver);
         // 2.判断，不存在进入if语句内，发送验证码。
-        if(ObjectUtils.isEmpty(user)){
+        if (ObjectUtils.isEmpty(user)) {
             int expiredTime = 3000;
             String verCode = VerCodeGenerateUtil.generateVerCode();
 
@@ -60,7 +63,7 @@ public class RegistServiceImpl extends MemberVariable implements RegistService {
             emailUtil.sendSimpleEmail(applicationValue.getSenderEmail(), receiver, emailSubject, emailContext);
         } else {
             // 3.邮箱已被注册
-            throw new RuntimeException("账号已经被注册，请登录");
+            throw new UserException(UserExceptionEnum.MAILBOX_IS_EXIST);
         }
     }
 
@@ -78,7 +81,7 @@ public class RegistServiceImpl extends MemberVariable implements RegistService {
         // redis 取
         String verCode = (String) redisUtil.get(CacheConsts.REGIST_CAPTCHA + httpSession.getId());
         // 验证码 与 用户输入的验证码 比较
-        if(verCode.equals(captcha)){
+        if (verCode.equals(captcha)) {
             // 匹配，注册邮箱
             super.rabbitTemplate.convertAndSend(RabbitMQConfig.USER_REGIST_QUEUE, email);
             String ip = IpAddressUtil.getIpAddress(httpServletRequest);
@@ -96,8 +99,10 @@ public class RegistServiceImpl extends MemberVariable implements RegistService {
             userRegistDAO.insertUser(user);
             return true;
         } else {
-            return false;
+            // 验证码不匹配
+            throw new UserException(UserExceptionEnum.CAPTCHA_MISMATCH);
         }
+
     }
 
     /**
@@ -116,8 +121,8 @@ public class RegistServiceImpl extends MemberVariable implements RegistService {
         String msg = UserLoginEnum.USER_NOT_EXIST.getMessage();    // 具体信息，默认登录用户不存在
         Integer responseCode = UserLoginEnum.USER_NOT_EXIST.getCode();
         boolean passwordIsSame = false; // false 表示不能登录
-        // 2.判断用户是否存在
-        if(!ObjectUtils.isEmpty(user)){
+        // 用户存在
+        if (!ObjectUtils.isEmpty(user)) {
             // 2.1.将密码 和用户的随机盐 加密
             String salt = user.getSalt();
             String password = user.getPassword();
@@ -126,15 +131,19 @@ public class RegistServiceImpl extends MemberVariable implements RegistService {
             if(passwordIsSame){
                 msg = UserLoginEnum.USER_PASSWORD_MATCH.getMessage();
                 responseCode = UserLoginEnum.USER_PASSWORD_MATCH.getCode();
-//                String emailSubject = "谢谢登录";
-//                String emailContext = "尊敬的用户,您好:\n"
-//                        + "\n欢迎登录XXX(这是一封自动发送的邮件，请不要直接回复）\n" + LocalDateTime.now().toLocalDate() + "-" + LocalDateTime.now().toLocalTime();
+                String emailSubject = "谢谢登录";
+                String emailContext = "尊敬的用户,您好:\n"
+                        + "\n欢迎登录XXX(这是一封自动发送的邮件，请不要直接回复）\n" + LocalDateTime.now().toLocalDate() + "-" + LocalDateTime.now().toLocalTime();
                 // 发送邮件
-//                emailUtil.sendSimpleEmail(applicationValue.getSenderEmail(), user.getEmail(), emailSubject, emailContext);
+                emailUtil.sendSimpleEmail(applicationValue.getSenderEmail(), user.getEmail(), emailSubject, emailContext);
             } else {
-                msg = UserLoginEnum.USER_WRONG_PASSWORD.getMessage();
-                responseCode = UserLoginEnum.USER_WRONG_PASSWORD.getCode();
+                // 密码不匹配
+                throw new UserException(UserExceptionEnum.USER_WRONG_PASSWORD);
             }
+
+        } else {
+            // 用户不存在
+            throw new UserException(UserExceptionEnum.USERNAME_NOT_EXIST);
         }
 
         // 状态码

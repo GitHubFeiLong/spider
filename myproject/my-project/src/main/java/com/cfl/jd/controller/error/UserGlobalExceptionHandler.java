@@ -3,7 +3,9 @@ package com.cfl.jd.controller.error;
 
 import com.cfl.jd.config.ApplicationValue;
 import com.cfl.jd.controller.RegistController;
+import com.cfl.jd.exception.BaseException;
 import com.cfl.jd.util.GetNowUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
@@ -23,6 +25,7 @@ import java.util.Map;
  * @Author msi
  * @Date 2019/7/28 21:51
  */
+@Slf4j
 //@ControllerAdvice(basePackages = "com.cfl.myproject.controller")
 @ControllerAdvice(assignableTypes = {RegistController.class})
 public class UserGlobalExceptionHandler {
@@ -40,13 +43,14 @@ public class UserGlobalExceptionHandler {
      */
     @ExceptionHandler(Exception.class)
     @ResponseBody
-    public Map<String, Object> errorJSON(Exception e){
+    public Map<String, Object> errorJSON(BaseException e){
         // 将错误记录在日志中。
         Map<String, Object> errorResultMap = new HashMap<>();
-        errorResultMap.put("responseCode", 500);
-        errorResultMap.put("errorMsg", "全局捕获异常系统错误");
+        errorResultMap.put("responseCode", e.getCode());
         errorResultMap.put("detailed", e.getMessage() + "\n" + GetNowUtil.getDateTime());
-        e.printStackTrace();
+
+        // 打印错误日志
+        log.error("错误代码({}),错误信息({})", e.getCode(), e.getMessage());
 
         // 发送邮件
         SimpleMailMessage message = new SimpleMailMessage();
@@ -56,6 +60,7 @@ public class UserGlobalExceptionHandler {
         message.setTo(applicationValue.getReceiveEmail());	//设置收件人
         message.setFrom(applicationValue.getSenderEmail());	//设置发件人
         mailSender.send(message);	//发送邮件
+
         return errorResultMap;
     }
 

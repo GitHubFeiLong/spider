@@ -40,9 +40,9 @@ public class RegistController extends MemberVariable {
      * @return
      */
     @RequestMapping("/registSendEmail")
+    @RepeatSubmit
     public Map sendCodeToEmail(String email){
         Map<String, Object> msgMap = new HashMap();
-        log.info("进入：" + email);
         registService.sendCaptcha(email);
         String ip = IpAddressUtil.getIpAddress(httpServletRequest);
         msgMap.put("responseCode", 200);
@@ -57,6 +57,7 @@ public class RegistController extends MemberVariable {
      * @return
      */
     @RequestMapping("/registUser")
+    @RepeatSubmit
     public Map registUser(String registUsername, String registPassword, String registPin) throws Exception {
         Map<String, Object> controllerMap = new HashMap();
         controllerMap.put("responseCode", 200);

@@ -155,12 +155,6 @@
             flex-direction: column;
         }
 
-        #head-right-div{
-            position: relative;
-            margin-bottom: 19px;
-            font-size: 16px;
-            font-weight: 600;
-        }
 
         #prompt-head > div{
             display: flex;
@@ -168,10 +162,6 @@
             align-items: center;
         }
 
-
-        #error-header-row-4{
-            margin-top: 200px;
-        }
 
         #error-main-left-big{
             display: flex;
@@ -211,6 +201,7 @@
             font-family: '微软雅黑';
             font-size: 14px;
             line-height: 26px;
+            margin-left: 20px;
         }
         #login-header-row-4{
             margin-top:200px;
@@ -309,8 +300,13 @@
 </div>
 
 <script th:inline="javascript">
+    let errorCode = localStorage.getItem("errorCode");
     let errorMessage = localStorage.getItem("errorMessage");
-    $("#error-message").text(errorMessage);
+
+    let htm = `错误代码：  ${errorCode}\n错误内容:  ${errorMessage}`
+
+
+    $("#error-message").text(htm);
 
 </script>
 

@@ -4,6 +4,7 @@ import com.cfl.jd.annotation.RepeatSubmit;
 import com.cfl.jd.constant.CacheConsts;
 import com.cfl.jd.util.IpAddressUtil;
 import com.cfl.jd.util.RedisUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -19,8 +20,18 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.time.LocalDateTime;
 
-
+/**
+ * 类描述：
+ * 使用AOP防止用户重复提交表单
+ * @ClassName RepeatSubmitAOP
+ * @Description TODO
+ * @Author msi
+ * @Date 2020/6/10 19:17
+ * @Version 1.0
+ */
+@Slf4j
 @Aspect
 @Component
 public class RepeatSubmitAOP {
@@ -47,7 +58,7 @@ public class RepeatSubmitAOP {
 	@Around("repeatSubmit()")
 	public Object doAround(ProceedingJoinPoint pjp) throws Throwable {
 
-		//获取request和response
+		//获取request和response对象
 		ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
 		HttpServletRequest request = attributes.getRequest();
 		HttpServletResponse response = attributes.getResponse();
@@ -55,27 +66,28 @@ public class RepeatSubmitAOP {
 		// 获取注解的参数
 		MethodSignature signature = (MethodSignature) pjp.getSignature();
 		RepeatSubmit repeatSubmit = signature.getMethod().getAnnotation(RepeatSubmit.class);
-		System.out.println(repeatSubmit.value());
+		int time = repeatSubmit.value();
 
 		Object ret = null;
-
 		// 创建redis的key
 		String redisKey = CacheConsts.REPEAT_SUBMIT + IpAddressUtil.getIpAddress(request) + request.getRequestURI();
 
 		// 从redis中获取key对应的值
 		Object redisValue = redisUtil.get(redisKey);
 
-		// TODO: redis中没有指定key，符合条件则继续执行，否则终止方法的执行
+		// redis中没有指定key，符合条件则继续执行，否则终止方法的执行
 		if (ObjectUtils.isEmpty(redisValue)) {
+			// 将key存在redis中，指定时间
+			redisUtil.set(redisKey,1, time);
+
 			// 执行方法
 			ret =  pjp.proceed();
 
-			// 将key存在redis中，指定时间
-			redisUtil.set(redisKey,1, repeatSubmit.value());
-			System.out.println("HH 方法环绕proceed，结果是 :" + ret);
+			log.info("执行了查询，{}", LocalDateTime.now());
 		} else {
-			System.out.println("HH 方法环绕proceed，不满足条件未执行");
+			log.error("不满足查询条件,停止执行");
 		}
 		return ret;
+
 	}
 }
