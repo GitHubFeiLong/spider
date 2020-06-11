@@ -10,4 +10,7 @@ package com.cfl.jd.dao;
  * @Version 1.0
  */
 public class A {
+    public static void main(String[] args) {
+
+    }
 }
