@@ -18,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
+import javax.servlet.http.Cookie;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 import java.util.HashMap;
@@ -87,6 +88,9 @@ public class UserServiceImpl extends MemberVariable implements UserService {
         String verCode = (String) redisUtil.get(CacheConsts.REGIST_CAPTCHA + httpSession.getId());
         // 验证码 与 用户输入的验证码 比较
         if (verCode.equals(captcha)) {
+            // 删除发送验证码reids的key
+            super.redisUtil.del(CacheConsts.REGIST_CAPTCHA + httpSession.getId());
+
 
             // 给rabbitmq的QueueConsts.SEND_EMAIL_QUEUE发送消息
             String emailTopic = "注册成功";
@@ -149,6 +153,8 @@ public class UserServiceImpl extends MemberVariable implements UserService {
                 EmailDTO emailDTO = new EmailDTO(user.getEmail(), emailTopic, emailContext, emailEnd);
                 super.rabbitTemplate.convertAndSend(QueueConsts.SEND_EMAIL_QUEUE, emailDTO);
 
+                // 讲用户信息保存到cookie里面
+//                Cookie cookie = new Cookie("", "");
             } else {
                 // 密码不匹配
                 throw new UserException(UserExceptionEnum.USER_WRONG_PASSWORD);
