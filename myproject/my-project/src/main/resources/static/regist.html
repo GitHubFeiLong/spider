@@ -463,20 +463,6 @@
         } else if(!pattern.test(registUsername)){ // 正则判断
             checkEmail(2)
         } else {
-            $("#prompt-head-arrow1").attr("src", "/image/regist/reg-icon_05.png")
-            $("#prompt-head-circle-1").css("background", "#46cd4c");
-            checkEmail(0)
-            let second = 300;
-            let intervalId = setInterval(function(){
-                $("#email-span").text(second);
-                if(second == 0){
-                    clearInterval(intervalId);
-                    $("#regist-username").val("");
-                    checkEmail(1)
-                }else {
-                    second--;
-                }
-            },1000);
             // 异步发送邮件
             $.ajax({
                 url:"/user/registSendEmail",
@@ -485,7 +471,23 @@
                 dataType:"json",
                 success:function (data) {
                     if (data.responseCode!=200) {
+                        // 设置状态码跳转错误页面
                         setErrorDataToLocalStorage(data);
+                    } else {
+                        $("#prompt-head-arrow1").attr("src", "/image/regist/reg-icon_05.png")
+                        $("#prompt-head-circle-1").css("background", "#46cd4c");
+                        checkEmail(0)
+                        let second = 300;
+                        let intervalId = setInterval(function(){
+                            $("#email-span").text(second);
+                            if(second == 0){
+                                clearInterval(intervalId);
+                                $("#regist-username").val("");
+                                checkEmail(1)
+                            }else {
+                                second--;
+                            }
+                        },1000);
                     }
                     console.log(data);
                 },

@@ -1,5 +1,8 @@
 package com.cfl.jd.service;
 
+import com.cfl.jd.exception.BaseException;
+import com.cfl.jd.exception.UserException;
+
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 import java.util.Map;
@@ -19,7 +22,7 @@ public interface UserService {
      * 发送验证码
      * @param receiver: 接收者
      */
-    void sendCaptcha(String receiver);
+    void sendCaptcha(String receiver) throws BaseException;
 
     /**
      * 注册账号
@@ -29,7 +32,7 @@ public interface UserService {
      * @return true:注册成功，false注册失败
      * @throws NoSuchAlgorithmException
      */
-    boolean saveUser(String email, String password, String captcha) throws NoSuchAlgorithmException, InvalidKeySpecException;
+    boolean saveUser(String email, String password, String captcha) throws NoSuchAlgorithmException, InvalidKeySpecException, UserException;
 
 
     /**
@@ -40,5 +43,5 @@ public interface UserService {
      * @throws InvalidKeySpecException
      * @throws NoSuchAlgorithmException
      */
-    Map userLogin(String loginUsername, String loginPassword) throws InvalidKeySpecException, NoSuchAlgorithmException;
+    Map userLogin(String loginUsername, String loginPassword) throws InvalidKeySpecException, NoSuchAlgorithmException, UserException;
 }

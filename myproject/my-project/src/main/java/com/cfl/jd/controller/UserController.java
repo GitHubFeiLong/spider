@@ -2,6 +2,8 @@ package com.cfl.jd.controller;
 
 import com.cfl.jd.annotation.RepeatSubmitAnnotation;
 import com.cfl.jd.config.MemberVariable;
+import com.cfl.jd.exception.BaseException;
+import com.cfl.jd.exception.UserException;
 import com.cfl.jd.service.UserService;
 import com.cfl.jd.util.IpAddressUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -41,7 +43,7 @@ public class UserController extends MemberVariable {
      */
     @RequestMapping("/registSendEmail")
     @RepeatSubmitAnnotation
-    public Map sendCodeToEmail(String email){
+    public Map sendCodeToEmail(String email) throws BaseException {
         Map<String, Object> msgMap = new HashMap();
         userService.sendCaptcha(email);
         String ip = IpAddressUtil.getIpAddress(httpServletRequest);

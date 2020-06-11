@@ -9,7 +9,7 @@ package com.cfl.jd.exception;
  * @Date 2020/6/10 19:41
  * @Version 1.0
  */
-public class BaseException extends RuntimeException{
+public class BaseException extends Exception{
 
     /**
      * 错误代码

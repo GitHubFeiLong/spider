@@ -8,6 +8,7 @@ import com.cfl.jd.entity.UserDO;
 import com.cfl.jd.entity.dto.EmailDTO;
 import com.cfl.jd.enumerate.UserExceptionEnum;
 import com.cfl.jd.enumerate.UserLoginEnum;
+import com.cfl.jd.exception.BaseException;
 import com.cfl.jd.exception.UserException;
 import com.cfl.jd.service.UserService;
 import com.cfl.jd.util.GetNowUtil;
@@ -47,7 +48,7 @@ public class UserServiceImpl extends MemberVariable implements UserService {
      * @param receiver: 接收者
      */
     @Override
-    public void sendCaptcha(String receiver) {
+    public void sendCaptcha(String receiver) throws BaseException {
         // 1. 先查询邮箱是否已经存在
         UserDO user = userDAO.selectUserByEmail(receiver);
         // 2.判断，不存在进入if语句内，发送验证码。
@@ -82,7 +83,7 @@ public class UserServiceImpl extends MemberVariable implements UserService {
      * @throws InvalidKeySpecException
      */
     @Override
-    public boolean saveUser(String email, String password, String captcha) throws NoSuchAlgorithmException, InvalidKeySpecException {
+    public boolean saveUser(String email, String password, String captcha) throws NoSuchAlgorithmException, InvalidKeySpecException, UserException {
         // redis 取
         String verCode = (String) redisUtil.get(CacheConsts.REGIST_CAPTCHA + httpSession.getId());
         // 验证码 与 用户输入的验证码 比较
@@ -126,7 +127,7 @@ public class UserServiceImpl extends MemberVariable implements UserService {
      * @throws NoSuchAlgorithmException
      */
     @Override
-    public Map userLogin(String loginUsername, String loginPassword) throws InvalidKeySpecException, NoSuchAlgorithmException {
+    public Map userLogin(String loginUsername, String loginPassword) throws InvalidKeySpecException, NoSuchAlgorithmException, UserException {
         Map<String, Object> serviceMap = new HashMap<>();
 
         // 1. 先查询用户信息
