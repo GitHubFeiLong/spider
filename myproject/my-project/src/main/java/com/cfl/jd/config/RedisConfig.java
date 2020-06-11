@@ -26,10 +26,10 @@ public class RedisConfig {
     /**
      * 配置RedisTemplate
      * @param factory
-     * @return
+     * @return redisTemplate
      */
     @Bean
-    @SuppressWarnings("all")
+//    @SuppressWarnings("all")
     public RedisTemplate<String, Object> redisTemplate(RedisConnectionFactory factory) {
         RedisTemplate<String, Object> template = new RedisTemplate<String, Object>();
         template.setConnectionFactory(factory);

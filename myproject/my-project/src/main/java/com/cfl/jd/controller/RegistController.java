@@ -1,6 +1,6 @@
 package com.cfl.jd.controller;
 
-import com.cfl.jd.annotation.RepeatSubmit;
+import com.cfl.jd.annotation.RepeatSubmitAnnotation;
 import com.cfl.jd.controller.parent.MemberVariable;
 import com.cfl.jd.service.RegistService;
 import com.cfl.jd.util.IpAddressUtil;
@@ -40,7 +40,7 @@ public class RegistController extends MemberVariable {
      * @return
      */
     @RequestMapping("/registSendEmail")
-    @RepeatSubmit
+    @RepeatSubmitAnnotation
     public Map sendCodeToEmail(String email){
         Map<String, Object> msgMap = new HashMap();
         registService.sendCaptcha(email);
@@ -57,7 +57,7 @@ public class RegistController extends MemberVariable {
      * @return
      */
     @RequestMapping("/registUser")
-    @RepeatSubmit
+    @RepeatSubmitAnnotation
     public Map registUser(String registUsername, String registPassword, String registPin) throws Exception {
         Map<String, Object> controllerMap = new HashMap();
         controllerMap.put("responseCode", 200);
@@ -79,7 +79,7 @@ public class RegistController extends MemberVariable {
      * @return
      */
     @RequestMapping("/login")
-    @RepeatSubmit
+    @RepeatSubmitAnnotation
     public Map login(String loginUsername, String loginPassword) throws Exception {
         // 给当前用户设置一个token，防止重复提交
         Map<String, Object> controllerMap = new HashMap();

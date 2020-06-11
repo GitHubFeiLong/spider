@@ -23,20 +23,9 @@ public class UserException extends BaseException{
      */
     public UserException(UserExceptionEnum userExceptionEnum) {
         this("错误代码(" + userExceptionEnum.getCode() + ")->" + userExceptionEnum.getMessage());
-        this.code = userExceptionEnum.getCode();
-        this.message = userExceptionEnum.getMessage();
+        super.code = userExceptionEnum.getCode();
+        super.message = userExceptionEnum.getMessage();
 
-    }
-
-    /**
-     * 指定异常的状态码和异常信息
-     * @param code 异常码
-     * @param message 异常详细信息
-     */
-    public UserException(String code, String message) {
-        this("错误代码(" + code + ")->" + message);
-        this.code = code;
-        this.message = message;
     }
 
     @Override

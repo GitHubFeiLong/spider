@@ -1,15 +1,13 @@
 package com.cfl.jd.config;
 
-import com.cfl.jd.annotation.RepeatSubmit;
+import com.cfl.jd.annotation.RepeatSubmitAnnotation;
 import com.cfl.jd.constant.CacheConsts;
 import com.cfl.jd.util.IpAddressUtil;
 import com.cfl.jd.util.RedisUtil;
 import lombok.extern.slf4j.Slf4j;
-import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,9 +42,9 @@ public class RepeatSubmitAOP {
 
 
 	/**
-	 * 定义切点
+	 * 定义切点：使用了注解@RepeatSubmitAnnotation的所有方法和类
 	 */
-	@Pointcut(value = "@annotation(com.cfl.jd.annotation.RepeatSubmit)")
+	@Pointcut(value = "@annotation(com.cfl.jd.annotation.RepeatSubmitAnnotation)")
 	public void repeatSubmit(){}
 
 
@@ -64,13 +62,13 @@ public class RepeatSubmitAOP {
 		HttpServletResponse response = attributes.getResponse();
 
 		// 获取注解的参数
-		MethodSignature signature = (MethodSignature) pjp.getSignature();
-		RepeatSubmit repeatSubmit = signature.getMethod().getAnnotation(RepeatSubmit.class);
-		int time = repeatSubmit.value();
+		MethodSignature signature = (MethodSignature)pjp.getSignature();
+		RepeatSubmitAnnotation repeatSubmitAnnotation = signature.getMethod().getAnnotation(RepeatSubmitAnnotation.class);
+		int time = repeatSubmitAnnotation.value();
 
 		Object ret = null;
-		// 创建redis的key
-		String redisKey = CacheConsts.REPEAT_SUBMIT + IpAddressUtil.getIpAddress(request) + request.getRequestURI();
+		// 创建redis的key ： jd:all:repeat_submit:uri:sessionID
+		String redisKey = CacheConsts.REPEAT_SUBMIT + request.getRequestURI() + ":" + request.getSession().getId();
 
 		// 从redis中获取key对应的值
 		Object redisValue = redisUtil.get(redisKey);
@@ -82,10 +80,8 @@ public class RepeatSubmitAOP {
 
 			// 执行方法
 			ret =  pjp.proceed();
-
-			log.info("执行了查询，{}", LocalDateTime.now());
 		} else {
-			log.error("不满足查询条件,停止执行");
+			log.info("防止了 {} 重复提交",request.getRequestURI());
 		}
 		return ret;
 

@@ -1,5 +1,6 @@
 package com.cfl.jd.config;
 
+import com.cfl.jd.constant.QueueConsts;
 import org.springframework.amqp.core.Queue;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,28 +16,15 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 public class RabbitMQConfig {
-    /**
-     * 用户注册时使用的队列
-     */
-    public static final String USER_REGIST_QUEUE = "userRegistQueue";
 
     /**
-     *
-     */
-    public static final String GOODS_SPIKE_QUEUE = "goodsSpikeQueue";
-
-    /**
-     * 创建用户注册时发送验证码的队列
+     * 创建一个发送邮件的队列
      * @return Queue
      */
     @Bean
-    public Queue userRegistQueue(){
-        return new Queue(RabbitMQConfig.USER_REGIST_QUEUE);
+    public Queue sendEmailQueue(){
+        return new Queue(QueueConsts.SEND_EMAIL_QUEUE);
     }
 
-    @Bean
-    public Queue goodsSpikeQueue(){
-        return new Queue(RabbitMQConfig.GOODS_SPIKE_QUEUE);
-    }
 
 }

@@ -34,16 +34,17 @@ public class ApplicationValue {
     /*******自定义参数*******/
 
     /**
+     * 验证码过期时间
+     */
+    @Value("${customize.CaptchaExpiredTime}")
+    public Integer CaptchaExpiredTime;
+
+
+    /**
      * 将异常发送到的通知邮箱
      */
     @Value("${customize.exception.email}")
     public String receiveEmail;
-
-    /**
-     * 防止用户重复提交
-     */
-    @Value("${customize.uniqueToken}")
-    public String uniqueToken;
 
 
 }

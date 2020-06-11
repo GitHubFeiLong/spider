@@ -82,7 +82,7 @@ mybatis:
  #     \/           \/                    \/          \/    \/
 # 自定义配置
 customize:
-  uniqueToken: demo
+  CaptchaExpiredTime: 300
   exception:
 #   email: 1696741038@qq.com
    email: 603088455@qq.com  #发生异常时接收异常邮箱

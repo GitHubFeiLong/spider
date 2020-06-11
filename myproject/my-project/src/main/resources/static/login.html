@@ -450,7 +450,6 @@
                         <img class="login-header-center-left-img" src="/image/login/logo-20200504-b.png" alt="狗东logo"/>
                     </div>
                     <div class="col-md-6 login-header-center-center">
-<!--                        <img class="login-header-center-center-img" src="/image/login/l-icon.png" alt="欢迎登录"/>-->
                         <div id="login-header-center-center-div">欢迎登录</div>
                     </div>
                     <div class="col-md-4 login-header-center-right">
@@ -747,18 +746,26 @@
         }, EWM_EXPIRED);
     }
 
+    /**
+     * 登录按钮 绑定点击事件
+     */
     $("#login-body-info").on("click","#login_button", function(){
         let loginUsername = $("#login_username").val();
         let loginPassword = $("#login_password").val();
         console.log("点击登录");
     });
 
+    /**
+     * 跳转注册页面
+     */
     $("#regist_span").click(function(){
         window.location.href = "/regist.html"
     })
 </script>
 <script>
-    // 点击登录
+    /**
+     * 点击登录
+     */
     function login(){
         let loginUsername =  $("#login_username").val();
         let loginPassword = $("#login_password").val();
@@ -798,7 +805,7 @@
     }
 
     /**
-     * 检查用户名
+     * 检查用户名，修改label的背景图片
      * @param loginUsername
      * @returns {boolean}
      */
@@ -813,7 +820,7 @@
     }
 
     /**
-     * 检查密码
+     * 检查密码，修改label的背景图片
      * @param loginPassword
      * @returns {boolean}
      */

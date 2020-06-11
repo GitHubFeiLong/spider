@@ -430,20 +430,24 @@
 </div>
 
 <script>
-
+    // 邮箱得正则表达式
     var pattern = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
 
+    /**
+     * 按钮绑定点击事件
+     */
     $("#login-body-info").on("click","#login_button", function(){
-        let loginUsername = $("#login_username").val();
-        let loginPassword = $("#login_password").val();
         console.log("点击登录");
+        regist()
     });
 
-    //回车事件绑定
+    /**
+     * 邮箱输入框回车事件绑定
+     */
     $('#regist-username').bind('keypress', function(event) {
         if (event.keyCode == "13") {
             event.preventDefault();
-            //回车执行查询
+            // 发送验证码邮件到邮箱
             sendEmail()
         }
     });
@@ -490,7 +494,9 @@
     }
 
 
-    // 验证码回车事件绑定
+    /**
+     * 验证码回车事件绑定
+     */
     $('#regist-pin').bind('keypress', function(event) {
         if (event.keyCode == "13") {
             event.preventDefault();
@@ -551,7 +557,7 @@
     }
 
     /**
-     * 检查Email个数
+     * 检查Email格式
      * 设置提示内容及样式
      * @param status status:0(正确)；1（未输入）；2（格式或内容错误）
      */

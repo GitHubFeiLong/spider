@@ -1,8 +1,11 @@
-package com.cfl.jd.controller.error;
+package com.cfl.jd.config;
 
 
 import com.cfl.jd.config.ApplicationValue;
+import com.cfl.jd.constant.QueueConsts;
 import com.cfl.jd.controller.RegistController;
+import com.cfl.jd.controller.parent.MemberVariable;
+import com.cfl.jd.entity.dto.EmailDTO;
 import com.cfl.jd.exception.BaseException;
 import com.cfl.jd.util.GetNowUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -28,7 +31,7 @@ import java.util.Map;
 @Slf4j
 //@ControllerAdvice(basePackages = "com.cfl.myproject.controller")
 @ControllerAdvice(assignableTypes = {RegistController.class})
-public class UserGlobalExceptionHandler {
+public class UserGlobalExceptionHandler extends MemberVariable {
 
     @Autowired
     private ApplicationValue applicationValue;
@@ -52,14 +55,12 @@ public class UserGlobalExceptionHandler {
         // 打印错误日志
         log.error("错误代码({}),错误信息({})", e.getCode(), e.getMessage());
 
-        // 发送邮件
-        SimpleMailMessage message = new SimpleMailMessage();
-        message.setSubject(applicationValue.getApplicationName() + ": 错误日志");	//设置邮件标题
-        String text = "尊敬的管理员，您好：\n 项目发生bug，请尽快解决\n" + e + "\n" + GetNowUtil.getDateTime();
-        message.setText(text);	//设置邮件正文
-        message.setTo(applicationValue.getReceiveEmail());	//设置收件人
-        message.setFrom(applicationValue.getSenderEmail());	//设置发件人
-        mailSender.send(message);	//发送邮件
+        // 给发送邮件的队列 QueueConsts.SEND_EMAIL_QUEUE 生成消息
+        String emailTopic = "错误日志";
+        String emailContext = "尊敬的管理员，您好：\n 项目发生bug，请尽快解决\n" + "错误代码("+e.getCode()+"),错误信息("+e.getMessage()+")\n(这是一封自动发送的邮件，请不要直接回复）";
+        String emailEnd = applicationValue.getApplicationName() + "\n" + GetNowUtil.getDateTime();
+        EmailDTO emailDTO = new EmailDTO(applicationValue.getReceiveEmail(), emailTopic, emailContext, emailEnd);
+        super.rabbitTemplate.convertAndSend(QueueConsts.SEND_EMAIL_QUEUE, emailDTO);
 
         return errorResultMap;
     }

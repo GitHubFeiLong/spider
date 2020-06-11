@@ -1,11 +1,13 @@
 package com.cfl.jd.service.impl;
 
 import com.cfl.jd.config.ApplicationValue;
+import com.cfl.jd.constant.QueueConsts;
 import com.cfl.jd.controller.parent.MemberVariable;
 import com.cfl.jd.entity.UserDO;
 import com.cfl.jd.config.RabbitMQConfig;
 import com.cfl.jd.constant.CacheConsts;
 import com.cfl.jd.dao.UserRegistDAO;
+import com.cfl.jd.entity.dto.EmailDTO;
 import com.cfl.jd.enumerate.UserExceptionEnum;
 import com.cfl.jd.enumerate.UserLoginEnum;
 import com.cfl.jd.exception.BaseException;
@@ -27,7 +29,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * 类描述：
  * 用户业务类
+ * @ClassName RegistServiceImpl
+ * @Description TODO
+ * @Author msi
+ * @Date 2020/6/11 17:20
+ * @Version 1.0
  */
 @Service
 public class RegistServiceImpl extends MemberVariable implements RegistService {
@@ -49,18 +57,20 @@ public class RegistServiceImpl extends MemberVariable implements RegistService {
         UserDO user = userRegistDAO.selectUserByEmail(receiver);
         // 2.判断，不存在进入if语句内，发送验证码。
         if (ObjectUtils.isEmpty(user)) {
-            int expiredTime = 3000;
+            int expiredTime = applicationValue.getCaptchaExpiredTime();
             String verCode = VerCodeGenerateUtil.generateVerCode();
-
             // 放置验证码到redis中 key : 使用了sessionId保证一个用户对应一条
             super.redisUtil.set(CacheConsts.REGIST_CAPTCHA + httpSession.getId(), verCode, expiredTime);
 
-            String emailSubject = "欢迎注册账号";
-            String emailContext = "尊敬的用户,您好:\n"
-                    + "\n本次请求的邮件验证码为:" + verCode + ",本验证码5分钟内有效，请及时输入。（请勿泄露此验证码）\n"
-                    + "\n如非本人操作，请忽略该邮件。\n(这是一封自动发送的邮件，请不要直接回复）";
-            // 发送邮件
-            emailUtil.sendSimpleEmail(applicationValue.getSenderEmail(), receiver, emailSubject, emailContext);
+            // 给rabbitmq的QueueConsts.SEND_EMAIL_QUEUE发送消息
+            String emailTopic = "欢迎注册账号";
+            String emailContext = "尊敬的用户,您好:    \n\n" +
+                    "本次请求的邮件验证码为:" + verCode + "（请勿泄露此验证码）,本验证码5分钟内有效，请及时输入。\n" +
+                    "如非本人操作，请忽略该邮件(这是一封自动发送的邮件，请不要直接回复）。";
+            String emailEnd = applicationValue.getApplicationName() + "\n" + GetNowUtil.getDateTime();
+            EmailDTO emailDTO = new EmailDTO(receiver, emailTopic, emailContext, emailEnd);
+            super.rabbitTemplate.convertAndSend(QueueConsts.SEND_EMAIL_QUEUE, emailDTO);
+
         } else {
             // 3.邮箱已被注册
             throw new UserException(UserExceptionEnum.MAILBOX_IS_EXIST);
@@ -82,13 +92,20 @@ public class RegistServiceImpl extends MemberVariable implements RegistService {
         String verCode = (String) redisUtil.get(CacheConsts.REGIST_CAPTCHA + httpSession.getId());
         // 验证码 与 用户输入的验证码 比较
         if (verCode.equals(captcha)) {
-            // 匹配，注册邮箱
-            super.rabbitTemplate.convertAndSend(RabbitMQConfig.USER_REGIST_QUEUE, email);
+
+            // 给rabbitmq的QueueConsts.SEND_EMAIL_QUEUE发送消息
+            String emailTopic = "注册成功";
+            String emailContext = "恭喜您，注册账号成功，去登陆吧";
+            String emailEnd = applicationValue.getApplicationName() + "\n" + GetNowUtil.getDateTime();
+            EmailDTO emailDTO = new EmailDTO(email, emailTopic, emailContext, emailEnd);
+            super.rabbitTemplate.convertAndSend(QueueConsts.SEND_EMAIL_QUEUE, emailDTO);
+
             String ip = IpAddressUtil.getIpAddress(httpServletRequest);
             // 获取随机盐 和 加密后的密码
             String salt = PasswordEncryption.generateSalt();
             String encryptionPassword = PasswordEncryption.getEncryptedPassword(password, salt);
 
+            // 设置保存user到数据库
             UserDO user = new UserDO();
             user.setEmail(email);
             user.setSalt(salt);
@@ -116,6 +133,7 @@ public class RegistServiceImpl extends MemberVariable implements RegistService {
     @Override
     public Map userLogin(String loginUsername, String loginPassword) throws InvalidKeySpecException, NoSuchAlgorithmException {
         Map<String, Object> serviceMap = new HashMap<>();
+
         // 1. 先查询用户信息
         UserDO user = userRegistDAO.selectUserByNameOrEmailOrPhone(loginUsername);
         String msg = UserLoginEnum.USER_NOT_EXIST.getMessage();    // 具体信息，默认登录用户不存在
@@ -131,11 +149,14 @@ public class RegistServiceImpl extends MemberVariable implements RegistService {
             if(passwordIsSame){
                 msg = UserLoginEnum.USER_PASSWORD_MATCH.getMessage();
                 responseCode = UserLoginEnum.USER_PASSWORD_MATCH.getCode();
-                String emailSubject = "谢谢登录";
-                String emailContext = "尊敬的用户,您好:\n"
-                        + "\n欢迎登录XXX(这是一封自动发送的邮件，请不要直接回复）\n" + LocalDateTime.now().toLocalDate() + "-" + LocalDateTime.now().toLocalTime();
-                // 发送邮件
-                emailUtil.sendSimpleEmail(applicationValue.getSenderEmail(), user.getEmail(), emailSubject, emailContext);
+
+                // 给rabbitmq的QueueConsts.SEND_EMAIL_QUEUE发送消息
+                String emailTopic = "欢迎登录";
+                String emailContext = "尊敬的用户,您好:\n\n 欢迎登录XXX(这是一封自动发送的邮件，请不要直接回复）\n";
+                String emailEnd = applicationValue.getApplicationName() + "\n" + GetNowUtil.getDateTime();
+                EmailDTO emailDTO = new EmailDTO(user.getEmail(), emailTopic, emailContext, emailEnd);
+                super.rabbitTemplate.convertAndSend(QueueConsts.SEND_EMAIL_QUEUE, emailDTO);
+
             } else {
                 // 密码不匹配
                 throw new UserException(UserExceptionEnum.USER_WRONG_PASSWORD);
