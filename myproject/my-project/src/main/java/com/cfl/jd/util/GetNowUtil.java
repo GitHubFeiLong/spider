@@ -3,9 +3,12 @@ package com.cfl.jd.util;
 import java.time.LocalDateTime;
 
 /**
- * @ClassName GetNow
+ * 类描述：
+ * 根据java8的LocaDateTime 获取当前时间以“yyyy-MM-dd HH:mm:ss”格式
+ * @ClassName GetNowUtil
+ * @Description TODO
  * @Author msi
- * @Date 2020/5/23 23:21
+ * @Date 2020/6/11 19:32
  * @Version 1.0
  */
 public class GetNowUtil {

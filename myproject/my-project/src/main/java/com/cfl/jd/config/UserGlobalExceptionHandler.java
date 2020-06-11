@@ -1,16 +1,12 @@
 package com.cfl.jd.config;
 
 
-import com.cfl.jd.config.ApplicationValue;
 import com.cfl.jd.constant.QueueConsts;
-import com.cfl.jd.controller.RegistController;
-import com.cfl.jd.controller.parent.MemberVariable;
 import com.cfl.jd.entity.dto.EmailDTO;
 import com.cfl.jd.exception.BaseException;
 import com.cfl.jd.util.GetNowUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -29,8 +25,8 @@ import java.util.Map;
  * @Date 2019/7/28 21:51
  */
 @Slf4j
-//@ControllerAdvice(basePackages = "com.cfl.myproject.controller")
-@ControllerAdvice(assignableTypes = {RegistController.class})
+@ControllerAdvice(basePackages = "com.cfl.jd.controller")
+//@ControllerAdvice(assignableTypes = {UserController.class})
 public class UserGlobalExceptionHandler extends MemberVariable {
 
     @Autowired

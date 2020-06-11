@@ -1,4 +1,4 @@
-package com.cfl.jd.controller.parent;
+package com.cfl.jd.config;
 
 import com.cfl.jd.config.ApplicationValue;
 import com.cfl.jd.util.EmailUtil;

@@ -9,12 +9,15 @@ import java.security.spec.InvalidKeySpecException;
 import java.security.spec.KeySpec;
 
 /**
+ * 类描述：
+ * 加密密码，密码比较
  * @ClassName PasswordEncryption
+ * @Description TODO
  * @Author msi
- * @Date 2020/5/30 15:23
+ * @Date 2020/6/11 19:34
  * @Version 1.0
  */
-public class PasswordEncryption {
+public class PasswordEncryptionUtil {
 
     public static final String PBKDF2_ALGORITHM = "PBKDF2WithHmacSHA1";
 
@@ -35,13 +38,9 @@ public class PasswordEncryption {
 
     /**
      * 对输入的密码进行验证
-     *
-     * @param attemptedPassword
-     *            待验证的密码
-     * @param encryptedPassword
-     *            密文
-     * @param salt
-     *            盐值
+     * @param attemptedPassword 待验证的密码
+     * @param encryptedPassword 密文
+     * @param salt 盐值
      * @return 是否验证成功
      * @throws NoSuchAlgorithmException
      * @throws InvalidKeySpecException
@@ -56,11 +55,8 @@ public class PasswordEncryption {
 
     /**
      * 生成密文
-     *
-     * @param password
-     *            明文密码
-     * @param salt
-     *            盐值
+     * @param password 明文密码
+     * @param salt 盐值
      * @return
      * @throws NoSuchAlgorithmException
      * @throws InvalidKeySpecException

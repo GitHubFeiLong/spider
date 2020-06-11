@@ -4,7 +4,16 @@ import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 import java.util.Map;
 
-public interface RegistService {
+/**
+ * 类描述：
+ * 用户模块的业务层接口
+ * @ClassName UserService
+ * @Description TODO
+ * @Author msi
+ * @Date 2020/6/11 19:30
+ * @Version 1.0
+ */
+public interface UserService {
 
     /**
      * 发送验证码

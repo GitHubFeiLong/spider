@@ -1,50 +1,45 @@
 package com.cfl.jd.service.impl;
 
-import com.cfl.jd.config.ApplicationValue;
-import com.cfl.jd.constant.QueueConsts;
-import com.cfl.jd.controller.parent.MemberVariable;
-import com.cfl.jd.entity.UserDO;
-import com.cfl.jd.config.RabbitMQConfig;
 import com.cfl.jd.constant.CacheConsts;
-import com.cfl.jd.dao.UserRegistDAO;
+import com.cfl.jd.constant.QueueConsts;
+import com.cfl.jd.config.MemberVariable;
+import com.cfl.jd.dao.UserDAO;
+import com.cfl.jd.entity.UserDO;
 import com.cfl.jd.entity.dto.EmailDTO;
 import com.cfl.jd.enumerate.UserExceptionEnum;
 import com.cfl.jd.enumerate.UserLoginEnum;
-import com.cfl.jd.exception.BaseException;
 import com.cfl.jd.exception.UserException;
-import com.cfl.jd.service.RegistService;
-import com.cfl.jd.util.*;
-import org.springframework.amqp.core.AmqpTemplate;
+import com.cfl.jd.service.UserService;
+import com.cfl.jd.util.GetNowUtil;
+import com.cfl.jd.util.IpAddressUtil;
+import com.cfl.jd.util.PasswordEncryptionUtil;
+import com.cfl.jd.util.VerCodeGenerateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
-import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
 /**
  * 类描述：
  * 用户业务类
- * @ClassName RegistServiceImpl
+ * @ClassName UserServiceImpl
  * @Description TODO
  * @Author msi
  * @Date 2020/6/11 17:20
  * @Version 1.0
  */
 @Service
-public class RegistServiceImpl extends MemberVariable implements RegistService {
+public class UserServiceImpl extends MemberVariable implements UserService {
 
     /**
      * 用户注册登录数据层
      */
     @Autowired
-    private UserRegistDAO userRegistDAO;
+    private UserDAO userDAO;
 
 
     /**
@@ -54,7 +49,7 @@ public class RegistServiceImpl extends MemberVariable implements RegistService {
     @Override
     public void sendCaptcha(String receiver) {
         // 1. 先查询邮箱是否已经存在
-        UserDO user = userRegistDAO.selectUserByEmail(receiver);
+        UserDO user = userDAO.selectUserByEmail(receiver);
         // 2.判断，不存在进入if语句内，发送验证码。
         if (ObjectUtils.isEmpty(user)) {
             int expiredTime = applicationValue.getCaptchaExpiredTime();
@@ -102,8 +97,8 @@ public class RegistServiceImpl extends MemberVariable implements RegistService {
 
             String ip = IpAddressUtil.getIpAddress(httpServletRequest);
             // 获取随机盐 和 加密后的密码
-            String salt = PasswordEncryption.generateSalt();
-            String encryptionPassword = PasswordEncryption.getEncryptedPassword(password, salt);
+            String salt = PasswordEncryptionUtil.generateSalt();
+            String encryptionPassword = PasswordEncryptionUtil.getEncryptedPassword(password, salt);
 
             // 设置保存user到数据库
             UserDO user = new UserDO();
@@ -113,7 +108,7 @@ public class RegistServiceImpl extends MemberVariable implements RegistService {
             user.setIp(ip);
             user.setStatus(0);
             user.setCreateTime(GetNowUtil.getDateTime());
-            userRegistDAO.insertUser(user);
+            userDAO.insertUser(user);
             return true;
         } else {
             // 验证码不匹配
@@ -135,7 +130,7 @@ public class RegistServiceImpl extends MemberVariable implements RegistService {
         Map<String, Object> serviceMap = new HashMap<>();
 
         // 1. 先查询用户信息
-        UserDO user = userRegistDAO.selectUserByNameOrEmailOrPhone(loginUsername);
+        UserDO user = userDAO.selectUserByNameOrEmailOrPhone(loginUsername);
         String msg = UserLoginEnum.USER_NOT_EXIST.getMessage();    // 具体信息，默认登录用户不存在
         Integer responseCode = UserLoginEnum.USER_NOT_EXIST.getCode();
         boolean passwordIsSame = false; // false 表示不能登录
@@ -145,7 +140,7 @@ public class RegistServiceImpl extends MemberVariable implements RegistService {
             String salt = user.getSalt();
             String password = user.getPassword();
             // 判断密码是否相同
-            passwordIsSame = PasswordEncryption.authenticate(loginPassword, password, salt);
+            passwordIsSame = PasswordEncryptionUtil.authenticate(loginPassword, password, salt);
             if(passwordIsSame){
                 msg = UserLoginEnum.USER_PASSWORD_MATCH.getMessage();
                 responseCode = UserLoginEnum.USER_PASSWORD_MATCH.getCode();

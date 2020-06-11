@@ -11,7 +11,13 @@ import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 /**
- * Redis工具类
+ * 类描述：
+ * redisTemplate工具类，封装了对redis的一些常用操作方法
+ * @ClassName RedisUtil
+ * @Description TODO
+ * @Author msi
+ * @Date 2020/6/11 19:38
+ * @Version 1.0
  */
 @Component
 public final class RedisUtil {

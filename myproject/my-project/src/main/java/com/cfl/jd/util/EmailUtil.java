@@ -5,11 +5,17 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.stereotype.Component;
 
+/**
+ * 类描述：
+ * 封装了Spring的SimpleMailMessage发送邮件
+ * @ClassName EmailUtil
+ * @Description TODO
+ * @Author msi
+ * @Date 2020/6/11 19:30
+ * @Version 1.0
+ */
 @Component
 public class EmailUtil {
-
-    public static final String EMAIL_SUBJECT = "";
-    public static final String EMAIL_TITLE = "";
 
     @Autowired
     private JavaMailSenderImpl mailSender;

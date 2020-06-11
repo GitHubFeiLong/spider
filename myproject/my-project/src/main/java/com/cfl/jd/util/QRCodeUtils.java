@@ -25,6 +25,15 @@ import com.google.zxing.common.BitMatrix;
 import com.google.zxing.common.HybridBinarizer;
 import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
 
+/**
+ * 类描述：
+ * 生成二维码
+ * @ClassName QRCodeUtils
+ * @Description TODO
+ * @Author msi
+ * @Date 2020/6/11 19:37
+ * @Version 1.0
+ */
 public class QRCodeUtils {
     private static final String CHARSET = "utf-8";
     private static final String FORMAT_NAME = "JPG";

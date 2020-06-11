@@ -5,16 +5,19 @@ import org.apache.commons.lang3.StringUtils;
 import javax.servlet.http.HttpServletRequest;
 
 /**
+ * 类描述：
+ * 获取请求对象的IP地址
  * @ClassName IpAddressUtil
+ * @Description TODO
  * @Author msi
- * @Date 2020/5/23 20:24
+ * @Date 2020/6/11 19:33
  * @Version 1.0
  */
 public class IpAddressUtil {
     /**
      * 获取Ip地址
-     * @param request
-     * @return
+     * @param request 请求对象
+     * @return ip地址
      */
     public static String getIpAddress(HttpServletRequest request) {
         String Xip = request.getHeader("X-Real-IP");

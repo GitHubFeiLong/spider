@@ -1,8 +1,8 @@
 package com.cfl.jd.controller;
 
 import com.cfl.jd.annotation.RepeatSubmitAnnotation;
-import com.cfl.jd.controller.parent.MemberVariable;
-import com.cfl.jd.service.RegistService;
+import com.cfl.jd.config.MemberVariable;
+import com.cfl.jd.service.UserService;
 import com.cfl.jd.util.IpAddressUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +16,7 @@ import java.util.Map;
 /**
  * 类描述：
  * 用户登录注册控制器
- * @ClassName RegistController
+ * @ClassName UserController
  * @Description TODO
  * @Author msi
  * @Date 2020/6/10 14:04
@@ -26,13 +26,13 @@ import java.util.Map;
 @RequestMapping("/user")
 @ResponseBody
 @Slf4j
-public class RegistController extends MemberVariable {
+public class UserController extends MemberVariable {
 
     /**
      * 用户登录注册业务层
      */
     @Autowired
-    private RegistService registService;
+    private UserService userService;
 
     /**
      * 注册时发送 验证码
@@ -43,7 +43,7 @@ public class RegistController extends MemberVariable {
     @RepeatSubmitAnnotation
     public Map sendCodeToEmail(String email){
         Map<String, Object> msgMap = new HashMap();
-        registService.sendCaptcha(email);
+        userService.sendCaptcha(email);
         String ip = IpAddressUtil.getIpAddress(httpServletRequest);
         msgMap.put("responseCode", 200);
         return msgMap;
@@ -63,7 +63,7 @@ public class RegistController extends MemberVariable {
         controllerMap.put("responseCode", 200);
         log.info(registUsername);
         log.info(registPin);
-        boolean boo = registService.saveUser(registUsername, registPassword, registPin);
+        boolean boo = userService.saveUser(registUsername, registPassword, registPin);
         controllerMap.put("captchaMatch", boo);
         return controllerMap;
     }
@@ -84,7 +84,7 @@ public class RegistController extends MemberVariable {
         // 给当前用户设置一个token，防止重复提交
         Map<String, Object> controllerMap = new HashMap();
         controllerMap.put("responseCode", 200);
-        Map serviceMap = registService.userLogin(loginUsername, loginPassword);
+        Map serviceMap = userService.userLogin(loginUsername, loginPassword);
         controllerMap.putAll(serviceMap);
         return controllerMap;
     }
