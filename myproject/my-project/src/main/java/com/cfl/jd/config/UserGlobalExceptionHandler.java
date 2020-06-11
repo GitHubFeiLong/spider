@@ -4,7 +4,6 @@ package com.cfl.jd.config;
 import com.cfl.jd.constant.QueueConsts;
 import com.cfl.jd.entity.dto.EmailDTO;
 import com.cfl.jd.exception.BaseException;
-import com.cfl.jd.exception.UserException;
 import com.cfl.jd.util.GetNowUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +37,7 @@ public class UserGlobalExceptionHandler extends MemberVariable {
 
     /**
      * 捕获全局自定义异常
-     * @Description TODO 分类发送邮件，有些错误可以不用发送邮件
+     * @Description TODO
      * @param e
      * @return
      */
@@ -53,12 +52,15 @@ public class UserGlobalExceptionHandler extends MemberVariable {
         // 打印错误日志
         log.error("错误代码({}),错误信息({})", e.getCode(), e.getMessage());
 
-        // 给发送邮件的队列 QueueConsts.SEND_EMAIL_QUEUE 生成消息
-        String emailTopic = "错误日志";
-        String emailContext = "尊敬的管理员，您好：\n项目发生bug，请尽快解决\n" + "错误代码("+e.getCode()+"),错误信息("+e.getMessage()+")\n(这是一封自动发送的邮件，请不要直接回复）";
-        String emailEnd = applicationValue.getApplicationName() + "\n" + GetNowUtil.getDateTime();
-        EmailDTO emailDTO = new EmailDTO(applicationValue.getReceiveEmail(), emailTopic, emailContext, emailEnd);
-        super.rabbitTemplate.convertAndSend(QueueConsts.SEND_EMAIL_QUEUE, emailDTO);
+        // 判断该异常是否需要发送邮件
+        if (e.getSend()) {
+            // 给发送邮件的队列 QueueConsts.SEND_EMAIL_QUEUE 生成消息
+            String emailTopic = "错误日志";
+            String emailContext = "尊敬的管理员，您好：\n项目发生bug，请尽快解决\n" + "错误代码("+e.getCode()+"),错误信息("+e.getMessage()+")\n(这是一封自动发送的邮件，请不要直接回复）";
+            String emailEnd = applicationValue.getApplicationName() + "\n" + GetNowUtil.getDateTime();
+            EmailDTO emailDTO = new EmailDTO(applicationValue.getReceiveEmail(), emailTopic, emailContext, emailEnd);
+            super.rabbitTemplate.convertAndSend(QueueConsts.SEND_EMAIL_QUEUE, emailDTO);
+        }
 
         return errorResultMap;
     }

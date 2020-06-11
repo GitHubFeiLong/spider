@@ -25,12 +25,17 @@ public class UserException extends BaseException{
         this("错误代码(" + userExceptionEnum.getCode() + ")->" + userExceptionEnum.getMessage());
         super.code = userExceptionEnum.getCode();
         super.message = userExceptionEnum.getMessage();
-
+        super.isSend = userExceptionEnum.getSend();
     }
 
     @Override
     public String getCode() {
         return code;
+    }
+
+    @Override
+    public Boolean getSend() {
+        return super.getSend();
     }
 
     @Override

@@ -1,7 +1,6 @@
 package com.cfl.jd.queue;
 
 import com.cfl.jd.config.ApplicationValue;
-import com.cfl.jd.config.RabbitMQConfig;
 import com.cfl.jd.constant.QueueConsts;
 import com.cfl.jd.entity.dto.EmailDTO;
 import com.cfl.jd.util.EmailUtil;
@@ -10,8 +9,6 @@ import org.springframework.amqp.rabbit.annotation.RabbitHandler;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import java.util.Map;
 
 /**
  * 类描述：

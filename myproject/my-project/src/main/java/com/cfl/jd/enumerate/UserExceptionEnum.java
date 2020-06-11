@@ -44,16 +44,32 @@ public enum UserExceptionEnum {
     CAPTCHA_MISMATCH("100401", "输入验证码与发送邮箱的验证码不匹配"),
 
     /********** 登陆时用户名和密码不匹配 **********/
-    USER_WRONG_PASSWORD("100402","密码输入错误");
+    USER_WRONG_PASSWORD("100501","密码输入错误");
 
 
-
+    /**
+     * 错误码
+     */
     private String code;
+    /**
+     * 错误信息
+     */
     private String message;
+    /**
+     * 是否发送邮件: false不发送
+     */
+    private Boolean isSend;
 
     UserExceptionEnum(String code, String message){
         this.code = code;
         this.message = message;
+        this.isSend = false;
+    }
+
+    UserExceptionEnum(String code, String message, Boolean isSend) {
+        this.code = code;
+        this.message = message;
+        this.isSend = isSend;
     }
 
     public String getCode() {
@@ -62,5 +78,9 @@ public enum UserExceptionEnum {
 
     public String getMessage() {
         return message;
+    }
+
+    public Boolean getSend() {
+        return isSend;
     }
 }

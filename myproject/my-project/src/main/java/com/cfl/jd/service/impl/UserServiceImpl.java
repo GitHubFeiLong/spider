@@ -1,13 +1,12 @@
 package com.cfl.jd.service.impl;
 
+import com.cfl.jd.config.MemberVariable;
 import com.cfl.jd.constant.CacheConsts;
 import com.cfl.jd.constant.QueueConsts;
-import com.cfl.jd.config.MemberVariable;
 import com.cfl.jd.dao.UserDAO;
 import com.cfl.jd.entity.UserDO;
 import com.cfl.jd.entity.dto.EmailDTO;
 import com.cfl.jd.enumerate.UserExceptionEnum;
-import com.cfl.jd.enumerate.UserLoginEnum;
 import com.cfl.jd.exception.BaseException;
 import com.cfl.jd.exception.UserException;
 import com.cfl.jd.service.UserService;
@@ -132,8 +131,8 @@ public class UserServiceImpl extends MemberVariable implements UserService {
 
         // 1. 先查询用户信息
         UserDO user = userDAO.selectUserByNameOrEmailOrPhone(loginUsername);
-        String msg = UserLoginEnum.USER_NOT_EXIST.getMessage();    // 具体信息，默认登录用户不存在
-        Integer responseCode = UserLoginEnum.USER_NOT_EXIST.getCode();
+        String msg = "";    // 具体信息，默认登录用户不存在
+        String responseCode = "";
         boolean passwordIsSame = false; // false 表示不能登录
         // 用户存在
         if (!ObjectUtils.isEmpty(user)) {
@@ -143,9 +142,6 @@ public class UserServiceImpl extends MemberVariable implements UserService {
             // 判断密码是否相同
             passwordIsSame = PasswordEncryptionUtil.authenticate(loginPassword, password, salt);
             if(passwordIsSame){
-                msg = UserLoginEnum.USER_PASSWORD_MATCH.getMessage();
-                responseCode = UserLoginEnum.USER_PASSWORD_MATCH.getCode();
-
                 // 给rabbitmq的QueueConsts.SEND_EMAIL_QUEUE发送消息
                 String emailTopic = "欢迎登录";
                 String emailContext = "尊敬的用户,您好:\n\n 欢迎登录XXX(这是一封自动发送的邮件，请不要直接回复）\n";

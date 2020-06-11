@@ -20,6 +20,11 @@ public class BaseException extends Exception{
      */
     protected String message;
 
+    /**
+     * 是否发送错误邮件，false不发送
+     */
+    protected Boolean isSend;
+
 
     public BaseException(String message) {
         super(message);
@@ -27,6 +32,10 @@ public class BaseException extends Exception{
 
     public String getCode() {
         return code;
+    }
+
+    public Boolean getSend() {
+        return isSend;
     }
 
     @Override
